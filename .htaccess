@@ -1,0 +1,15 @@
+
+Options All -Indexes
+
+DirectoryIndex index.php
+SetEnv TZ America/Los_Angeles
+
+RewriteEngine On
+RedirectMatch 301 (.*)/v2/(.*)$ $1/$2
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ $1.php [L,QSA]
+
+
+ErrorDocument 404 http://isvalid.org
+ErrorDocument 500 http://isvalid.org
