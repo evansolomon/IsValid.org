@@ -1,0 +1,118 @@
+body{
+	font-family: Helvetica, Arial, Sans-serif; 
+	padding: 0 20px; 
+}
+.field{
+	width: 100%; 
+	float: left; 
+	margin: 0 0 20px; 
+}
+.field input{
+	margin: 0 0 0 20px; 
+}
+h3 span{
+	background: #444;
+	color: #fff;
+	padding: 3px;
+}
+pre{
+	background: #f4f4f4; 
+}
+.hide{
+	display: none;
+}
+
+#action{
+	padding-bottom: 10px;
+	float: left;
+	width: 280px;
+}
+
+#response_left{
+	float:left;
+}
+
+#response_right{
+	float:left;
+}
+
+input, select{
+	margin-bottom: 4px;
+}
+form{
+	background:none repeat scroll 0 0 #FFFFFF;
+	padding-top:1em;
+	margin-top:1em;
+	width:20em;
+}
+fieldset div{
+	clear:both;
+	margin:0.3em 0;
+}
+form label{
+	float:left;
+	margin-right:-.5em;
+	text-align:left;
+	padding-left: 5px;
+	font-size: 1.5em;
+}
+legend{
+	color:#0B77B7;
+	font-size:1.2em;
+}
+legend span{
+	text-align:right;
+	width:10em;
+}
+input{
+	-moz-border-radius:0.4em 0.4em 0.4em 0.4em;
+	-webkit-border-radius:0.4em 0.4em 0.4em 0.4em;
+	background:none repeat scroll 0 0 #FAFAFA;
+	border:1px solid #DDDDDD;
+	font:bold 1.95em arial,sans-serif;
+	padding:0.15em;
+	width:7em;
+	outline: none;
+}
+input:hover, input:focus{
+	background:none repeat scroll 0 0 #F6F6F6;
+	border-color:#C5C5C5;
+}
+fieldset{
+	border:1px solid #DDDDDD;
+	padding:0 0.5em 0.5em;
+}
+input.default{
+	color:#BBBBBB;
+}
+input.button{
+	margin-top: 35px;
+}
+legend{
+	color:#0b77b7;
+	font-size:1.2em;
+	font-weight: bold;
+}
+.graph_row{
+	width: 1000px;
+	display: block;
+}
+.graph{
+	display: inline;
+	width: 500px;
+}
+.graph_label{
+	text-align: center;
+	display: block;
+}
+
+input.permalink {
+	width: 95%;
+	font-size: 1em;
+	font-weight: normal;
+	display: block;
+}
+
+.chart {
+	text-align: center;
+}
