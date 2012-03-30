@@ -8,20 +8,28 @@ if(!isset($_REQUEST['function'])){
 include("stats.php");
 $response = array();
 
-switch($_REQUEST['function']){
+function cleanup_ints( $value ) {
+	if( is_numeric( str_replace( ",", "", $value ) ) )
+		return (int) str_replace( ",", "", $value );
+
+	return $value;
+}
+$parsed_request = array_map( 'cleanup_ints', $_REQUEST );
+
+switch($parsed_request['function']){
 
 	case 'confidence';
 		/* verify data: conversions=<samples, 0=<confidence<=1 */
-		if($_REQUEST['conversions'] == 0 || $_REQUEST['samples'] == 0 || $_REQUEST['samples'] < $_REQUEST['conversions'] || (isset($_REQUEST['confidence']) && ($_REQUEST['confidence'] <= 0 || $_REQUEST['confidence'] >= 1))){
+		if($parsed_request['conversions'] == 0 || $parsed_request['samples'] == 0 || $parsed_request['samples'] < $parsed_request['conversions'] || (isset($parsed_request['confidence']) && ($parsed_request['confidence'] <= 0 || $parsed_request['confidence'] >= 1))){
 			$response['error'] = array('message' => 'Invalid data');
 			break;
 		}
 		
-		if(isset($_REQUEST['confidence'])){
-			$interval = interval($_REQUEST['conversions'],$_REQUEST['samples'],$_REQUEST['confidence']);
+		if(isset($parsed_request['confidence'])){
+			$interval = interval($parsed_request['conversions'],$parsed_request['samples'],$parsed_request['confidence']);
 		}
 		else{
-			$interval = interval($_REQUEST['conversions'],$_REQUEST['samples']);
+			$interval = interval($parsed_request['conversions'],$parsed_request['samples']);
 		}
 		
 		$response['results'] = $interval;
@@ -30,12 +38,12 @@ switch($_REQUEST['function']){
 	
 	case 'significance';
 		/* verify data: conversions=<samples for control and experiment */
-		if($_REQUEST['conversions_control'] == 0 || $_REQUEST['samples_control'] == 0 || $_REQUEST['samples_experiment'] < $_REQUEST['conversions_experiment']){
+		if($parsed_request['conversions_control'] == 0 || $parsed_request['samples_control'] == 0 || $parsed_request['samples_experiment'] < $parsed_request['conversions_experiment']){
 			$response['error'] = array('message' => 'Invalid data');
 			break;
 		}
 
-		$significance = greater($_REQUEST['conversions_control'],$_REQUEST['samples_control'],$_REQUEST['conversions_experiment'],$_REQUEST['samples_experiment']);
+		$significance = greater($parsed_request['conversions_control'],$parsed_request['samples_control'],$parsed_request['conversions_experiment'],$parsed_request['samples_experiment']);
 		
 		$response['results'] = $significance;
 		$response['chart'] = 'http://chart.apis.google.com/chart?chxl=0:|&chxt=y&chs=500x250&chls=2|0&cht=gm&chd=t:'.($significance['experiment']*100);
@@ -43,16 +51,16 @@ switch($_REQUEST['function']){
 		
 	case 'improvement';
 		/* verify data: conversions=<samples for control and experiment */
-		if($_REQUEST['conversions_control'] == 0 || $_REQUEST['samples_control'] == 0 || $_REQUEST['samples_control'] < $_REQUEST['conversions_control'] || $_REQUEST['conversions_experiment'] == 0 || $_REQUEST['samples_experiment'] == 0 || $_REQUEST['samples_experiment'] < $_REQUEST['conversions_experiment'] || (isset($_REQUEST['confidence']) && ($_REQUEST['confidence'] <= 0 || $_REQUEST['confidence'] >= 1))){
+		if($parsed_request['conversions_control'] == 0 || $parsed_request['samples_control'] == 0 || $parsed_request['samples_control'] < $parsed_request['conversions_control'] || $parsed_request['conversions_experiment'] == 0 || $parsed_request['samples_experiment'] == 0 || $parsed_request['samples_experiment'] < $parsed_request['conversions_experiment'] || (isset($parsed_request['confidence']) && ($parsed_request['confidence'] <= 0 || $parsed_request['confidence'] >= 1))){
 			$response['error'] = array('message' => 'Invalid data');
 			break;
 		}
 		
-		if(isset($_REQUEST['confidence'])){
-			$improvement = imp_pct($_REQUEST['conversions_control'],$_REQUEST['samples_control'],$_REQUEST['conversions_experiment'],$_REQUEST['samples_experiment'],$_REQUEST['confidence']);
+		if(isset($parsed_request['confidence'])){
+			$improvement = imp_pct($parsed_request['conversions_control'],$parsed_request['samples_control'],$parsed_request['conversions_experiment'],$parsed_request['samples_experiment'],$parsed_request['confidence']);
 		}
 		else{
-			$improvement = imp_pct($_REQUEST['conversions_control'],$_REQUEST['samples_control'],$_REQUEST['conversions_experiment'],$_REQUEST['samples_experiment']);
+			$improvement = imp_pct($parsed_request['conversions_control'],$parsed_request['samples_control'],$parsed_request['conversions_experiment'],$parsed_request['samples_experiment']);
 		}
 		
 		$response['results'] = $improvement;
@@ -61,19 +69,19 @@ switch($_REQUEST['function']){
 	
 	case 'complete';
 		/* verify data: conversions=<samples for control and experiment */
-		if($_REQUEST['conversions_control'] == 0 || $_REQUEST['samples_control'] == 0 || $_REQUEST['samples_control'] < $_REQUEST['conversions_control'] || $_REQUEST['conversions_experiment'] == 0 || $_REQUEST['samples_experiment'] == 0 || $_REQUEST['samples_experiment'] < $_REQUEST['conversions_experiment'] || (isset($_REQUEST['confidence']) && ($_REQUEST['confidence'] <= 0 || $_REQUEST['confidence'] >= 1))){
+		if($parsed_request['conversions_control'] == 0 || $parsed_request['samples_control'] == 0 || $parsed_request['samples_control'] < $parsed_request['conversions_control'] || $parsed_request['conversions_experiment'] == 0 || $parsed_request['samples_experiment'] == 0 || $parsed_request['samples_experiment'] < $parsed_request['conversions_experiment'] || (isset($parsed_request['confidence']) && ($parsed_request['confidence'] <= 0 || $parsed_request['confidence'] >= 1))){
 			$response['error'] = array('message' => 'Invalid data');
 			break;
 		}	
 		
 		/*confidence interval */
-		if(isset($_REQUEST['confidence'])){
-			$interval_control = interval($_REQUEST['conversions_control'],$_REQUEST['samples_control'],$_REQUEST['confidence']);
-			$interval_experiment = interval($_REQUEST['conversions_experiment'],$_REQUEST['samples_experiment'],$_REQUEST['confidence']);
+		if(isset($parsed_request['confidence'])){
+			$interval_control = interval($parsed_request['conversions_control'],$parsed_request['samples_control'],$parsed_request['confidence']);
+			$interval_experiment = interval($parsed_request['conversions_experiment'],$parsed_request['samples_experiment'],$parsed_request['confidence']);
 		}
 		else{
-			$interval_control = interval($_REQUEST['conversions_control'],$_REQUEST['samples_control']);
-			$interval_experiment = interval($_REQUEST['conversions_experiment'],$_REQUEST['samples_experiment']);
+			$interval_control = interval($parsed_request['conversions_control'],$parsed_request['samples_control']);
+			$interval_experiment = interval($parsed_request['conversions_experiment'],$parsed_request['samples_experiment']);
 		}
 
 		$response['confidence']['results']['control'] = $interval_control;
@@ -83,17 +91,17 @@ switch($_REQUEST['function']){
 
 		
 		/*significance*/
-		$significance = greater($_REQUEST['conversions_control'],$_REQUEST['samples_control'],$_REQUEST['conversions_experiment'],$_REQUEST['samples_experiment']);
+		$significance = greater($parsed_request['conversions_control'],$parsed_request['samples_control'],$parsed_request['conversions_experiment'],$parsed_request['samples_experiment']);
 		
 		$response['significance']['results'] = $significance;
 		$response['significance']['chart'] = 'http://chart.apis.google.com/chart?chxl=0:|&chxt=y&chs=500x250&chls=2|0&cht=gm&chd=t:'.($significance['experiment']*100);
 		
 		/*improvement*/
-		if(isset($_REQUEST['confidence'])){
-			$improvement = imp_pct($_REQUEST['conversions_control'],$_REQUEST['samples_control'],$_REQUEST['conversions_experiment'],$_REQUEST['samples_experiment'],$_REQUEST['confidence']);
+		if(isset($parsed_request['confidence'])){
+			$improvement = imp_pct($parsed_request['conversions_control'],$parsed_request['samples_control'],$parsed_request['conversions_experiment'],$parsed_request['samples_experiment'],$parsed_request['confidence']);
 		}
 		else{
-			$improvement = imp_pct($_REQUEST['conversions_control'],$_REQUEST['samples_control'],$_REQUEST['conversions_experiment'],$_REQUEST['samples_experiment']);
+			$improvement = imp_pct($parsed_request['conversions_control'],$parsed_request['samples_control'],$parsed_request['conversions_experiment'],$parsed_request['samples_experiment']);
 		}
 		
 		$response['improvement']['results'] = $improvement;
