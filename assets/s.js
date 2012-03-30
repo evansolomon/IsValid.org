@@ -55,11 +55,24 @@ $(document).ready(function() {
 	});
 	
 	//get results on permalink pages
-	if(window.location.getParameter("permalink") == "true"){
-		$("input#con_con").val(window.location.getParameter("cc"));
-		$("input#con_sam").val(window.location.getParameter("sc"));
-		$("input#test_con").val(window.location.getParameter("ce"));
-		$("input#test_sam").val(window.location.getParameter("se"));
+	function getParameter(paramName) {
+		var searchString = window.location.search.substring(1),
+			i, val, params = searchString.split("&");
+	
+		for (i=0;i<params.length;i++) {
+			val = params[i].split("=");
+			if (val[0] == paramName) {
+				return unescape(val[1]);
+			}
+		}
+		return null;
+	}
+
+	if(getParameter("permalink") == "true"){
+		$("input#con_con").val(getParameter("cc"));
+		$("input#con_sam").val(getParameter("sc"));
+		$("input#test_con").val(getParameter("ce"));
+		$("input#test_sam").val(getParameter("se"));
 		$(".button").click();
 	}
 });
