@@ -32,7 +32,7 @@
 					</div>
 			</form>
 			<br>
-			<div id="api"><a href="v2/api">API Docs</a></div>
+			<div id="api"><a href="api">API Docs</a></div>
 		</div>
 		<div id="response_left">
 		</div>
