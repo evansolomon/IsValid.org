@@ -1,14 +1,14 @@
 body{
-	font-family: Helvetica, Arial, Sans-serif; 
-	padding: 0 20px; 
+	font-family: Helvetica, Arial, Sans-serif;
+	padding: 0 20px;
 }
 .field{
-	width: 100%; 
-	float: left; 
-	margin: 0 0 20px; 
+	width: 100%;
+	float: left;
+	margin: 0 0 20px;
 }
 .field input{
-	margin: 0 0 0 20px; 
+	margin: 0 0 0 20px;
 }
 h3 span{
 	background: #444;
@@ -16,24 +16,33 @@ h3 span{
 	padding: 3px;
 }
 pre{
-	background: #f4f4f4; 
+	background: #f4f4f4;
 }
 .hide{
 	display: none;
 }
 
+#wrapper{
+	width: 100%;
+}
+
 #action{
 	padding-bottom: 10px;
 	float: left;
-	width: 280px;
+	width: 18%;
 }
 
-#response_left{
+.column{
 	float:left;
+	width: 39%;
 }
 
-#response_right{
-	float:left;
+.chart{
+	width: 100%;
+}
+
+img.chart-image{
+	width: 100%;
 }
 
 input, select{
@@ -43,7 +52,7 @@ form{
 	background:none repeat scroll 0 0 #FFFFFF;
 	padding-top:1em;
 	margin-top:1em;
-	width:20em;
+	width:100%;
 }
 fieldset div{
 	clear:both;
@@ -71,7 +80,7 @@ input{
 	border:1px solid #DDDDDD;
 	font:bold 1.95em arial,sans-serif;
 	padding:0.15em;
-	width:7em;
+	width:95%;
 	outline: none;
 }
 input:hover, input:focus{

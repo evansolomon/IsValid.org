@@ -68,13 +68,13 @@ function interval( $conversions, $samples, $confidence = 0.999 ) {
 
 //calculates chance that other is best
 function greater( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment ) {
-	$mu_control = $conversions_control / $samples_control;
+	$mu_control    = $conversions_control / $samples_control;
 	$mu_experiment = $conversions_experiment / $samples_experiment;
-	$mu = $mu_control - $mu_experiment;
+	$mu            = $mu_control - $mu_experiment;
 
-	$sigma_control = sigma( $mu_control, $conversions_control, $samples_control );
+	$sigma_control    = sigma( $mu_control, $conversions_control, $samples_control );
 	$sigma_experiment = sigma( $mu_experiment, $conversions_experiment, $samples_experiment );
-	$sigma_sq = pow( $sigma_control, 2 ) / $samples_control + pow( $sigma_experiment, 2 ) / $samples_experiment;
+	$sigma_sq         = pow( $sigma_control, 2 ) / $samples_control + pow( $sigma_experiment, 2 ) / $samples_experiment;
 
 	$p = ( 1 + erf( -$mu / sqrt( 2 * $sigma_sq ) ) ) / 2;
 	return array( 'control' => 1 - $p, 'experiment' => $p );
@@ -99,7 +99,7 @@ function imp_pct( $conversions_control, $samples_control, $conversions_experimen
 	$out = array();
 	$mu_control = $conversions_control / $samples_control;
 	$imp = improvement( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment, $confidence );
-	
+
 	for( $i=0; $i < count( $imp ); $i++ ) {
 		$out[] = $imp[$i] / $mu_control;
 	}
