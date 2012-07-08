@@ -42,5 +42,6 @@
 				</div>
 			</div>
 		</div>
+		<a href="https://github.com/evansolomon/IsValid.org"><img style="position: absolute; top: 0; right: 0; border: 0;" src="assets/fork-me.png" alt="Fork me on GitHub"></a>
 	</body>
 </html>
