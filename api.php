@@ -4,7 +4,7 @@ include("stats.php");
 $response = array();
 
 function cleanup_ints( $value ) {
-	if( is_numeric( str_replace( ",", "", $value ) ) )
+	if( is_int( str_replace( ",", "", $value ) ) )
 		return (int) str_replace( ",", "", $value );
 
 	return $value;
