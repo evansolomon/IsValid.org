@@ -1,10 +1,5 @@
 <?php
 
-if(!isset($_REQUEST['function'])){
-	include("api-doc.php");
-	exit;
-}
-
 include("stats.php");
 $response = array();
 

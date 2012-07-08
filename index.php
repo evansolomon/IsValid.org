@@ -33,7 +33,7 @@
 						</div>
 				</form>
 				<br>
-				<div id="api"><a href="api">API Docs</a></div>
+				<div id="api"><a href="https://github.com/evansolomon/IsValid.org/wiki/API">API Documentation</a></div>
 			</div>
 			<div id="results-wrapper">
 				<div class="column left">
