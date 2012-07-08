@@ -56,6 +56,15 @@ function sigma( $mu, $conversions, $samples ) {
 
 //get confidence interval for conversion rate
 function interval( $conversions, $samples, $confidence = 0.999 ) {
+	// Make sure args are the right type
+	if( $conversions != abs( $conversions ) )
+		return false;
+	if( $samples != abs( $samples ) )
+		return false;
+	if( $confidence != (float) $confidence || $confidence <= 0 || $confidence >= 1 )
+		return false;
+
+
 	$mu = $conversions / $samples;
 	$sigma = sigma( $mu, $conversions, $samples );
 	$z = erfinv( $confidence ) * sqrt( 2 );
@@ -68,6 +77,14 @@ function interval( $conversions, $samples, $confidence = 0.999 ) {
 
 //calculates chance that other is best
 function greater( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment ) {
+	// Make sure args are the right type
+	if( $conversions_control != abs( $conversions_control ) || $conversions_experiment != abs( $conversions_experiment ) )
+		return false;
+	if( $samples_control != abs( $samples_control ) || $samples_experiment != abs( $samples_experiment ) )
+		return false;
+	if( $samples_control < $conversions_control || $samples_experiment < $conversions_experiment )
+		return false;
+
 	$mu_control    = $conversions_control / $samples_control;
 	$mu_experiment = $conversions_experiment / $samples_experiment;
 	$mu            = $mu_control - $mu_experiment;
@@ -82,13 +99,23 @@ function greater( $conversions_control, $samples_control, $conversions_experimen
 
 //calculates confidence interval for the effective size
 function improvement( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment, $confidence = .8 ) {
+	// Make sure args are the right type
+	if( $conversions_control != abs( $conversions_control ) || $conversions_experiment != abs( $conversions_experiment ) )
+		return false;
+	if( $samples_control != abs( $samples_control ) || $samples_experiment != abs( $samples_experiment ) )
+		return false;
+	if( $samples_control < $conversions_control || $samples_experiment < $conversions_experiment )
+		return false;
+	if( $confidence != (float) $confidence || (float) $confidence <= 0 || (float) $confidence >= 1 )
+		return false;
+
 	$mu_experiment = $conversions_experiment / $samples_experiment;
-	$mu_control = $conversions_control / $samples_control;
-	$mu = $mu_experiment - $mu_control;
+	$mu_control    = $conversions_control / $samples_control;
+	$mu            = $mu_experiment - $mu_control;
 
 	$sigma_experiment = sigma($mu_experiment,$conversions_experiment,$samples_experiment);
-	$sigma_control = sigma($mu_control,$conversions_control,$samples_control);
-	$sigma_sq = pow( $sigma_experiment, 2 ) / $samples_experiment + pow( $sigma_control, 2 ) / $samples_control;
+	$sigma_control    = sigma($mu_control,$conversions_control,$samples_control);
+	$sigma_sq         = pow( $sigma_experiment, 2 ) / $samples_experiment + pow( $sigma_control, 2 ) / $samples_control;
 
 	$z = erfinv( $confidence ) * sqrt( 2 );
 	return array( ( $mu - sqrt( $sigma_sq ) * $z ), ( $mu + sqrt( $sigma_sq ) * $z ) );
@@ -96,12 +123,22 @@ function improvement( $conversions_control, $samples_control, $conversions_exper
 
 //calculates the confidence interval for the improvement of test over control
 function imp_pct( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment, $confidence = .8 ) {
-	$out = array();
+	// Make sure args are the right type
+	if( $conversions_control != abs( $conversions_control ) || $conversions_experiment != abs( $conversions_experiment ) )
+		return false;
+	if( $samples_control != abs( $samples_control ) || $samples_experiment != abs( $samples_experiment ) )
+		return false;
+	if( $samples_control < $conversions_control || $samples_experiment < $conversions_experiment )
+		return false;
+	if( $confidence != (float) $confidence || (float) $confidence <= 0 || (float) $confidence >= 1 )
+		return false;
+
+	$out        = array();
 	$mu_control = $conversions_control / $samples_control;
-	$imp = improvement( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment, $confidence );
+	$imp        = improvement( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment, $confidence );
 
 	for( $i=0; $i < count( $imp ); $i++ ) {
 		$out[] = $imp[$i] / $mu_control;
 	}
-	return array('low' => $out[0], 'average' => ( $out[0] + $out[1] ) / 2, 'high' => $out[1] );
+	return array( 'low' => $out[0], 'average' => ( $out[0] + $out[1] ) / 2, 'high' => $out[1] );
 }
