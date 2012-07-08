@@ -11,6 +11,23 @@ function cleanup_ints( $value ) {
 }
 $parsed_request = array_map( 'cleanup_ints', $_REQUEST );
 
+function error_debug_msg() {
+	$backtrace = debug_backtrace();
+
+	$file = pathinfo( $backtrace[0]['file'], PATHINFO_BASENAME );
+	$line = $backtrace[0]['line'];
+
+	return array(
+		'file'   => $file,
+		'line'   => $line,
+		'source' => sprintf(
+			'https://github.com/evansolomon/IsValid.org/blob/master/%s#L%d',
+			$file,
+			$line
+		),
+	);
+}
+
 switch( $parsed_request['function'] ) {
 
 	case 'confidence';
@@ -20,7 +37,7 @@ switch( $parsed_request['function'] ) {
 			$interval = interval( $parsed_request['conversions'], $parsed_request['samples'] );
 
 		if( !$interval ) {
-			$response['error'] = array( 'message' => 'Invalid data', 'file' => pathinfo( __FILE__, PATHINFO_BASENAME ), 'line' => __LINE__ );
+			$response['error'] = array( 'message' => 'Invalid data', 'debug' => error_debug_msg() );
 			break;
 		}
 
@@ -37,7 +54,7 @@ switch( $parsed_request['function'] ) {
 		$significance = greater( $parsed_request['conversions_control'], $parsed_request['samples_control'], $parsed_request['conversions_experiment'], $parsed_request['samples_experiment'] );
 
 		if( !$significance ) {
-			$response['error'] = array( 'message' => 'Invalid data', 'file' => pathinfo( __FILE__, PATHINFO_BASENAME ), 'line' => __LINE__ );
+			$response['error'] = array( 'message' => 'Invalid data', 'debug' => error_debug_msg() );
 			break;
 		}
 
@@ -56,7 +73,7 @@ switch( $parsed_request['function'] ) {
 			$improvement = imp_pct( $parsed_request['conversions_control'], $parsed_request['samples_control'], $parsed_request['conversions_experiment'], $parsed_request['samples_experiment'] );
 
 		if( !$improvement ) {
-			$response['error'] = array( 'message' => 'Invalid data', 'file' => pathinfo( __FILE__, PATHINFO_BASENAME ), 'line' => __LINE__ );
+			$response['error'] = array( 'message' => 'Invalid data', 'debug' => error_debug_msg() );
 			break;
 		}
 
@@ -81,7 +98,7 @@ switch( $parsed_request['function'] ) {
 		}
 
 		if( !$interval_control || !$interval_experiment ) {
-			$response['error'] = array( 'message' => 'Invalid data', 'file' => pathinfo( __FILE__, PATHINFO_BASENAME ), 'line' => __LINE__ );
+			$response['error'] = array( 'message' => 'Invalid data', 'debug' => error_debug_msg() );
 			break;
 		}
 
@@ -89,7 +106,7 @@ switch( $parsed_request['function'] ) {
 		$significance = greater( $parsed_request['conversions_control'], $parsed_request['samples_control'], $parsed_request['conversions_experiment'], $parsed_request['samples_experiment'] );
 
 		if( !$significance ) {
-			$response['error'] = array( 'message' => 'Invalid data', 'file' => pathinfo( __FILE__, PATHINFO_BASENAME ), 'line' => __LINE__ );
+			$response['error'] = array( 'message' => 'Invalid data', 'debug' => error_debug_msg() );
 			break;
 		}
 
@@ -100,7 +117,7 @@ switch( $parsed_request['function'] ) {
 			$improvement = imp_pct( $parsed_request['conversions_control'], $parsed_request['samples_control'], $parsed_request['conversions_experiment'], $parsed_request['samples_experiment'] );
 
 		if( !$improvement ) {
-			$response['error'] = array( 'message' => 'Invalid data', 'file' => pathinfo( __FILE__, PATHINFO_BASENAME ), 'line' => __LINE__ );
+			$response['error'] = array( 'message' => 'Invalid data', 'debug' => error_debug_msg() );
 			break;
 		}
 
@@ -144,7 +161,7 @@ switch( $parsed_request['function'] ) {
 
 
 	default;
-		$response['error'] = array( 'message' => 'Invalid data', 'file' => pathinfo( __FILE__, PATHINFO_BASENAME ), 'line' => __LINE__ );
+		$response['error'] = array( 'message' => 'Invalid data', 'debug' => error_debug_msg() );
 		break;
 
 }
