@@ -40,14 +40,14 @@ $(document).ready(function() {
 			
 			
 			//insert confidence charts			
-			$("<div class='chart confidence'><a href='#'><img src='"+stat_results.confidence.chart.control+"' class='carousel-image' width='500' height='250' /></a><div class='num'>"+roundNumber(stat_results.confidence.results.control.low,2)+" - "+roundNumber(stat_results.confidence.results.control.high,2)+"</div><div class='cat'>Control performance</div></div>").appendTo("#carousel_left");
-			$("<div class='chart confidence'><a href='#'><img src='"+stat_results.confidence.chart.experiment+"' class='carousel-image' width='500' height='250' /></a><div class='num'>"+roundNumber(stat_results.confidence.results.experiment.low,2)+" - "+roundNumber(stat_results.confidence.results.experiment.high,2)+"</div><div class='cat'>Test performance</div></div>").appendTo("#carousel_left");
+			$("<div class='chart confidence'><a href='#'><img src='"+stat_results.confidence.chart.control+"' class='carousel-image' width='500' height='250' /></a><div class='num'>"+roundNumber(stat_results.confidence.results.control.low * 100,1)+" - "+roundNumber(stat_results.confidence.results.control.high * 100,1)+"%</div><div class='cat'>Control performance</div></div>").appendTo("#carousel_left");
+			$("<div class='chart confidence'><a href='#'><img src='"+stat_results.confidence.chart.experiment+"' class='carousel-image' width='500' height='250' /></a><div class='num'>"+roundNumber(stat_results.confidence.results.experiment.low * 100,1)+" - "+roundNumber(stat_results.confidence.results.experiment.high * 100,1)+"%</div><div class='cat'>Test performance</div></div>").appendTo("#carousel_left");
 			
 			//insert significance chart
-			$("<div class='chart significance'><a href='#'><img src='"+stat_results.significance.chart+"' class='carousel-image' width='500' height='250' /></a><div class='num'>"+roundNumber(stat_results.significance.results.experiment,2)+"</div><div class='cat'>Chance of outperformance</div></div>").appendTo("#carousel_right");
+			$("<div class='chart significance'><a href='#'><img src='"+stat_results.significance.chart+"' class='carousel-image' width='500' height='250' /></a><div class='num'>"+roundNumber(stat_results.significance.results.experiment * 100,1)+"%</div><div class='cat'>Chance of outperformance</div></div>").appendTo("#carousel_right");
 			
 			//insert improvement chart
-			$("<div class='chart improvement'><a href='#'><img src='"+stat_results.improvement.chart+"' class='carousel-image' width='500' height='250' /></a><div class='num'>"+roundNumber(stat_results.improvement.results.low,2)+" - "+roundNumber(stat_results.improvement.results.high,2)+"</div><div class='cat'>Likely improvement</div></div>").appendTo("#carousel_right");
+			$("<div class='chart improvement'><a href='#'><img src='"+stat_results.improvement.chart+"' class='carousel-image' width='500' height='250' /></a><div class='num'>"+roundNumber(stat_results.improvement.results.low * 100,1)+" - "+roundNumber(stat_results.improvement.results.high * 100,1)+"%</div><div class='cat'>Likely improvement</div></div>").appendTo("#carousel_right");
 						
 		});
 
