@@ -1,6 +1,6 @@
 <?php
 
-include("stats.php");
+include( dirname( __FILE__ ) . "/../stats.php");
 $response = array();
 
 function cleanup_ints( $value ) {
