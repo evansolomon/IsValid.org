@@ -57,7 +57,7 @@ function sigma( $mu, $conversions, $samples ) {
 //get confidence interval for conversion rate
 function interval( $conversions, $samples, $confidence = 0.999 ) {
 	$mu = $conversions / $samples;
-	$sigma = sigma( $mu, $samples, $conversions );
+	$sigma = sigma( $mu, $conversions, $samples );
 	$z = erfinv( $confidence ) * sqrt( 2 );
 
 	$r1 = $mu - $sigma * $z / sqrt( $samples );
