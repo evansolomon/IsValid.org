@@ -3,8 +3,8 @@
 	<head>
 		<title>IsValid.org - Quantify the results of A/B tests</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-		<script src="assets/s.js?ver=20120320"></script>
-		<link rel="stylesheet" href="assets/s.css?ver=20110824a">
+		<script src="assets/s.js?ver=20120707"></script>
+		<link rel="stylesheet" href="assets/s.css?ver=20120707">
 
 	</head>
 	<body>
