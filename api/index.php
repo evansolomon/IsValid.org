@@ -14,14 +14,14 @@ $parsed_request = array_map( 'cleanup_ints', $_REQUEST );
 function error_debug_msg() {
 	$backtrace = debug_backtrace();
 
-	$file = pathinfo( $backtrace[0]['file'], PATHINFO_BASENAME );
+	$file = $_SERVER['PHP_SELF'];
 	$line = $backtrace[0]['line'];
 
 	return array(
 		'file'   => $file,
 		'line'   => $line,
 		'source' => sprintf(
-			'https://github.com/evansolomon/IsValid.org/blob/master/%s#L%d',
+			'https://github.com/evansolomon/IsValid.org/blob/master%s#L%d',
 			$file,
 			$line
 		),
