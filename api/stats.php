@@ -55,7 +55,10 @@ function sigma( $mu, $conversions, $samples ) {
 }
 
 //get confidence interval for conversion rate
-function interval( $conversions, $samples, $confidence = 0.999 ) {
+function interval( $conversions, $samples, $confidence = false ) {
+	if ( ! $confidence )
+		$confidence = 0.999;
+
 	// Make sure args are the right type
 	if( $conversions != abs( $conversions ) )
 		return false;
@@ -98,7 +101,10 @@ function greater( $conversions_control, $samples_control, $conversions_experimen
 }
 
 //calculates confidence interval for the effective size
-function improvement( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment, $confidence = .8 ) {
+function improvement( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment, $confidence = false ) {
+	if ( ! $confidence )
+		$confidence = 0.8;
+
 	// Make sure args are the right type
 	if( $conversions_control != abs( $conversions_control ) || $conversions_experiment != abs( $conversions_experiment ) )
 		return false;
@@ -122,7 +128,10 @@ function improvement( $conversions_control, $samples_control, $conversions_exper
 }
 
 //calculates the confidence interval for the improvement of test over control
-function imp_pct( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment, $confidence = .8 ) {
+function imp_pct( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment, $confidence = false ) {
+	if ( ! $confidence )
+		$confidence = 0.8;
+
 	// Make sure args are the right type
 	if( $conversions_control != abs( $conversions_control ) || $conversions_experiment != abs( $conversions_experiment ) )
 		return false;
