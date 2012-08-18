@@ -1,47 +1,38 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
 	<head>
 		<title>IsValid.org - Quantify the results of A/B tests</title>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-		<script src="assets/s.js?ver=20120707"></script>
-		<link rel="stylesheet" href="assets/s.css?ver=20120707">
-
+		<link rel="stylesheet" href="assets/css/style.css">
+		<link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Slackey' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
 		<div id="wrapper">
+			<hgroup>
+				<h1>Is<span>Valid</span></h1>
+			</hgroup>
 			<div id="action">
 				<form name="complete">
-						<div>
-							<label for="con_con" id="con_con_label">Control Conversions</label>
-							<input type="text" name="con_con" id="con_con" autocomplete=off>
-						</div>
-						<div>
-							<label for="con_sam" id="con_sam_label">Control Samples</label>
-							<input type="text" name="con_sam" id="con_sam" autocomplete=off>
-						</div>
-						<div>
-							<label for="test_con" id="test_con_label">Test Conversions</label>
-							<input type="text" name="test_con" id="test_con" autocomplete=off>
-						</div>
-						<div>
-							<label for="test_sam" id="test_sam_label">Test Samples</label>
-							<input type="text" name="test_sam" id="test_sam" autocomplete=off>
-						</div>
-						<div>
+							I had <input type="number" name="con_con" id="con_con" autocomplete=off placeholder="10" autofocus required> <label for="con_con" id="con_con_label" data-tooltip="The number of conversions received with your current version">control conversions</label> out of <input type="number" name="con_sam" id="con_sam" autocomplete=off required><label for="con_sam" id="con_sam_label" data-tooltip="The total number of times your current version was shown to users">control samples</label> compared to <input type="number" name="test_con" id="test_con" autocomplete=off required> <label for="test_con" id="test_con_label" data-tooltip="The number of conversions received with your new (test) version">test conversions</label> in <input type="number" name="test_sam" id="test_sam" autocomplete=off required> <label for="test_sam" id="test_sam_label" data-tooltip="The total number of times your new (test) version was shown to users">test samples</label>.
+							
 							<input type="hidden" name="fx" id="fx" value="complete">
-							<input type="submit" value="Submit" class="button" id="submit_btn" />
-						</div>
+							<button type="submit">Is it Valid?</button>
 				</form>
-				<br>
-				<div id="api"><a href="https://github.com/evansolomon/IsValid.org/wiki/API">API Documentation</a></div>
 			</div>
-			<div id="results-wrapper">
-				<div class="column left">
+			<div id="results">
+				<div id="permalink"><span id="linkinfo"></span> <span id="linkembed"></span></div>
+				<div class="resulting improvement">
 				</div>
-				<div class="column right">
+				<div class="resulting confidence">
 				</div>
 			</div>
+			
+			<div id="end"><a href="https://github.com/evansolomon/IsValid.org/wiki/API">API Documentation</a> | <a href="https://github.com/evansolomon/IsValid.org">Clone on GitHub</div>
 		</div>
-		<a href="https://github.com/evansolomon/IsValid.org"><img style="position: absolute; top: 0; right: 0; border: 0;" src="assets/fork-me.png" alt="Fork me on GitHub"></a>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="assets/js/jquery-1.8.0.min.js"><\/script>')</script>
+		<script src="assets/js/isvalid.js"></script>
+		<script src="assets/js/jquery.fittext.js"></script>
+		<script>
+		$("h1").fitText();
+		</script>
 	</body>
 </html>

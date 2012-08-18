@@ -124,7 +124,7 @@ class API_Request {
 
 		$this->response['results'] = $interval;
 		$this->response['chart'] = sprintf(
-			'http://chart.apis.google.com/chart?&chxl=0:||1:||&chxt=x,y&chs=500x250&chls=1,5,5|1|1,5,5|0|0|0&cht=gm&chd=t:%f|%f|%f',
+			'http://chart.apis.google.com/chart?chf=bg,s,3072F3&chxl=0:||1:||&chxt=x,y&chs=500x250&chls=1,5,5|1|1,5,5|0|0|0&cht=gm&chd=t:%f|%f|%f',
 			$interval['low'] * 100,
 			$interval['average'] * 100,
 			$interval['high'] * 100
@@ -147,7 +147,7 @@ class API_Request {
 
 		$this->response['results'] = $significance;
 		$this->response['chart'] = sprintf(
-			'http://chart.apis.google.com/chart?chxl=0:|&chxt=y&chs=500x250&chls=2|0&cht=gm&chd=t:%f',
+			'http://chart.apis.google.com/chart?chf=bg,s,3072F3chxl=0:|&chxt=y&chs=500x250&chls=2|0&cht=gm&chd=t:%f',
 			$significance['experiment'] * 100
 		);
 	}
@@ -169,7 +169,7 @@ class API_Request {
 
 		$this->response['results'] = $improvement;
 		$this->response['chart'] = sprintf(
-			'http://chart.apis.google.com/chart?&chxl=0:||1:||&chxt=x,y&chs=500x250&chls=1,5,5|1|1,5,5|0|0|0&cht=gm&chd=t:%f|%f|%f',
+			'http://chart.apis.google.com/chart?chf=bg,s,3072F3&chxl=0:||1:||&chxt=x,y&chs=500x250&chls=1,5,5|1|1,5,5|0|0|0&cht=gm&chd=t:%f|%f|%f',
 			( $improvement['low'] * 100 + 100 ) / 2,
 			( $improvement['average'] * 100 + 100 ) / 2,
 			( $improvement['high'] * 100 + 100 ) / 2
@@ -222,13 +222,13 @@ class API_Request {
 		$this->response['confidence']['results']['experiment'] = $interval_experiment;
 
 		$this->response['confidence']['chart']['control'] = sprintf(
-			'http://chart.apis.google.com/chart?&chxl=0:||1:||&chxt=x,y&chs=500x250&chls=1,5,5|1|1,5,5|0|0|0&cht=gm&chd=t:%f|%f|%f',
+			'http://chart.apis.google.com/chart?chf=bg,s,00000000&chxl=0:||1:||&chxt=x,y&chs=500x250&chls=1,5,5|1|1,5,5|0|0|0&cht=gm&chd=t:%f|%f|%f',
 			$interval_control['low'] * 100,
 			$interval_control['average'] * 100,
 			$interval_control['high'] * 100
 		);
 		$this->response['confidence']['chart']['experiment'] = sprintf(
-			'http://chart.apis.google.com/chart?&chxl=0:||1:||&chxt=x,y&chs=500x250&chls=1,5,5|1|1,5,5|0|0|0&cht=gm&chd=t:%f|%f|%f',
+			'http://chart.apis.google.com/chart?chf=bg,s,00000000&chxl=0:||1:||&chxt=x,y&chs=500x250&chls=1,5,5|1|1,5,5|0|0|0&cht=gm&chd=t:%f|%f|%f',
 			$interval_experiment['low'] * 100,
 			$interval_experiment['average'] * 100,
 			$interval_experiment['high'] * 100
@@ -237,14 +237,14 @@ class API_Request {
 		/* significance */
 		$this->response['significance']['results'] = $significance;
 		$this->response['significance']['chart'] = sprintf(
-			'http://chart.apis.google.com/chart?chxl=0:|&chxt=y&chs=500x250&chls=2|0&cht=gm&chd=t:%f',
+			'http://chart.apis.google.com/chart?chf=bg,s,00000000&chxl=0:|&chxt=y&chs=500x250&chls=2|0&cht=gm&chd=t:%f',
 			$significance['experiment'] * 100
 		);
 
 		/* improvement */
 		$this->response['improvement']['results'] = $improvement;
 		$this->response['improvement']['chart'] = sprintf(
-			'http://chart.apis.google.com/chart?&chxl=0:||1:||&chxt=x,y&chs=500x250&chls=1,5,5|1|1,5,5|0|0|0&cht=gm&chd=t:%f|%f|%f',
+			'http://chart.apis.google.com/chart?chf=bg,s,00000000&chxl=0:||1:||&chxt=x,y&chs=500x250&chls=1,5,5|1|1,5,5|0|0|0&cht=gm&chd=t:%f|%f|%f',
 			( $improvement['low'] * 100 + 100 ) /2,
 			( $improvement['average'] * 100 + 100 ) / 2,
 			( $improvement['high'] * 100 + 100 ) / 2
