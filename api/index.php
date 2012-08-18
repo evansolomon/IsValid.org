@@ -167,5 +167,3 @@ switch( $parsed_request['function'] ) {
 }
 
 echo json_encode($response);
-
-?>
