@@ -508,8 +508,9 @@ button {
   border: 0.1em solid #fefef1;
 }
 div#permalink {
-  margin-top: 5em;
   display: none;
+  margin-top: 2em;
+  font-size: 1em;
 }
 div.chart {
   position: relative;
@@ -536,6 +537,9 @@ div#end {
   div.chart {
     float: left;
     width: 50%;
+  }
+  div#permalink {
+    display: block;
   }
 }
 @media only screen and (min-width: 1350px) {
