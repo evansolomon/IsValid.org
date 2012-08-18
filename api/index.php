@@ -94,6 +94,9 @@ class API_Request {
 				$line
 			),
 		);
+
+		$this->respond();
+		die();
 	}
 
 	private function respond() {
