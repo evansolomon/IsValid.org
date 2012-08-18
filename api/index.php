@@ -97,6 +97,7 @@ class API_Request {
 	}
 
 	private function respond() {
+		header( 'Content-type: application/json' );
 		echo json_encode( $this->response );
 	}
 
