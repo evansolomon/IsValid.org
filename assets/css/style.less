@@ -52,7 +52,7 @@ img {
 		font-size:1.4em;
 	}
 	input[type="number"] {
-		width:3.5em;
+		width:5.4em;
 		margin-left:0.3em;
 		margin-right:0.3em;
 		height:1em;
@@ -65,16 +65,38 @@ img {
 		text-align:center;
 	}
 	
+	label {
+		border-bottom:0.1em dotted rgba(255, 255, 255, 0.09);
+	}
+	label:hover {
+		cursor:pointer;
+	}
+	
+	label:hover:after {
+		content: attr(data-tooltip);
+		position: absolute;
+		font-size:0.6em;
+		background: rgba(0, 0, 0, 0.85);
+		padding: 0.3em 0.7em;
+		color: #FFF;
+		margin-left: 0.5em;
+		margin-top: -0.3em;
+		z-index:100;
+	}
+	
 	button {
-		background:#f6f792;
+		background:lighten(#f6f792, 5%);
 		display:block;
 		margin:0 auto;
 		border:0;
-		width:60%;
+		width:40%;
 		font-size:1.1em;
 		margin-top:1em;
 		font-family: 'Droid Serif', serif;
-		border:0.1em solid lighten(#f6f792, 20%);
+		border:0.1em solid #ccc;
+		&:hover {
+			background:#f6f792;
+		}
 	}
 
 // Results
@@ -110,7 +132,7 @@ div#end {
 
 @media only screen and (min-width: 800px) {
     button {
-		width:500px;
+		width:325px;
 		}
 	div.chart {
 		float:left;
