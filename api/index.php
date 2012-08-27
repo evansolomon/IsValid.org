@@ -114,7 +114,7 @@ class API_Request {
 	}
 
 	private function confidence() {
-		$params = $this->get_params( array( 'conversions', 'samples', 'confience' ) );
+		$params = $this->get_params( array( 'conversions', 'samples', 'confidence' ) );
 		$interval = interval( $params['conversions'], $params['samples'], $params['confidence'] );
 
 		if ( ! $interval ) {
