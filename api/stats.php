@@ -62,7 +62,7 @@ function interval( $conversions, $samples, $confidence = false ) {
 	// Make sure args are the right type
 	if( $conversions != abs( $conversions ) )
 		return false;
-	if( $samples != abs( $samples ) )
+	if( $samples != abs( $samples ) || 0 == $samples )
 		return false;
 	if( $confidence != (float) $confidence || $confidence <= 0 || $confidence >= 1 )
 		return false;
