@@ -1,0 +1,160 @@
+@import "normalize";
+@background: #333745;
+@text: #daede2;
+
+body {
+	background-color:@background;
+	color:@text;
+	text-align:center;
+	font-family: 'Droid Serif', serif;
+	line-height:1.6em;
+}
+
+div#wrapper {
+	width:90%;
+	margin:0 auto;
+	max-width:1500px;
+}
+
+a {
+	color:darken(#77c4d3, 20%);
+	text-decoration:none;
+	border-bottom:0.1em dotted;
+}
+
+hgroup {
+	width:100%;
+	margin:0 auto;
+}
+h1 {
+	font-family: 'Slackey', cursive;
+	font-size:7em;
+	width:100%;
+	line-height:1em;
+	span {
+		color:#f6f792;
+	}
+}
+
+h2 {
+	margin:0;
+	padding:0;
+	font-size:1.4em;
+}
+
+img {
+	max-width:100%;
+}
+
+// Form elements
+	form {
+		line-height:2em;
+		font-size:1.4em;
+	}
+	input[type="number"] {
+		width:5.4em;
+		margin-left:0.3em;
+		margin-right:0.3em;
+		height:1em;
+		background:@background;
+		border:0;
+		border-bottom:0.1em dotted @text;
+		color:#77c4d3;
+		font-family: 'Droid Serif', serif;
+		font-weight:bold;
+		text-align:center;
+	}
+	
+	label {
+		border-bottom:0.1em dotted rgba(255, 255, 255, 0.09);
+	}
+	label:hover {
+		cursor:pointer;
+	}
+	
+	label:hover:after {
+		content: attr(data-tooltip);
+		position: absolute;
+		font-size:0.6em;
+		background: rgba(0, 0, 0, 0.85);
+		padding: 0.3em 0.7em;
+		color: #FFF;
+		margin-left: 0.5em;
+		margin-top: -0.3em;
+		z-index:100;
+	}
+	
+	button {
+		background:lighten(#f6f792, 5%);
+		display:block;
+		margin:0 auto;
+		border:0;
+		width:40%;
+		font-size:1.1em;
+		margin-top:1em;
+		font-family: 'Droid Serif', serif;
+		border:0.1em solid #ccc;
+		&:hover {
+			background:#f6f792;
+		}
+	}
+
+// Results
+div#permalink {
+	display:none;
+	margin-top:2em;
+	font-size:1em;
+}
+div.chart {
+	position:relative;
+	padding-bottom:1em;
+	margin-bottom:1em;
+	border-bottom:0.1em dotted @text;
+	
+	h2 {
+		position:relative;
+		top:1.5em;
+	}
+	
+	div.num {
+		font-weight:bold;
+		font-size:1.9em;
+	}
+}
+
+// Footer
+div#end {
+	margin-top:5em;
+	margin-bottom:2em;
+}
+
+// Responsiveness
+
+@media only screen and (min-width: 800px) {
+    button {
+		width:325px;
+		}
+	div.chart {
+		float:left;
+		width:50%;
+	}
+	div#permalink {
+		display:block;
+	}
+}
+
+@media only screen and (min-width: 1350px) {
+	div#results {
+		margin-top:1.5em;
+	}
+	div.chart {
+		float:left;
+		width:25%;
+	}
+}
+
+@media only screen and (min-width: 1400px) {
+	div#results {
+		margin-top:2.5em;
+	}
+}
