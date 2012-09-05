@@ -3,7 +3,7 @@ function roundNumber(num, dec) {
 	return result;
 }
 
-function submitData(con_con, con_sam, test_con, test_sam, fx) {
+function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
 	var dataString = 'conversions_control='+ con_con + '&samples_control=' + con_sam + '&conversions_experiment='+ test_con + '&samples_experiment=' + test_sam + '&function=' + fx;
 
 	$.getJSON("api?" + dataString, function(stat_results){
@@ -59,7 +59,7 @@ $(function() {
 
 	$("form").on('submit', function(event){
 		event.preventDefault();
-		submitData(
+		queryAPI(
 			$("input#con_con").val(),
 			$("input#con_sam").val(),
 			$("input#test_con").val(),
@@ -74,7 +74,7 @@ $(function() {
 		$("input#con_sam").val(getParameter("sc"));
 		$("input#test_con").val(getParameter("ce"));
 		$("input#test_sam").val(getParameter("se"));
-		submitData(
+		queryAPI(
 			getParameter("cc"),
 			getParameter("sc"),
 			getParameter("ce"),
