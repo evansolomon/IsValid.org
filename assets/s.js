@@ -41,6 +41,19 @@ function submitData(con_con, con_sam, test_con, test_sam, fx) {
 	return false;
 }
 
+function getParameter(paramName) {
+	var searchString = window.location.search.substring(1),
+		i, val, params = searchString.split("&");
+
+	for (i=0;i<params.length;i++) {
+		val = params[i].split("=");
+		if (val[0] == paramName) {
+			return unescape(val[1]);
+		}
+	}
+	return null;
+}
+
 $(function() {
 	$("form :input:visible:first").first().focus();
 
@@ -56,19 +69,6 @@ $(function() {
 	});
 
 	//get results on permalink pages
-	function getParameter(paramName) {
-		var searchString = window.location.search.substring(1),
-			i, val, params = searchString.split("&");
-
-		for (i=0;i<params.length;i++) {
-			val = params[i].split("=");
-			if (val[0] == paramName) {
-				return unescape(val[1]);
-			}
-		}
-		return null;
-	}
-
 	if(getParameter("permalink") == "true"){
 		$("input#con_con").val(getParameter("cc"));
 		$("input#con_sam").val(getParameter("sc"));
