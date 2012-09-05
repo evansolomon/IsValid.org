@@ -42,7 +42,7 @@ function submitData(con_con, con_sam, test_con, test_sam, fx) {
 }
 
 $(function() {
-	$("#con_con").focus();
+	$("form :input:visible:first").first().focus();
 
 	$("form").on('submit', function(event){
 		event.preventDefault();
