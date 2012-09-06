@@ -14,7 +14,8 @@ function getPermalink(con_con, con_sam, test_con, test_sam, fx) {
 	return queryString.replace("conversions_control","cc").replace("samples_control","sc").replace("conversions_experiment","ce").replace("samples_experiment","se").replace("function","fx");
 }
 
-function displayPermalink(permalinkString) {
+function displayPermalink(con_con, con_sam, test_con, test_sam, fx) {
+	var permalinkString = getPermalink(con_con, con_sam, test_con, test_sam, fx);
 	$('<input class="permalink" value="http://'+location.host+location.pathname+'?'+permalinkString+'&permalink=true" type="text">').prependTo("#action").focus();
 
 	$("input[type=text].permalink").focus(function(){
