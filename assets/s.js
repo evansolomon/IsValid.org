@@ -32,7 +32,7 @@ function displayPermalink(con_con, con_sam, test_con, test_sam, fx) {
 		location.pathname+
 		'?'+
 		permalinkString+
-		'&permalink=true" type="text">').
+		'" type="text">').
 	prependTo("#action").focus();
 
 	// Focus on click
