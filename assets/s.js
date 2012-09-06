@@ -102,7 +102,7 @@ function getLastQuery() {
 	return cacheLastQuery.cache;
 }
 
-function queryAPI(con_con, con_sam, test_con, test_sam) {
+function getResults(con_con, con_sam, test_con, test_sam) {
 	var queryString = getQueryString(con_con, con_sam, test_con, test_sam);
 
 	// Don't run the same query twice in a row
@@ -111,7 +111,7 @@ function queryAPI(con_con, con_sam, test_con, test_sam) {
 
 	cacheLastQuery(queryString);
 
-	$.getJSON("api?" + queryString, function(stat_results){
+	return queryAPI(con_con, con_sam, test_con, test_sam).done(function(stat_results) {
 		$(".column").empty();
 
 		// Check for errors
@@ -121,6 +121,11 @@ function queryAPI(con_con, con_sam, test_con, test_sam) {
 		updateCharts(stat_results);
 		displayPermalink(con_con, con_sam, test_con, test_sam);
 	});
+}
+
+function queryAPI(con_con, con_sam, test_con, test_sam) {
+	var queryString = getQueryString(con_con, con_sam, test_con, test_sam);
+	return $.getJSON("api?" + queryString);
 }
 
 function getParameter(paramName) {
@@ -161,7 +166,7 @@ $(function() {
 		if(! isFormComplete())
 			return false;
 
-		queryAPI(
+		getResults(
 			$("input#con_con").val(),
 			$("input#con_sam").val(),
 			$("input#test_con").val(),
@@ -176,7 +181,7 @@ $(function() {
 		$("input#test_con").val(getParameter("ce"));
 		$("input#test_sam").val(getParameter("se"));
 
-		queryAPI(
+		getResults(
 			getParameter("cc"),
 			getParameter("sc"),
 			getParameter("ce"),
