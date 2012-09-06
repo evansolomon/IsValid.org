@@ -11,9 +11,8 @@ function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
 		$(".column").html("");
 
 		//check for errors
-		if(stat_results.error){
+		if(stat_results.error)
 			return false;
-		}
 
 		//add text input with query args, then autofocus it
 		var permalinkString = dataString.replace("conversions_control","cc").replace("samples_control","sc").replace("conversions_experiment","ce").replace("samples_experiment","se").replace("function","fx");
@@ -48,9 +47,9 @@ function getParameter(paramName) {
 
 	for (i=0;i<params.length;i++) {
 		val = params[i].split("=");
-		if (val[0] == paramName) {
+
+		if (val[0] == paramName)
 			return unescape(val[1]);
-		}
 	}
 	return null;
 }
