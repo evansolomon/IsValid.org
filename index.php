@@ -28,7 +28,6 @@
 							<input type="text" name="test_sam" id="test_sam" autocomplete=off>
 						</div>
 						<div>
-							<input type="hidden" name="fx" id="fx" value="complete">
 							<input type="submit" value="Submit" class="button" id="submit_btn" />
 						</div>
 				</form>
