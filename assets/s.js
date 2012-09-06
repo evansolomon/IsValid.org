@@ -7,6 +7,24 @@ function getQueryString(con_con, con_sam, test_con, test_sam, fx) {
 	return 'conversions_control='+ con_con + '&samples_control=' + con_sam + '&conversions_experiment='+ test_con + '&samples_experiment=' + test_sam + '&function=' + fx;
 }
 
+function getPermalink(con_con, con_sam, test_con, test_sam, fx) {
+	var queryString = getQueryString(con_con, con_sam, test_con, test_sam, fx);
+
+	//add text input with query args, then autofocus it
+	return queryString.replace("conversions_control","cc").replace("samples_control","sc").replace("conversions_experiment","ce").replace("samples_experiment","se").replace("function","fx");
+}
+
+function displayPermalink(permalinkString) {
+	$('<input class="permalink" value="http://'+location.host+location.pathname+'?'+permalinkString+'&permalink=true" type="text">').prependTo("#action").focus();
+
+	$("input[type=text].permalink").focus(function(){
+		$(this).select();
+	}).mouseup(function(e){
+		e.preventDefault();
+	});
+}
+
+
 function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
 	var queryString = getQueryString(con_con, con_sam, test_con, test_sam, fx);
 
@@ -18,16 +36,7 @@ function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
 		if(stat_results.error)
 			return false;
 
-		//add text input with query args, then autofocus it
-		var permalinkString = queryString.replace("conversions_control","cc").replace("samples_control","sc").replace("conversions_experiment","ce").replace("samples_experiment","se").replace("function","fx");
-
-		$('<input class="permalink" value="http://'+location.host+location.pathname+'?'+permalinkString+'&permalink=true" type="text">').prependTo("#action").focus();
-
-		$("input[type=text].permalink").focus(function(){
-			$(this).select();
-		}).mouseup(function(e){
-			e.preventDefault();
-		});
+		displayPermalink(con_con, con_sam, test_con, test_sam, fx);
 
 		//insert confidence charts
 		var control_confidence = "<div class='chart confidence'><img src='"+stat_results.confidence.chart.control+"' class='chart-image' /><div class='num'>"+roundNumber(stat_results.confidence.results.control.low * 100,1)+" - "+roundNumber(stat_results.confidence.results.control.high * 100,1)+"%</div><div class='cat'>Control performance</div></div>";
