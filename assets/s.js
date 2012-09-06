@@ -3,8 +3,13 @@ function roundNumber(num, dec) {
 	return result;
 }
 
-function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
+function getDataString(con_con, con_sam, test_con, test_sam, fx) {
 	var dataString = 'conversions_control='+ con_con + '&samples_control=' + con_sam + '&conversions_experiment='+ test_con + '&samples_experiment=' + test_sam + '&function=' + fx;
+	return dataString;
+}
+
+function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
+	var dataString = getDataString(con_con, con_sam, test_con, test_sam, fx);
 
 	$.getJSON("api?" + dataString, function(stat_results){
 		//clear g field
