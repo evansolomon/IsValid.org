@@ -3,15 +3,14 @@ function roundNumber(num, dec) {
 	return result;
 }
 
-function getDataString(con_con, con_sam, test_con, test_sam, fx) {
-	var dataString = 'conversions_control='+ con_con + '&samples_control=' + con_sam + '&conversions_experiment='+ test_con + '&samples_experiment=' + test_sam + '&function=' + fx;
-	return dataString;
+function getQueryString(con_con, con_sam, test_con, test_sam, fx) {
+	return 'conversions_control='+ con_con + '&samples_control=' + con_sam + '&conversions_experiment='+ test_con + '&samples_experiment=' + test_sam + '&function=' + fx;
 }
 
 function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
-	var dataString = getDataString(con_con, con_sam, test_con, test_sam, fx);
+	var queryString = getQueryString(con_con, con_sam, test_con, test_sam, fx);
 
-	$.getJSON("api?" + dataString, function(stat_results){
+	$.getJSON("api?" + queryString, function(stat_results){
 		//clear g field
 		$(".column").html("");
 
@@ -20,7 +19,7 @@ function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
 			return false;
 
 		//add text input with query args, then autofocus it
-		var permalinkString = dataString.replace("conversions_control","cc").replace("samples_control","sc").replace("conversions_experiment","ce").replace("samples_experiment","se").replace("function","fx");
+		var permalinkString = queryString.replace("conversions_control","cc").replace("samples_control","sc").replace("conversions_experiment","ce").replace("samples_experiment","se").replace("function","fx");
 
 		$('<input class="permalink" value="http://'+location.host+location.pathname+'?'+permalinkString+'&permalink=true" type="text">').prependTo("#action").focus();
 
