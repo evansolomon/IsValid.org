@@ -27,8 +27,12 @@ class API_Request {
 	}
 
 	private function validate_request() {
-		if ( ! is_array( $this->parsed_request ) || ! isset( $this->parsed_request['function'] ) )
+		if ( ! is_array( $this->parsed_request ) )
 			return ! $this->respond_with_error( 'Invalid request' );
+
+		// Default to 'complete' function if one isn't specified
+		if( ! isset( $this->parsed_request['function'] ) )
+			$this->parsed_request['function'] = 'complete';
 
 		switch ( $this->parsed_request['function'] ):
 			case 'confidence':
