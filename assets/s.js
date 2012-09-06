@@ -1,3 +1,5 @@
+var lastQuery;
+
 function roundNumber(num, dec) {
 	return Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
 }
@@ -91,25 +93,14 @@ function updateCharts(stat_results) {
 	$(significance + improvement).appendTo(".column.right");
 }
 
-function cacheLastQuery(queryString) {
-	cacheLastQuery.cache = queryString;
-}
-
-function getLastQuery() {
-	if(typeof cacheLastQuery.cache == 'undefined')
-		return false;
-
-	return cacheLastQuery.cache;
-}
-
 function getResults(con_con, con_sam, test_con, test_sam) {
 	var queryString = getQueryString(con_con, con_sam, test_con, test_sam);
 
 	// Don't run the same query twice in a row
-	if(queryString == getLastQuery())
+	if(queryString == lastQuery)
 		return false;
 
-	cacheLastQuery(queryString);
+	lastQuery = queryString;
 
 	return queryAPI(con_con, con_sam, test_con, test_sam).done(function(stat_results) {
 		$(".column").empty();
