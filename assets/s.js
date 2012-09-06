@@ -1,6 +1,5 @@
 function roundNumber(num, dec) {
-	var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
-	return result;
+	return Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
 }
 
 function getQueryString(con_con, con_sam, test_con, test_sam, fx) {
