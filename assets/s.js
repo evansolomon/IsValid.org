@@ -2,7 +2,7 @@ function roundNumber(num, dec) {
 	return Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
 }
 
-function getQueryString(con_con, con_sam, test_con, test_sam, fx) {
+function getQueryString(con_con, con_sam, test_con, test_sam) {
 	return 'conversions_control='+
 		con_con+
 		'&samples_control='+
@@ -10,23 +10,20 @@ function getQueryString(con_con, con_sam, test_con, test_sam, fx) {
 		'&conversions_experiment='+
 		test_con+
 		'&samples_experiment='+
-		test_sam+
-		'&function='+
-		fx;
+		test_sam;
 }
 
-function getPermalink(con_con, con_sam, test_con, test_sam, fx) {
-	var queryString = getQueryString(con_con, con_sam, test_con, test_sam, fx);
+function getPermalink(con_con, con_sam, test_con, test_sam) {
+	var queryString = getQueryString(con_con, con_sam, test_con, test_sam);
 	return queryString.
 		replace("conversions_control","cc").
 		replace("samples_control","sc").
 		replace("conversions_experiment","ce").
-		replace("samples_experiment","se").
-		replace("function","fx");
+		replace("samples_experiment","se");
 }
 
-function displayPermalink(con_con, con_sam, test_con, test_sam, fx) {
-	var permalinkString = getPermalink(con_con, con_sam, test_con, test_sam, fx);
+function displayPermalink(con_con, con_sam, test_con, test_sam) {
+	var permalinkString = getPermalink(con_con, con_sam, test_con, test_sam);
 	$('<input class="permalink" value="http://'+
 		location.host+
 		location.pathname+
@@ -51,8 +48,6 @@ function isPermalinkPage() {
 	if(! getParameter("ce"))
 		return false;
 	if(! getParameter("se"))
-		return false;
-	if(! getParameter("fx"))
 		return false;
 
 	return true;
@@ -97,8 +92,8 @@ function updateCharts(stat_results) {
 }
 
 
-function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
-	var queryString = getQueryString(con_con, con_sam, test_con, test_sam, fx);
+function queryAPI(con_con, con_sam, test_con, test_sam) {
+	var queryString = getQueryString(con_con, con_sam, test_con, test_sam);
 
 	$.getJSON("api?" + queryString, function(stat_results){
 		$(".column").empty();
@@ -108,7 +103,7 @@ function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
 			return false;
 
 		updateCharts(stat_results);
-		displayPermalink(con_con, con_sam, test_con, test_sam, fx);
+		displayPermalink(con_con, con_sam, test_con, test_sam);
 	});
 }
 
@@ -137,8 +132,7 @@ $(function() {
 			$("input#con_con").val(),
 			$("input#con_sam").val(),
 			$("input#test_con").val(),
-			$("input#test_sam").val(),
-			$("input#fx").val()
+			$("input#test_sam").val()
 		);
 	});
 
@@ -153,8 +147,7 @@ $(function() {
 			getParameter("cc"),
 			getParameter("sc"),
 			getParameter("ce"),
-			getParameter("se"),
-			getParameter("fx")
+			getParameter("se")
 		);
 	}
 });
