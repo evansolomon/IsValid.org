@@ -86,7 +86,7 @@ function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
 	var queryString = getQueryString(con_con, con_sam, test_con, test_sam, fx);
 
 	$.getJSON("api?" + queryString, function(stat_results){
-		$(".column").html("");
+		$(".column").empty();
 
 		// Check for errors
 		if(stat_results.error)
@@ -94,10 +94,7 @@ function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
 
 		updateCharts(stat_results);
 		displayPermalink(con_con, con_sam, test_con, test_sam, fx);
-
 	});
-
-	return false;
 }
 
 function getParameter(paramName) {
