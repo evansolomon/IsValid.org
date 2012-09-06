@@ -44,7 +44,18 @@ function displayPermalink(con_con, con_sam, test_con, test_sam, fx) {
 }
 
 function isPermalinkPage() {
-	return getParameter("permalink") == "true";
+	if(! getParameter("cc"))
+		return false;
+	if(! getParameter("sc"))
+		return false;
+	if(! getParameter("ce"))
+		return false;
+	if(! getParameter("se"))
+		return false;
+	if(! getParameter("fx"))
+		return false;
+
+	return true;
 }
 
 function updateCharts(stat_results) {
