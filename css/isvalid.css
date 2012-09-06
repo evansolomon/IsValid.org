@@ -1,0 +1,186 @@
+h1 {
+	height: 110px;
+	opacity: 1;
+	overflow: hidden;
+	-webkit-transition-property: height, padding, margin, opacity;
+	-moz-transition-property: height, padding, margin, opacity;
+	-ms-transition-property: height, padding, margin, opacity;
+	-o-transition-property: height, padding, margin, opacity;
+	transition-property: height, padding, margin, opacity;
+	-webkit-transition-delay: 400ms;
+	-moz-transition-delay: 400ms;
+	-ms-transition-delay: 400ms;
+	-o-transition-delay: 400ms;
+	transition-delay: 400ms;
+	-webkit-transition-duration: 600ms;
+	-moz-transition-duration: 600ms;
+	-ms-transition-duration: 600ms;
+	-o-transition-duration: 600ms;
+	transition-duration: 600ms;
+	font-size: 120px;
+	margin: 0;
+	padding-top: 60px;
+	margin-bottom: -25px;
+}
+
+.header {
+	font-family: "domus-titling-web",'Helvetica Neue', sans-serif;
+	font-size: 18px;
+	text-align: center;
+	padding-bottom: 30px;
+}
+
+body.permalink .header p {
+	margin-top: 20px;
+}
+
+body.permalink p.home-tip {
+	display: none;
+}
+
+body.home p.home-tip {
+	margin-top: -10px;
+	font-style: italic;
+	color: #aaa;
+	text-align: center;
+}
+
+.header hr {
+	border: none;
+	height: 1px;
+	background: -webkit-linear-gradient( left, rgba( 230, 230, 230, 0 ), rgba( 230, 230, 230, 1 ), rgba( 230, 230, 230, 0 ) );
+	background: -moz-linear-gradient( left, rgba( 230, 230, 230, 0 ), rgba( 230, 230, 230, 1 ), rgba( 230, 230, 230, 0 ) );
+	background: -ms-linear-gradient( left, rgba( 230, 230, 230, 0 ), rgba( 230, 230, 230, 1 ), rgba( 230, 230, 230, 0 ) );
+	background: -o-linear-gradient( left, rgba( 230, 230, 230, 0 ), rgba( 230, 230, 230, 1 ), rgba( 230, 230, 230, 0 ) );
+	background: linear-gradient( left, rgba( 230, 230, 230, 0 ), rgba( 230, 230, 230, 1 ), rgba( 230, 230, 230, 0 ) );
+	margin-top: 0;
+}
+
+#conconjr {
+	margin-top: 20px;
+}
+
+.permalink h1 {
+	opacity: 0;
+	height: 0;
+	padding: 0;
+	margin: 0;
+}
+
+.result {
+	position: relative;
+	height: 300px;
+	overflow: hidden;
+}
+
+.result h3 {
+	float: left;
+	margin: 5px 0 0 5px;
+}
+
+.average {
+	position: relative;
+	float: left;
+	clear: both;
+	margin-top: 10px;
+	font-size: 72px;
+	line-height: 1em;
+	font-weight: 100;
+	text-rendering: optimizeLegibility;
+	color: #888;
+	z-index: 100;
+}
+
+.range {
+	position: relative;
+	float: left;
+	clear: both;
+	margin-left: 6px;
+	font-size: 18px;
+	line-height: 1em;
+	font-weight: 200;
+	color: #bbb;
+	z-index: 100;
+}
+
+.chart-image {
+	margin: 0 auto;
+	display: block;
+	position: absolute;
+	/*top: -67px;*/
+	top: -30px;
+	right: -60px;
+	z-index: -1;
+}
+
+input.input-xlarge {
+	height: 70px;
+	font-size: 34px;
+	line-height: 50px;
+	padding-left: 12px;
+	width: 98%;
+}
+
+input:-moz-placeholder{
+ 	color: rgba(0, 0, 0, 0.1);
+}
+
+input:-ms-input-placeholder{
+ 	color: rgba(0, 0, 0, 0.1);
+}
+
+input::-webkit-input-placeholder{
+	color: rgba(0, 0, 0, 0.1);
+}
+/* Large desktops are better than you */
+@media (min-width: 1200px) {
+	.average {
+		font-size: 72px;
+	}
+}
+
+/* Small desktops can go screw themselves */
+/* And by that I mean we'll make the fonts look nice */
+@media (min-width: 980px) and (max-width: 1199px) {
+	.average {
+		font-size: 60px;
+	}
+}
+
+/* Portrait tablet to landscape and desktop */
+/* The other terrible in-between size */
+@media (min-width: 768px) and (max-width: 979px) {
+	.chart-image {
+		/*max-width: 90%;*/
+		top: -5px;
+	}
+
+	.average {
+		font-size: 48px;
+	}
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+	input.input-xlarge {
+		width: 100%;
+	}
+}
+
+/* Landscape phones and down */
+@media (max-width: 560px) {
+	h1 {
+		font-size: 90px;
+	}
+	.result {
+		height: auto;
+	}
+	.chart-image {
+		position: relative;
+		float: left;
+		margin-top: -40px;
+		top: 0;
+		right: 0;
+		max-width: auto;
+	}
+}

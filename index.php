@@ -1,44 +1,74 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE HTML>
+<html lang="en">
 	<head>
-		<title>IsValid.org - Quantify the results of A/B tests</title>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-		<script src="assets/s.js?ver=20120707"></script>
-		<link rel="stylesheet" href="assets/s.css?ver=20120905">
+		<meta charset="utf-8">
+		<title>IsValid | Quantify the results of A/B tests</title>
 
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<script src="js/jquery-1.8.1.min.js"></script>
+		<script src="js/underscore.min.js"></script>
+		<script src="js/isvalid.js"></script>
+		<script src="js/handlebars.js"></script>
+		<script type="text/javascript" src="//use.typekit.net/ivm8epx.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/isvalid.css" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 	</head>
-	<body>
-		<div id="wrapper">
-			<div id="action">
-				<form name="complete">
-						<div>
-							<label for="con_con" id="con_con_label">Control Conversions</label>
-							<input type="text" name="con_con" id="con_con" autocomplete=off>
-						</div>
-						<div>
-							<label for="con_sam" id="con_sam_label">Control Samples</label>
-							<input type="text" name="con_sam" id="con_sam" autocomplete=off>
-						</div>
-						<div>
-							<label for="test_con" id="test_con_label">Test Conversions</label>
-							<input type="text" name="test_con" id="test_con" autocomplete=off>
-						</div>
-						<div>
-							<label for="test_sam" id="test_sam_label">Test Samples</label>
-							<input type="text" name="test_sam" id="test_sam" autocomplete=off>
-						</div>
-						<div class="tip">Results will automatically load</div>
-				</form>
-				<br>
-				<div id="api"><a href="https://github.com/evansolomon/IsValid.org/wiki/API">API Documentation</a></div>
-			</div>
-			<div id="results-wrapper">
-				<div class="column left">
+
+	<body class="permalink">
+		<script id="results-template" type="text/x-handlebars-template">
+			<div class="row">
+			{{#each results}}
+				<div class="result span6">
+					<h3>{{title}}</h3>
+					<div class="average">{{average}}%</div>
+					{{#if high}}
+						<div class="range">{{low}} – {{high}}</div>
+					{{/if}}
+					<img src="{{chart}}" class="chart-image" alt="{{average}}">
 				</div>
-				<div class="column right">
+			{{/each}}
+		</script>
+
+		<div class="container">
+			<!-- Header -->
+			<div class="header">
+				<h1>IsValid</h1>
+				<canvas id="conconjr" width="250" height="30">CON CON NEVER HAS BUGS. IT IS YOUR BROWSER THAT HAS BUGS.</canvas>
+				<hr />
+				<p>Quantify experiment results</p>
+			</div>
+
+			<form class="horizontal-form">
+			<div class="row">
+				<div class="span6">
+					<h2>Original</h2>
+					<div class="control-group">
+						<input class="input-xlarge" type="text" id="control-conversions" placeholder="Conversions">
+					</div>
+					<div class="control-group">
+						<input class="input-xlarge" type="text" id="control-samples" placeholder="Samples">
+					</div>
+				</div>
+				<div class="span6">
+					<h2>Experimental</h2>
+					<div class="control-group">
+						<input class="input-xlarge" type="text" id="experiment-conversions" placeholder="Conversions">
+					</div>
+					<div class="control-group">
+						<input class="input-xlarge" type="text" id="experiment-samples" placeholder="Samples">
+					</div>
 				</div>
 			</div>
-		</div>
-		<a href="https://github.com/evansolomon/IsValid.org"><img style="position: absolute; top: 0; right: 0; border: 0;" src="assets/fork-me.png" alt="Fork me on GitHub"></a>
+			</form>
+			<div class="row"><p class="home-tip">Results will automatically load when you fill in each item</p></div>
+			<div class="results"></div>
+		</div> <!-- /container -->
+
 	</body>
 </html>
