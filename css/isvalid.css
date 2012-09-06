@@ -170,7 +170,7 @@ input::-webkit-input-placeholder{
 /* Landscape phones and down */
 @media (max-width: 560px) {
 	h1 {
-		font-size: 90px;
+		font-size: 70px;
 	}
 	.result {
 		height: auto;
