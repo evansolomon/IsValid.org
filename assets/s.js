@@ -91,9 +91,25 @@ function updateCharts(stat_results) {
 	$(significance + improvement).appendTo(".column.right");
 }
 
+function cacheLastQuery(queryString) {
+	cacheLastQuery.cache = queryString;
+}
+
+function getLastQuery() {
+	if(typeof cacheLastQuery.cache == 'undefined')
+		return false;
+
+	return cacheLastQuery.cache;
+}
 
 function queryAPI(con_con, con_sam, test_con, test_sam) {
 	var queryString = getQueryString(con_con, con_sam, test_con, test_sam);
+
+	// Don't run the same query twice in a row
+	if(queryString == getLastQuery())
+		return false;
+
+	cacheLastQuery(queryString);
 
 	$.getJSON("api?" + queryString, function(stat_results){
 		$(".column").empty();
@@ -120,6 +136,19 @@ function getParameter(paramName) {
 	return null;
 }
 
+function isFormComplete() {
+	if(! $("input#con_con").val())
+		return false;
+	if(! $("input#con_sam").val())
+		return false;
+	if(! $("input#test_con").val())
+		return false;
+	if(! $("input#test_sam").val())
+		return false;
+
+	return true;
+}
+
 $(function() {
 	// Focus on the first input
 	$("form :input:visible:first").first().focus();
@@ -127,6 +156,10 @@ $(function() {
 	// Listen for form submit
 	$("form").on('submit', function(event){
 		event.preventDefault();
+
+		// Don't submit incomplete forms
+		if(! isFormComplete())
+			return false;
 
 		queryAPI(
 			$("input#con_con").val(),
@@ -150,4 +183,13 @@ $(function() {
 			getParameter("se")
 		);
 	}
+
+	// Auto-submit the form
+	var keyup_timer;
+	$("form input[type=text]").keyup(function(){
+		clearTimeout(keyup_timer);
+		keyup_timer = setTimeout(function(){
+			$('form').submit();
+		}, 800);
+	});
 });
