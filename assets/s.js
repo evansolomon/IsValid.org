@@ -43,6 +43,10 @@ function displayPermalink(con_con, con_sam, test_con, test_sam, fx) {
 	});
 }
 
+function isPermalinkPage() {
+	return getParameter("permalink") == "true";
+}
+
 function updateCharts(stat_results) {
 	// Insert confidence charts
 	var control_confidence = "<div class='chart confidence'><img src='"+
@@ -128,7 +132,7 @@ $(function() {
 	});
 
 	// Auto-load results on permalink pages
-	if(getParameter("permalink") == "true"){
+	if(isPermalinkPage()){
 		$("input#con_con").val(getParameter("cc"));
 		$("input#con_sam").val(getParameter("sc"));
 		$("input#test_con").val(getParameter("ce"));
