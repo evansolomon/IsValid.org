@@ -27,9 +27,7 @@
 							<label for="test_sam" id="test_sam_label">Test Samples</label>
 							<input type="text" name="test_sam" id="test_sam" autocomplete=off>
 						</div>
-						<div>
-							<input type="submit" value="Submit" class="button" id="submit_btn" />
-						</div>
+						<div class="tip">Results will automatically load</div>
 				</form>
 				<br>
 				<div id="api"><a href="https://github.com/evansolomon/IsValid.org/wiki/API">API Documentation</a></div>
