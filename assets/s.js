@@ -17,13 +17,14 @@ function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
 
 		//add text input with query args, then autofocus it
 		var permalinkString = dataString.replace("conversions_control","cc").replace("samples_control","sc").replace("conversions_experiment","ce").replace("samples_experiment","se").replace("function","fx");
+
 		$('<input class="permalink" value="http://'+location.host+location.pathname+'?'+permalinkString+'&permalink=true" type="text">').prependTo("#action").focus();
-			$("input[type=text].permalink").focus(function(){
-				$(this).select();
-			})
-			.mouseup(function(e){
-				e.preventDefault();
-			});
+
+		$("input[type=text].permalink").focus(function(){
+			$(this).select();
+		}).mouseup(function(e){
+			e.preventDefault();
+		});
 
 		//insert confidence charts
 		var control_confidence = "<div class='chart confidence'><img src='"+stat_results.confidence.chart.control+"' class='chart-image' /><div class='num'>"+roundNumber(stat_results.confidence.results.control.low * 100,1)+" - "+roundNumber(stat_results.confidence.results.control.high * 100,1)+"%</div><div class='cat'>Control performance</div></div>";
