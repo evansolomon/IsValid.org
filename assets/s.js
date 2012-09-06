@@ -25,6 +25,20 @@ function displayPermalink(con_con, con_sam, test_con, test_sam, fx) {
 	});
 }
 
+function updateCharts(stat_results) {
+	//insert confidence charts
+	var control_confidence = "<div class='chart confidence'><img src='"+stat_results.confidence.chart.control+"' class='chart-image' /><div class='num'>"+roundNumber(stat_results.confidence.results.control.low * 100,1)+" - "+roundNumber(stat_results.confidence.results.control.high * 100,1)+"%</div><div class='cat'>Control performance</div></div>";
+	var experiment_confidence = "<div class='chart confidence'><img src='"+stat_results.confidence.chart.experiment+"' class='chart-image' /><div class='num'>"+roundNumber(stat_results.confidence.results.experiment.low * 100,1)+" - "+roundNumber(stat_results.confidence.results.experiment.high * 100,1)+"%</div><div class='cat'>Test performance</div></div>";
+
+	$(control_confidence + experiment_confidence).appendTo(".column.left");
+
+	//insert significance and improvement charts
+	var significance = "<div class='chart significance'><img src='"+stat_results.significance.chart+"' class='chart-image' /><div class='num'>"+roundNumber(stat_results.significance.results.experiment * 100,1)+"%</div><div class='cat'>Chance of outperformance</div></div>";
+	var improvement = "<div class='chart improvement'><img src='"+stat_results.improvement.chart+"' class='chart-image' /><div class='num'>"+roundNumber(stat_results.improvement.results.low * 100,1)+" - "+roundNumber(stat_results.improvement.results.high * 100,1)+"%</div><div class='cat'>Likely improvement</div></div>";
+
+	$(significance + improvement).appendTo(".column.right");
+}
+
 
 function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
 	var queryString = getQueryString(con_con, con_sam, test_con, test_sam, fx);
@@ -37,19 +51,9 @@ function queryAPI(con_con, con_sam, test_con, test_sam, fx) {
 		if(stat_results.error)
 			return false;
 
+		updateCharts(stat_results);
 		displayPermalink(con_con, con_sam, test_con, test_sam, fx);
 
-		//insert confidence charts
-		var control_confidence = "<div class='chart confidence'><img src='"+stat_results.confidence.chart.control+"' class='chart-image' /><div class='num'>"+roundNumber(stat_results.confidence.results.control.low * 100,1)+" - "+roundNumber(stat_results.confidence.results.control.high * 100,1)+"%</div><div class='cat'>Control performance</div></div>";
-		var experiment_confidence = "<div class='chart confidence'><img src='"+stat_results.confidence.chart.experiment+"' class='chart-image' /><div class='num'>"+roundNumber(stat_results.confidence.results.experiment.low * 100,1)+" - "+roundNumber(stat_results.confidence.results.experiment.high * 100,1)+"%</div><div class='cat'>Test performance</div></div>";
-
-		$(control_confidence + experiment_confidence).appendTo(".column.left");
-
-		//insert significance and improvement charts
-		var significance = "<div class='chart significance'><img src='"+stat_results.significance.chart+"' class='chart-image' /><div class='num'>"+roundNumber(stat_results.significance.results.experiment * 100,1)+"%</div><div class='cat'>Chance of outperformance</div></div>";
-		var improvement = "<div class='chart improvement'><img src='"+stat_results.improvement.chart+"' class='chart-image' /><div class='num'>"+roundNumber(stat_results.improvement.results.low * 100,1)+" - "+roundNumber(stat_results.improvement.results.high * 100,1)+"%</div><div class='cat'>Likely improvement</div></div>";
-
-		$(significance + improvement).appendTo(".column.right");
 	});
 
 	return false;
