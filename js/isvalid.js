@@ -235,6 +235,8 @@ function getResults( query ) {
 		return false;
 
 	return queryAPI( query ).done(function(stat_results) {
+		$('.alert').hide();
+
 		// Check for errors
 		if(stat_results.error)
 			return renderError( stat_results.error );

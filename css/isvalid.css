@@ -55,17 +55,6 @@ body.permalink .header p {
 	margin-top: 20px;
 }
 
-body.permalink p.home-tip {
-	display: none;
-}
-
-body.home p.home-tip {
-	margin-top: -10px;
-	font-style: italic;
-	color: #aaa;
-	text-align: center;
-}
-
 .header hr {
 	border: none;
 	height: 1px;
