@@ -13,7 +13,7 @@ html {
 
 .footer {
 	font-family: "domus-titling-web",'Helvetica Neue', sans-serif;
-	/*text-align: center;*/
+	text-align: center;
 	height: 38px;
 	margin-top: -38px;
 	padding: 0px 25px 0px 25px;
