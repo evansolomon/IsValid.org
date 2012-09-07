@@ -33,6 +33,11 @@ h1 {
 	margin-bottom: -25px;
 }
 
+body.embed form,
+body.embed h1 {
+	display: none;
+}
+
 .header {
 	font-family: "domus-titling-web",'Helvetica Neue', sans-serif;
 	font-size: 18px;

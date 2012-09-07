@@ -18,6 +18,9 @@ var conconjr;
 	})();
 
 	conconjr = function() {
+		if ( ! $('.header').is(':visible') )
+			return;
+
 		init();
 		animate();
 	};
@@ -209,7 +212,7 @@ function getResults( query ) {
 
 		// Change the URL
 		var search = '?' + $.param( getPermalinkQuery( query ) );
-		if ( $.support.history && search !== window.location.search )
+		if ( $.support.history && search !== window.location.search && $('.header').is(':visible') )
 			history.pushState( query, '', search );
 
 		$('.results').empty();

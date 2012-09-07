@@ -1,0 +1,26 @@
+@media (max-width: 767px) {
+	.chart-image {
+		margin: 0 auto;
+		display: block;
+		position: absolute;
+		/*top: -67px;*/
+		top: -10px;
+		right: 80px;
+		z-index: -1;
+		max-width: 60%;
+	}
+
+	.result {
+		height: 210px;
+	}
+}
+
+@media (max-width: 560px) {
+	.result {
+		height: auto;
+	}
+
+	.chart-image {
+		right: 0;
+	}
+}
