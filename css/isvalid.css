@@ -1,11 +1,17 @@
+body,
+html {
+	height: 100%;
+}
+
 .container {
-	padding-bottom: 80px;
+	min-height: 100%;
 }
 
 .footer {
 	font-family: "domus-titling-web",'Helvetica Neue', sans-serif;
 	text-align: center;
-	padding-bottom: 20px;
+	height: 40px;
+	margin-top: -40px;
 }
 
 h1 {
@@ -80,6 +86,10 @@ body.home p.home-tip {
 	height: 0;
 	padding: 0;
 	margin: 0;
+}
+
+.results {
+	margin-bottom: 40px;
 }
 
 .result {
