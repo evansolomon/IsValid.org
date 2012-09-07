@@ -168,6 +168,13 @@ function isPermalinkPage() {
 	return true;
 }
 
+function renderError( error ) {
+	var source   = $('#results-template').html();
+	var template = Handlebars.compile(source);
+	var html     = template({ error: error });
+	$('.results').html(html);
+}
+
 function renderResults( stat_results, query ) {
 	var results = [],
 		percentagize,
@@ -230,7 +237,7 @@ function getResults( query ) {
 	return queryAPI( query ).done(function(stat_results) {
 		// Check for errors
 		if(stat_results.error)
-			return false;
+			return renderError( stat_results.error );
 
 		// Change the URL
 		var search = '?' + $.param( getPermalinkQuery( query ) );
