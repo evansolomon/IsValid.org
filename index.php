@@ -69,6 +69,9 @@
 			<div class="row"><p class="home-tip">Results will automatically load when you fill in each item</p></div>
 			<div class="results"></div>
 		</div> <!-- /container -->
+		<footer>
+			<a href="https://github.com/evansolomon/IsValid.org">Source code</a> and <a href="https://github.com/evansolomon/IsValid.org/wiki/API">API documentation</a> on Github
+		</footer>
 
 	</body>
 </html>

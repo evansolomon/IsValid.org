@@ -1,3 +1,13 @@
+.container {
+	padding-bottom: 80px;
+}
+
+footer {
+	font-family: "domus-titling-web",'Helvetica Neue', sans-serif;
+	text-align: center;
+	padding-bottom: 20px;
+}
+
 h1 {
 	height: 110px;
 	opacity: 1;
@@ -19,7 +29,7 @@ h1 {
 	transition-duration: 600ms;
 	font-size: 120px;
 	margin: 0;
-	padding-top: 60px;
+	padding-top: 30px;
 	margin-bottom: -25px;
 }
 
