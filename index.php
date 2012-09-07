@@ -47,21 +47,21 @@
 			<form class="horizontal-form">
 			<div class="row">
 				<div class="span6">
-					<h2>Original</h2>
+					<h2>Samples</h2>
 					<div class="control-group">
-						<input class="input-xlarge" type="text" id="control-conversions" placeholder="Conversions">
+						<input class="input-xlarge" type="text" id="control-samples" placeholder="Original">
 					</div>
 					<div class="control-group">
-						<input class="input-xlarge" type="text" id="control-samples" placeholder="Samples">
+						<input class="input-xlarge" type="text" id="experiment-samples" placeholder="Experiment">
 					</div>
 				</div>
 				<div class="span6">
-					<h2>Experimental</h2>
+					<h2>Conversions</h2>
 					<div class="control-group">
-						<input class="input-xlarge" type="text" id="experiment-conversions" placeholder="Conversions">
+						<input class="input-xlarge" type="text" id="control-conversions" placeholder="Original">
 					</div>
 					<div class="control-group">
-						<input class="input-xlarge" type="text" id="experiment-samples" placeholder="Samples">
+						<input class="input-xlarge" type="text" id="experiment-conversions" placeholder="Experiment">
 					</div>
 				</div>
 			</div>
