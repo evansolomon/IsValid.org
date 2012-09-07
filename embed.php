@@ -29,8 +29,8 @@
 					<h3>{{title}}</h3>
 					<div class="average">{{average}}%</div>
 					{{#if inputs}}
-						<div class="query-input">{{inputs.conversions}} conversions</div>
-						<div class="query-input">{{inputs.samples}} samples</div>
+						<div class="query-input">{{inputs.conversions}} / {{inputs.samples}}</div>
+						<div class="query-input"></div>
 					{{/if}}
 					<img src="{{chart}}" class="chart-image" alt="{{average}}">
 				</div>

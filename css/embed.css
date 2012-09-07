@@ -4,6 +4,11 @@
 	text-decoration: underline;
 	overflow: hidden;
 }
+@media (min-width: 768px) and (max-width: 979px) {
+	.query-input {
+		font-size: 14px;
+	}
+}
 
 @media (max-width: 767px) {
 	.chart-image {
