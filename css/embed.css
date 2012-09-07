@@ -31,3 +31,11 @@
 		right: 0;
 	}
 }
+
+@media (max-width: 440px) {
+	.chart-image {
+		right: 0;
+		max-width: 50%;
+		top: 30px;
+	}
+}
