@@ -25,7 +25,7 @@ server {
     }
 
     # Allow directory index files
-    index index.php;
+    index index.html index.php;
 
     # Try files
     try_files $uri $uri/ @rewrites;

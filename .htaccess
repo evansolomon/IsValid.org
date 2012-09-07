@@ -1,7 +1,7 @@
 
 Options All -Indexes
 
-DirectoryIndex index.php
+DirectoryIndex index.html index.php
 SetEnv TZ America/Los_Angeles
 
 RewriteEngine On
