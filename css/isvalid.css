@@ -107,6 +107,7 @@ body.home p.home-tip {
 	z-index: 100;
 }
 
+.query-input,
 .range {
 	position: relative;
 	float: left;

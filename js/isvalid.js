@@ -1,5 +1,17 @@
 $.support.history = !! ( window.history && history.pushState );
 
+Number.prototype.approximate = function () {
+	if (this < 1000)
+		return this;
+
+	var thousands = Math.round(this / 100) / 10;
+	if ( thousands < 1000 )
+		return thousands.toString() + 'K';
+
+	var millions = Math.round(thousands / 100) / 10;
+	return millions.toString() + 'M';
+};
+
 // The most important function.
 // Con Con never has bugs.
 var conconjr;
@@ -58,8 +70,8 @@ var conconjr;
 	}
 
 	function animate() {
-	    requestAnimFrame( animate );
-	    draw();
+		requestAnimFrame( animate );
+		draw();
 	}
 
 	function easeInOutQuad( time, start, change, steps ) {
@@ -174,13 +186,21 @@ function renderResults( stat_results, query ) {
 	// Control
 	results.push( $.extend({
 		title: 'Original',
-		chart: stat_results.confidence.chart.control
+		chart: stat_results.confidence.chart.control,
+		inputs: {
+			conversions: parseInt( query.conversions_control,10 ).approximate(),
+			samples: parseInt( query.samples_control, 10 ).approximate()
+		}
 	}, percentagize( stat_results.confidence.results.control ) ) );
 
 	// Experiment
 	results.push( $.extend({
 		title: 'Experiment',
-		chart: stat_results.confidence.chart.experiment
+		chart: stat_results.confidence.chart.experiment,
+		inputs: {
+			conversions: parseInt( query.conversions_experiment, 10 ).approximate(),
+			samples: parseInt( query.samples_experiment, 10 ).approximate()
+		}
 	}, percentagize( stat_results.confidence.results.experiment ) ) );
 
 	// Significance

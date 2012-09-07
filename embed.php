@@ -33,8 +33,9 @@
 				<div class="result span6">
 					<h3>{{title}}</h3>
 					<div class="average">{{average}}%</div>
-					{{#if high}}
-						<div class="range">{{low}} – {{high}}</div>
+					{{#if inputs}}
+						<div class="query-input">{{inputs.conversions}} conversions</div>
+						<div class="query-input">{{inputs.samples}} samples</div>
 					{{/if}}
 					<img src="{{chart}}" class="chart-image" alt="{{average}}">
 				</div>
