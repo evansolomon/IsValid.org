@@ -34,7 +34,7 @@
 
 @media (max-width: 440px) {
 	.chart-image {
-		right: 0;
+		right: -20px;
 		max-width: 50%;
 		top: 30px;
 	}
