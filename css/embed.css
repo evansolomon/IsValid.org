@@ -1,3 +1,10 @@
+.permalink {
+	margin-top: 5px;
+	margin-bottom: 10px;
+	font-family: "domus-titling-web",'Helvetica Neue', sans-serif;
+	text-decoration: underline;
+}
+
 @media (max-width: 767px) {
 	.chart-image {
 		margin: 0 auto;

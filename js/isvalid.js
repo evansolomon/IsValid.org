@@ -161,6 +161,8 @@ function renderResults( stat_results, query ) {
 		percentagize,
 		permalink;
 
+	permalink = 'http://' + window.location.host + '?' + $.param( getPermalinkQuery( query ) );
+
 	percentagize = function( numbers ) {
 		var percents = {};
 		$.each( numbers, function( key, value ) {
@@ -195,7 +197,7 @@ function renderResults( stat_results, query ) {
 
 	var source   = $('#results-template').html();
 	var template = Handlebars.compile(source);
-	var html     = template({ results: results });
+	var html     = template({ results: results, permalink: permalink });
 	$('.results').html(html);
 
 }
