@@ -230,7 +230,9 @@ function renderResults( stat_results, query ) {
 
 function printResult( html, options ) {
 	options = options || {};
-	$('.results').fadeOut().hide().delay(200).html(html).fadeIn(options.speed);
+	$('.results').fadeOut(200, function(){
+		$(this).hide().delay(300).html(html).fadeIn(options.speed);
+	});
 }
 
 function getResults( query, options ) {
