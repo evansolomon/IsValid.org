@@ -172,7 +172,7 @@ function renderError( error ) {
 	var source   = $('#results-template').html();
 	var template = Handlebars.compile(source);
 	var html     = template({ error: error });
-	$('.results').html(html);
+	printResult( html );
 }
 
 function renderResults( stat_results, query ) {
@@ -225,8 +225,12 @@ function renderResults( stat_results, query ) {
 	var source   = $('#results-template').html();
 	var template = Handlebars.compile(source);
 	var html     = template({ results: results, permalink: permalink });
-	$('.results').html(html);
+	printResult( html );
+}
 
+function printResult( html, options ) {
+	options = options || {};
+	$('.results').fadeOut().hide().delay(200).html(html).fadeIn(options.speed);
 }
 
 function getResults( query, options ) {
@@ -335,6 +339,7 @@ $(function() {
 	}
 	else {
 		$('body').removeClass('permalink').addClass('home');
+		$('.alert-info').delay(1400).fadeIn('slow');
 	}
 
 	// Auto-submit the form
