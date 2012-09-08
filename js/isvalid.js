@@ -234,10 +234,16 @@ function printResult( html, options ) {
 }
 
 function getResults( query, options ) {
+	var lastQuery = window.location.search;
 	options = options || {};
 
+	// Change the URL
+	var search = '?' + $.param( getPermalinkQuery( query ) );
+	if ( $.support.history && search !== window.location.search && $('.header').is(':visible') )
+		history.pushState( query, '', search );
+
 	// Don't run the same query twice in a row
-	if ( ! options.force && '?' + $.param( getPermalinkQuery( query ) ) === window.location.search )
+	if ( ! options.force && lastQuery === '?' + $.param( getPermalinkQuery( query ) ) )
 		return false;
 
 	return queryAPI( query ).done(function(stat_results) {
@@ -246,11 +252,6 @@ function getResults( query, options ) {
 		// Check for errors
 		if(stat_results.error)
 			return renderError( stat_results.error );
-
-		// Change the URL
-		var search = '?' + $.param( getPermalinkQuery( query ) );
-		if ( $.support.history && search !== window.location.search && $('.header').is(':visible') )
-			history.pushState( query, '', search );
 
 		$('body').removeClass('home').addClass('permalink');
 		renderResults( stat_results, query );
