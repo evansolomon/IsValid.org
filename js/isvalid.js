@@ -1,14 +1,14 @@
 $.support.history = !! ( window.history && history.pushState );
 
 Number.prototype.approximate = function () {
-	if (this < 1000)
+	if ( this < 1000 )
 		return this;
 
-	var thousands = Math.round(this / 100) / 10;
+	var thousands = Math.round( this / 100 ) / 10;
 	if ( thousands < 1000 )
 		return thousands.toString() + 'K';
 
-	var millions = Math.round(thousands / 100) / 10;
+	var millions = Math.round( thousands / 100 ) / 10;
 	return millions.toString() + 'M';
 };
 
@@ -19,14 +19,14 @@ var conconjr;
 	var canvas, context, clear, lines = [];
 
 	requestAnimFrame = (function(){
-		return  window.requestAnimationFrame       ||
-				window.webkitRequestAnimationFrame ||
-				window.mozRequestAnimationFrame    ||
-				window.oRequestAnimationFrame      ||
-				window.msRequestAnimationFrame     ||
-				function(/* function */ callback, /* DOMElement */ element){
-					window.setTimeout(callback, 1000 / 60);
-				};
+		return  window.requestAnimationFrame ||
+			window.webkitRequestAnimationFrame ||
+			window.mozRequestAnimationFrame    ||
+			window.oRequestAnimationFrame      ||
+			window.msRequestAnimationFrame     ||
+			function(/* function */ callback, /* DOMElement */ element){
+				window.setTimeout(callback, 1000 / 60);
+			};
 	})();
 
 	conconjr = function() {
@@ -51,9 +51,9 @@ var conconjr;
 		context.scale( 1, -1 );
 
 		// Create the lines.
-		var peak  = 30, // height
-			count = 50, // number of lines
-			index = count;
+		var peak = 30, // height
+			count  = 50, // number of lines
+			index  = count;
 
 		while ( index-- ) {
 			var mean = count / 2;
@@ -99,7 +99,7 @@ var conconjr;
 			maxSteps: 45
 		});
 
-		_.extend( this, options );
+	_.extend( this, options );
 		this.reset();
 	};
 
@@ -156,13 +156,13 @@ function getPermalinkQuery( query ) {
 }
 
 function isPermalinkPage() {
-	if(! getParameter("cc"))
+	if ( ! getParameter("cc") )
 		return false;
-	if(! getParameter("sc"))
+	if ( ! getParameter("sc") )
 		return false;
-	if(! getParameter("ce"))
+	if ( ! getParameter("ce") )
 		return false;
-	if(! getParameter("se"))
+	if ( ! getParameter("se") )
 		return false;
 
 	return true;
@@ -180,8 +180,6 @@ function renderResults( stat_results, query ) {
 		percentagize,
 		permalink;
 
-	permalink = 'http://' + window.location.host + '?' + $.param( getPermalinkQuery( query ) );
-
 	percentagize = function( numbers ) {
 		var percents = {};
 		$.each( numbers, function( key, value ) {
@@ -189,6 +187,8 @@ function renderResults( stat_results, query ) {
 		});
 		return percents;
 	};
+
+	permalink = 'http://' + window.location.host + '?' + $.param( getPermalinkQuery( query ) );
 
 	// Control
 	results.push( $.extend({
@@ -230,72 +230,71 @@ function renderResults( stat_results, query ) {
 
 function printResult( html, options ) {
 	options = options || {};
-	$('.results').fadeOut(200, function(){
-		$(this).hide().delay(300).html(html).fadeIn(options.speed);
+	$('.results').fadeOut( 200, function() {
+		$(this).hide().delay( 300 ).html( html ).fadeIn( options.speed );
 	});
 }
 
 function getResults( query, options ) {
 	var lastQuery, newQuery;
-	lastQuery = window.location.search;
-	newQuery =  '?' + $.param( getPermalinkQuery( query ) );
 
-	options = options || {};
+	lastQuery = window.location.search;
+	newQuery  = '?' + $.param( getPermalinkQuery( query ) );
+	options   = options || {};
 
 	// Change the URL
-	var search = newQuery;
-	if ( $.support.history && search !== window.location.search && $('.header').is(':visible') )
-		history.pushState( query, '', search );
+	if ( $.support.history && newQuery !== window.location.search && $('.header').is(':visible') )
+		history.pushState( query, '', newQuery );
 
 	// Don't run the same query twice in a row
 	if ( ! options.force && lastQuery === newQuery )
 		return false;
 
-	return queryAPI( query ).done(function(stat_results) {
+	return queryAPI( query ).done( function( stat_results ) {
 		$('.alert').fadeOut();
 
 		// Check for errors
 		if(stat_results.error)
 			return renderError( stat_results.error );
 
-		$('body').removeClass('home').addClass('permalink');
+		$('body').removeClass( 'home' ).addClass( 'permalink' );
 		renderResults( stat_results, query );
 	});
 }
 
 function syncFormWithPermalink() {
-	$("input#control-conversions").val( getParameter("cc") );
-	$("input#control-samples").val( getParameter("sc") );
-	$("input#experiment-conversions").val( getParameter("ce") );
-	$("input#experiment-samples").val( getParameter("se") );
+	$("input#control-conversions").val( getParameter( 'cc' ) );
+	$("input#control-samples").val( getParameter( 'sc' ) );
+	$("input#experiment-conversions").val( getParameter( 'ce' ) );
+	$("input#experiment-samples").val( getParameter( 'se' ) );
 }
 
 function queryAPI( query ) {
 	var queryString = $.param( query );
-	return $.getJSON("api?" + queryString);
+	return $.getJSON( 'api?' + queryString );
 }
 
 function getParameter(paramName) {
-	var searchString = window.location.search.substring(1),
-		i, val, params = searchString.split("&");
+	var searchString = window.location.search.substring( 1 ),
+		i, val, params = searchString.split( '&' );
 
-	for (i=0;i<params.length;i++) {
-		val = params[i].split("=");
+	for ( i=0; i < params.length; i++ ) {
+		val = params[ i ].split( '=' );
 
-		if (val[0] == paramName)
-			return unescape(val[1]);
+		if ( val[ 0 ] == paramName )
+			return unescape( val[ 1 ] );
 	}
 	return null;
 }
 
 function isFormComplete() {
-	if(! $("input#control-conversions").val())
+	if ( ! $('input#control-conversions').val() )
 		return false;
-	if(! $("input#control-samples").val())
+	if ( ! $('input#control-samples').val() )
 		return false;
-	if(! $("input#experiment-conversions").val())
+	if ( ! $('input#experiment-conversions').val() )
 		return false;
-	if(! $("input#experiment-samples").val())
+	if ( ! $('input#experiment-samples').val() )
 		return false;
 
 	return true;
@@ -317,7 +316,7 @@ $(function() {
 	$("form :input:visible:first").focus();
 
 	// Listen for form submit
-	$("form").on('submit', function(event){
+	$("form").on('submit', function( event ) {
 		event.preventDefault();
 
 		// Don't submit incomplete forms
@@ -325,10 +324,10 @@ $(function() {
 			return false;
 
 		getResults({
-			conversions_control:    $("input#control-conversions").val(),    // con con
-			samples_control:        $("input#control-samples").val(),        // con sam
-			conversions_experiment: $("input#experiment-conversions").val(), // test con
-			samples_experiment:     $("input#experiment-samples").val()      // test sam
+			conversions_control:    $('input#control-conversions').val(),    // con con
+			samples_control:        $('input#control-samples').val(),        // con sam
+			conversions_experiment: $('input#experiment-conversions').val(), // test con
+			samples_experiment:     $('input#experiment-samples').val()      // test sam
 		});
 	});
 
@@ -337,24 +336,24 @@ $(function() {
 		syncFormWithPermalink();
 
 		getResults({
-			conversions_control:    getParameter("cc"), // con con
-			samples_control:        getParameter("sc"), // con sam
-			conversions_experiment: getParameter("ce"), // test con
-			samples_experiment:     getParameter("se")  // test sam
+			conversions_control:    getParameter( 'cc' ), // con con
+			samples_control:        getParameter( 'sc' ), // con sam
+			conversions_experiment: getParameter( 'ce' ), // test con
+			samples_experiment:     getParameter( 'se' )  // test sam
 		}, { force: true });
 	}
 	else {
-		$('body').removeClass('permalink').addClass('home');
-		$('.alert-info').delay(1400).fadeIn('slow');
+		$('body').removeClass( 'permalink' ).addClass( 'home' );
+		$('.alert-info').delay( 1400 ).fadeIn( 'slow' );
 	}
 
 	// Auto-submit the form
 	var keyup_timer;
-	$("form input[type=text]").keyup(function(){
-		clearTimeout(keyup_timer);
-		keyup_timer = setTimeout(function(){
+	$( 'form input[type=text]' ).keyup( function() {
+		clearTimeout( keyup_timer );
+		keyup_timer = setTimeout( function() {
 			$('form').submit();
-		}, 800);
+		}, 800 );
 	});
 
 	conconjr();
