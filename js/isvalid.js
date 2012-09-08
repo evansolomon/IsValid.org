@@ -234,16 +234,19 @@ function printResult( html, options ) {
 }
 
 function getResults( query, options ) {
-	var lastQuery = window.location.search;
+	var lastQuery, newQuery;
+	lastQuery = window.location.search;
+	newQuery =  '?' + $.param( getPermalinkQuery( query ) );
+
 	options = options || {};
 
 	// Change the URL
-	var search = '?' + $.param( getPermalinkQuery( query ) );
+	var search = newQuery;
 	if ( $.support.history && search !== window.location.search && $('.header').is(':visible') )
 		history.pushState( query, '', search );
 
 	// Don't run the same query twice in a row
-	if ( ! options.force && lastQuery === '?' + $.param( getPermalinkQuery( query ) ) )
+	if ( ! options.force && lastQuery === newQuery )
 		return false;
 
 	return queryAPI( query ).done(function(stat_results) {
