@@ -53,7 +53,7 @@ body.embed h1 {
 	font-family: "domus-titling-web",'Helvetica Neue', sans-serif;
 	font-size: 18px;
 	text-align: center;
-	padding-bottom: 30px;
+	padding-bottom: 10px;
 }
 
 body.permalink .header p {
@@ -88,7 +88,7 @@ body.permalink .header p {
 
 .result {
 	position: relative;
-	height: 300px;
+	height: 260px;
 	overflow: hidden;
 	font-family: 'Helvetica Neue', sans-serif;
 }
@@ -135,9 +135,9 @@ body.permalink .header p {
 }
 
 input.input-xlarge {
-	height: 70px;
+	height: 50px;
 	font-size: 34px;
-	line-height: 50px;
+	line-height: 45px;
 	padding-left: 12px;
 	width: 98%;
 }
