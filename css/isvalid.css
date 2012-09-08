@@ -7,8 +7,9 @@ html {
 	min-height: 100%;
 }
 
-.alert.alert-info {
+.alert {
 	padding: 8px 25px 8px 25px;
+	text-align: center;
 }
 
 .footer {
