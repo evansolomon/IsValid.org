@@ -229,9 +229,11 @@ function renderResults( stat_results, query ) {
 
 }
 
-function getResults( query ) {
+function getResults( query, options ) {
+	options = options || {};
+
 	// Don't run the same query twice in a row
-	if ( '?' + $.param( query ) === window.location.search )
+	if ( ! options.force && '?' + $.param( getPermalinkQuery( query ) ) === window.location.search )
 		return false;
 
 	return queryAPI( query ).done(function(stat_results) {
@@ -330,7 +332,7 @@ $(function() {
 			samples_control:        getParameter("sc"), // con sam
 			conversions_experiment: getParameter("ce"), // test con
 			samples_experiment:     getParameter("se")  // test sam
-		});
+		}, { force: true });
 	}
 	else {
 		$('body').removeClass('permalink').addClass('home');
