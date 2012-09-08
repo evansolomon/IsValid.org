@@ -169,7 +169,7 @@ function isPermalinkPage() {
 }
 
 function renderError( error ) {
-	var source   = $('#results-template').html();
+	var source   = $('#error-template').html();
 	var template = Handlebars.compile(source);
 	var html     = template({ error: error });
 	printResult( html );
