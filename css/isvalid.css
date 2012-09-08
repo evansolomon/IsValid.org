@@ -52,13 +52,29 @@ body.embed h1 {
 }
 
 .permalink form {
-	opacity: 0.6
+	opacity: 0.6;
 }
 
 .permalink input.input-xlarge {
-	height: 40px;
-	font-size: 30px;
-	line-height: 30px;
+	height: 30px;
+	font-size: 24px;
+	line-height: 24px;
+
+	-webkit-transition-property: height, font-size;
+	-moz-transition-property: height, font-size;
+	-ms-transition-property: height, font-size;
+	-o-transition-property: height, font-size;
+	transition-property: height, font-size;
+	-webkit-transition-delay: 300ms;
+	-moz-transition-delay: 300ms;
+	-ms-transition-delay: 300ms;
+	-o-transition-delay: 300ms;
+	transition-delay: 300ms;
+	-webkit-transition-duration: 700ms;
+	-moz-transition-duration: 700ms;
+	-ms-transition-duration: 700ms;
+	-o-transition-duration: 700ms;
+	transition-duration: 700ms;
 }
 
 .header {
