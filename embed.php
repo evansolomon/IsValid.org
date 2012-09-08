@@ -22,8 +22,7 @@
 		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
 		<!-- Bootstrap -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="css/bootstrap-compiled.min.css" rel="stylesheet">
 
 		<link href="css/isvalid.css" rel="stylesheet">
 		<link href="css/embed.css" rel="stylesheet">
