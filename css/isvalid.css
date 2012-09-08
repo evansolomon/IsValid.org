@@ -50,6 +50,16 @@ body.embed h1 {
 	display: none;
 }
 
+.permalink form {
+	opacity: 0.6
+}
+
+.permalink input.input-xlarge {
+	height: 40px;
+	font-size: 30px;
+	line-height: 30px;
+}
+
 .header {
 	font-family: "domus-titling-web",'Helvetica Neue', sans-serif;
 	font-size: 18px;
