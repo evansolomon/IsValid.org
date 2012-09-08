@@ -241,7 +241,7 @@ function getResults( query, options ) {
 		return false;
 
 	return queryAPI( query ).done(function(stat_results) {
-		$('.alert').hide();
+		$('.alert').fadeOut();
 
 		// Check for errors
 		if(stat_results.error)
