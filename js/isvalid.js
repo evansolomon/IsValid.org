@@ -186,9 +186,14 @@ function renderResults( stat_results, query ) {
 		permalink;
 
 	percentagize = function( numbers ) {
-		var percents = {};
+		var percents = {},
+			decimals;
 		$.each( numbers, function( key, value ) {
-			percents[ key ] = roundNumber( 100 * value, 1 );
+			value = 100 * value;
+
+			// Percents over 1000 don't need decimals
+			decimals = ( value >= 1000 ) ? 0 : 1;
+			percents[ key ] = roundNumber( value, decimals );
 		});
 		return percents;
 	};
