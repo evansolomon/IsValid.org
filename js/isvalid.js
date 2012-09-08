@@ -248,7 +248,6 @@ function getResults( query, options ) {
 		if ( $.support.history && search !== window.location.search && $('.header').is(':visible') )
 			history.pushState( query, '', search );
 
-		$('.results').empty();
 		$('body').removeClass('home').addClass('permalink');
 		renderResults( stat_results, query );
 	});
