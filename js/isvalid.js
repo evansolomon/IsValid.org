@@ -168,10 +168,15 @@ function isPermalinkPage() {
 	return true;
 }
 
+function getTemplateOutput( template, input ) {
+	var source   = template.html();
+	var compiled = Handlebars.compile( source );
+
+	return compiled( input );
+}
+
 function renderError( error ) {
-	var source   = $('#error-template').html();
-	var template = Handlebars.compile(source);
-	var html     = template({ error: error });
+	var html = getTemplateOutput( $('#error-template'), { error: error } );
 	printResult( html );
 }
 
@@ -222,9 +227,7 @@ function renderResults( stat_results, query ) {
 		chart: stat_results.improvement.chart
 	}, percentagize( stat_results.improvement.results ) ) );
 
-	var source   = $('#results-template').html();
-	var template = Handlebars.compile(source);
-	var html     = template({ results: results, permalink: permalink });
+	var html = getTemplateOutput( $('#results-template'), { results: results, permalink: permalink } );
 	printResult( html );
 }
 
