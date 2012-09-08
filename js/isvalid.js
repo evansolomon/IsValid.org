@@ -19,7 +19,7 @@ var conconjr;
 	var canvas, context, clear, lines = [];
 
 	requestAnimFrame = (function(){
-		return  window.requestAnimationFrame ||
+		return window.requestAnimationFrame  ||
 			window.webkitRequestAnimationFrame ||
 			window.mozRequestAnimationFrame    ||
 			window.oRequestAnimationFrame      ||
@@ -78,6 +78,7 @@ var conconjr;
 		time /= steps / 2;
 		if ( time < 1 )
 			return change / 2 * time * time + start;
+
 		time--;
 		return -change / 2 * ( time * ( time - 2 ) - 1 ) + start;
 	}
@@ -156,13 +157,13 @@ function getPermalinkQuery( query ) {
 }
 
 function isPermalinkPage() {
-	if ( ! getParameter("cc") )
+	if ( ! getParameter( 'cc' ) )
 		return false;
-	if ( ! getParameter("sc") )
+	if ( ! getParameter( 'sc' ) )
 		return false;
-	if ( ! getParameter("ce") )
+	if ( ! getParameter( 'ce' ) )
 		return false;
-	if ( ! getParameter("se") )
+	if ( ! getParameter( 'se' ) )
 		return false;
 
 	return true;
@@ -188,6 +189,7 @@ function renderResults( stat_results, query ) {
 	percentagize = function( numbers ) {
 		var percents = {},
 			decimals;
+
 		$.each( numbers, function( key, value ) {
 			value = 100 * value;
 
@@ -278,13 +280,13 @@ function syncFormWithPermalink() {
 }
 
 function queryAPI( query ) {
-	var queryString = $.param( query );
-	return $.getJSON( 'api?' + queryString );
+	return $.getJSON( 'api?' + $.param( query ) );
 }
 
 function getParameter(paramName) {
 	var searchString = window.location.search.substring( 1 ),
-		i, val, params = searchString.split( '&' );
+		params = searchString.split( '&' ),
+		i, val;
 
 	for ( i=0; i < params.length; i++ ) {
 		val = params[ i ].split( '=' );
