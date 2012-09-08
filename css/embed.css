@@ -69,3 +69,13 @@ body,
 	}
 
 }
+
+@media (max-width: 400px) {
+	.result h3 {
+		font-size: 18px;
+	}
+
+	.result .average {
+		font-size: 36px;
+	}
+}
