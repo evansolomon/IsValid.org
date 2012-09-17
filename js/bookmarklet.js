@@ -21,10 +21,7 @@
 		var text = event.target.innerHTML;
 		var number = parseInt( text.replace( ',', '' ), 10 );
 		window.isvalidClicks.push( number );
-		jQuery(event.target).css( {
-			'background-color': 'red',
-			'background-color': 'rgba(200, 54, 54, 0.5)'
-		} );
+		jQuery(event.target).css( 'background-color', 'rgba(50, 200, 80, 0.7)' ).addClass( 'isvalid-clicked' );
 
 		if ( 4 == window.isvalidClicks.length ) {
 			jQuery(this).unbind( 'mouseup', fancyClickThing );
@@ -35,6 +32,8 @@
 				'&se=' + window.isvalidClicks[2] +
 				'&ce=' + window.isvalidClicks[3]
 			);
+
+			reset();
 		}
 	}
 
@@ -43,5 +42,32 @@
 		window.isvalidBookmarklet = (function() {
 			jQuery( document ).mouseup( fancyClickThing );
 		})();
+
+		jQuery('*').hover(
+			function( event ) {
+				var element = jQuery(this);
+				if ( element.hasClass( 'isvalid-clicked' ) )
+					return;
+
+				event.stopPropagation();
+				var text = event.target.innerHTML;
+				var number = parseInt( text.replace( ',', '' ), 10 );
+				if ( ! isNaN( parseFloat( number ) ) && isFinite( number ) )
+					element.css( 'background-color', 'rgba(50, 200, 80, 0.25)' );
+			},
+
+			function( event ) {
+				event.stopPropagation();
+				var element = jQuery(this);
+				if ( ! element.hasClass( 'isvalid-clicked' ) )
+					element.css( 'background-color', '' );
+			}
+		);
+
+	}
+
+	function reset() {
+		jQuery('.isvalid-clicked').removeClass( 'isvalid-clicked' ).css( 'background-color', '' );
+		window.isvalidClicks = [];
 	}
 })();
