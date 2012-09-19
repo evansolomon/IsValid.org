@@ -55,6 +55,21 @@
 			element.css( 'background-color', '' );
 	}
 
+	function getStep() {
+		var step = window.isvalidClicks.length;
+
+		if ( 0 === step )
+			return 'Control samples';
+		else if ( 1 == step )
+			return 'Control conversions';
+		else if ( 2 == step )
+			return 'Experiment samples';
+		else if ( 3 == step )
+			return 'Experiment conversions';
+		else
+			return 'This should never happen';
+	}
+
 	function init() {
 		reset(); // In case it gets run twice in a row
 
