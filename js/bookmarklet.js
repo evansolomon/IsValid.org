@@ -43,8 +43,10 @@
 		var text = event.target.innerHTML,
 			number = parseInt( text.replace( ',', '' ), 10 );
 
-		if ( ! isNaN( parseFloat( number ) ) && isFinite( number ) )
+		if ( ! isNaN( parseFloat( number ) ) && isFinite( number ) ) {
 			element.css( 'background-color', 'rgba(50, 200, 80, 0.25)' );
+			event.target.style.cursor = 'pointer';
+		}
 	}
 
 	function fancyMouseLeave( event ) {
