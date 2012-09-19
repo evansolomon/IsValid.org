@@ -57,10 +57,8 @@
 		reset(); // In case it gets run twice in a row
 
 		window.isvalidClicks = [];
-		(function() {
-			jQuery( document ).mouseup( fancyClickThing );
-			jQuery('*').hover( fancyMouseEnter, fancyMouseLeave );
-		})();
+		jQuery( document ).mouseup( fancyClickThing );
+		jQuery('*').hover( fancyMouseEnter, fancyMouseLeave );
 	}
 
 	function reset() {
