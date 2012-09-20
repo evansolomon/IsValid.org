@@ -25,9 +25,7 @@ function erf( $x ) {
 function erfinv( $x ) {
 	$sign = ( $x < 0 ) ? -1 : 1;
 	$x    = $x * $sign;
-
-	$low  = 0;
-	$high = 0;
+	$low  = $high = 0;
 
 	while ( erf( $high ) < $x ) {
 		$low   = $high;
