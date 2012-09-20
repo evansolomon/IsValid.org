@@ -38,7 +38,7 @@ class API_Request {
 
 	private function validate_request() {
 		if ( ! is_array( $this->parsed_request ) )
-			return ! $this->respond_with_error( 'Invalid request' );
+			return ! $this->respond_with_error( 'Your parsed request was not an array.' );
 
 		// Default to 'complete' function if one isn't specified
 		if( ! isset( $this->parsed_request['function'] ) )
@@ -56,12 +56,12 @@ class API_Request {
 				break;
 
 			default:
-				return ! $this->respond_with_error( 'Invalid function' );
+				return ! $this->respond_with_error( "Your request specified an invalid function name." );
 		endswitch;
 
 		foreach ( $required_args as $arg ) {
 			if ( ! isset( $this->parsed_request[$arg] ) )
-				return ! $this->respond_with_error( 'Invalid arguments for function: ' . $this->parsed_request['function'] );
+				return ! $this->respond_with_error( "You didn't include the required arguments for this function: " . $this->parsed_request['function'] );
 		}
 
 		return true;
@@ -82,7 +82,7 @@ class API_Request {
 				$this->complete();
 				break;
 			default:
-				$this->respond_with_error( 'Invalid data' );
+				$this->respond_with_error( 'You requested an non-existent function.' );
 				break;
 		endswitch;
 	}
@@ -132,7 +132,7 @@ class API_Request {
 		$interval = interval( $params['conversions'], $params['samples'], $params['confidence'] );
 
 		if ( ! $interval ) {
-			$this->respond_with_error( 'Invalid data' );
+			$this->respond_with_error( "Your results couldn't be calculated, make sure you didn't mix up samples and conversions." );
 			return;
 		}
 
@@ -155,7 +155,7 @@ class API_Request {
 		);
 
 		if ( ! $significance ) {
-			$this->respond_with_error( 'Invalid data' );
+			$this->respond_with_error( "Your results couldn't be calculated, make sure you didn't mix up samples and conversions." );
 			return;
 		}
 
@@ -177,7 +177,7 @@ class API_Request {
 		);
 
 		if ( ! $improvement ) {
-			$this->respond_with_error( 'Invalid data' );
+			$this->respond_with_error( "Your results couldn't be calculated, make sure you didn't mix up samples and conversions." );
 			return;
 		}
 
@@ -198,7 +198,7 @@ class API_Request {
 		$interval_experiment = interval( $params['conversions_experiment'], $params['samples_experiment'], $params['confidence'] );
 
 		if ( ! $interval_control || ! $interval_experiment ) {
-			$this->respond_with_error( 'Invalid data' );
+			$this->respond_with_error( "Your results couldn't be calculated, make sure you didn't mix up samples and conversions." );
 			return;
 		}
 
@@ -211,7 +211,7 @@ class API_Request {
 		);
 
 		if ( ! $significance ) {
-			$this->respond_with_error( 'Invalid data' );
+			$this->respond_with_error( "Your results couldn't be calculated, make sure you didn't mix up samples and conversions." );
 			return;
 		}
 
@@ -225,7 +225,7 @@ class API_Request {
 		);
 
 		if ( ! $improvement ) {
-			$this->respond_with_error( 'Invalid data' );
+			$this->respond_with_error( "Your results couldn't be calculated, make sure you didn't mix up samples and conversions." );
 			return;
 		}
 
