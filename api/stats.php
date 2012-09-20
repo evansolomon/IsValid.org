@@ -52,7 +52,9 @@ function sigma( $mu, $conversions, $samples ) {
 	return sqrt( ( ( pow( 1 - $mu, 2 ) ) * $conversions + pow( $mu, 2 ) * ( $samples - $conversions ) ) / $samples );
 }
 
-//get confidence interval for conversion rate
+/**
+ * Get confidence interval for conversion rate
+ */
 function interval( $conversions, $samples, $confidence = false ) {
 	if ( ! $confidence )
 		$confidence = 0.999;
@@ -76,7 +78,9 @@ function interval( $conversions, $samples, $confidence = false ) {
 	return array( 'low' => $r1, 'average' => ( $conversions / $samples ), 'high' => $r2 );
 }
 
-//calculates chance that other is best
+/**
+ * Calculate chance that experiment version is best
+ */
 function greater( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment ) {
 	// Make sure args are the right type
 	if ( $conversions_control != abs( $conversions_control ) || $conversions_experiment != abs( $conversions_experiment ) )
@@ -98,7 +102,9 @@ function greater( $conversions_control, $samples_control, $conversions_experimen
 	return array( 'control' => 1 - $p, 'experiment' => $p );
 }
 
-//calculates confidence interval for the effective size
+/**
+ * Calculate confidence interval for the effective size
+ */
 function improvement( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment, $confidence = false ) {
 	if ( ! $confidence )
 		$confidence = 0.8;
@@ -125,7 +131,9 @@ function improvement( $conversions_control, $samples_control, $conversions_exper
 	return array( ( $mu - sqrt( $sigma_sq ) * $z ), ( $mu + sqrt( $sigma_sq ) * $z ) );
 }
 
-//calculates the confidence interval for the improvement of test over control
+/**
+ * Calculate the confidence interval for the improvement of experiment over control
+ */
 function imp_pct( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment, $confidence = false ) {
 	if ( ! $confidence )
 		$confidence = 0.8;
