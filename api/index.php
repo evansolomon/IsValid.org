@@ -2,11 +2,21 @@
 
 class API_Request {
 	private $response       = array();
+	private $request        = null;
 	private $parsed_request = null;
 
-	function __construct() {
+	/**
+	 * If $request is specified it should be an array with correctly named keys
+	 *
+	 * cc = conversions (control)
+	 * sc = saples (control)
+	 * ce = converions (experiment)
+	 * se = samples (experiment)
+	 */
+	function __construct( $request = false ) {
 		include( dirname( __FILE__ ) . "/stats.php");
 
+		$this->request = ( $request ) ? $request : $_REQUEST;
 		$this->parse_request();
 		if ( $this->validate_request() )
 			$this->process_request();
@@ -15,7 +25,7 @@ class API_Request {
 	}
 
 	private function parse_request() {
-		$this->parsed_request = array_map( array( $this, 'cleanup_ints' ), $_REQUEST );
+		$this->parsed_request = array_map( array( $this, 'cleanup_ints' ), $this->request );
 		return $this->parsed_request;
 	}
 
