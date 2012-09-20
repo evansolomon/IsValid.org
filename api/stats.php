@@ -148,10 +148,10 @@ function imp_pct( $conversions_control, $samples_control, $conversions_experimen
 	if ( $confidence != (float) $confidence || (float) $confidence <= 0 || (float) $confidence >= 1 )
 		return false;
 
-	$out        = array();
 	$mu_control = $conversions_control / $samples_control;
 	$imp        = improvement( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment, $confidence );
 
+	$out = array();
 	for( $i=0; $i < count( $imp ); $i++ )
 		$out[] = $imp[ $i ] / $mu_control;
 
