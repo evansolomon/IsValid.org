@@ -2,12 +2,12 @@
 
 /**
  * Based on http://stackoverflow.com/questions/457408/is-there-an-easily-available-implementation-of-erf-for-python
-*/
+ */
 function erf( $x ) {
 	$sign = ( $x < 0 ) ? -1 : 1;
   $x = abs( $x );
 
-	//constants
+	// Constants
 	$a1 =  0.254829592;
 	$a2 = -0.284496736;
 	$a3 =  1.421413741;
@@ -15,7 +15,7 @@ function erf( $x ) {
 	$a5 =  1.061405429;
 	$p  =  0.3275911;
 
-	//A&S formula 7.1.26
+	// A&S formula 7.1.26
 	$t = 1 / ( 1 + ( $p * $x ) );
 	$y = 1 - ( ( ( ( ( $a5 * $t + $a4 ) *$t ) + $a3 ) *$t + $a2 ) *$t + $a1 ) * $t * exp( $x * -$x );
 
@@ -24,24 +24,24 @@ function erf( $x ) {
 
 function erfinv( $x ) {
 	$sign = ( $x < 0 ) ? -1 : 1;
-	$x = $x * $sign;
+	$x    = $x * $sign;
 
 	$low  = 0;
 	$high = 0;
 
-	while( erf( $high ) < $x ) {
-		$low = $high;
+	while ( erf( $high ) < $x ) {
+		$low   = $high;
 		$high += 8;
 	}
 
-	$low = array( $low, erf( $low ) );
+	$low  = array( $low, erf( $low ) );
 	$high = array( $high, erf( $high ) );
 
-	while( ( $high[0] - $low[0] ) > 0.0001 ) {
+	while ( ( $high[0] - $low[0] ) > 0.0001 ) {
 		$test = $low[0] + ( $high[0] - $low[0] ) / 2;
 		$test = array( $test, erf( $test ) );
 
-		if( $test[1] < $x )
+		if ( $test[1] < $x )
 			$low = $test;
 		else
 			$high = $test;
@@ -60,11 +60,11 @@ function interval( $conversions, $samples, $confidence = false ) {
 		$confidence = 0.999;
 
 	// Make sure args are the right type
-	if( $conversions != abs( $conversions ) )
+	if ( $conversions != abs( $conversions ) )
 		return false;
-	if( $samples != abs( $samples ) || 0 == $samples )
+	if ( $samples != abs( $samples ) || 0 == $samples )
 		return false;
-	if( $confidence != (float) $confidence || $confidence <= 0 || $confidence >= 1 )
+	if ( $confidence != (float) $confidence || $confidence <= 0 || $confidence >= 1 )
 		return false;
 
 
@@ -81,11 +81,11 @@ function interval( $conversions, $samples, $confidence = false ) {
 //calculates chance that other is best
 function greater( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment ) {
 	// Make sure args are the right type
-	if( $conversions_control != abs( $conversions_control ) || $conversions_experiment != abs( $conversions_experiment ) )
+	if ( $conversions_control != abs( $conversions_control ) || $conversions_experiment != abs( $conversions_experiment ) )
 		return false;
-	if( $samples_control != abs( $samples_control ) || $samples_experiment != abs( $samples_experiment ) )
+	if ( $samples_control != abs( $samples_control ) || $samples_experiment != abs( $samples_experiment ) )
 		return false;
-	if( $samples_control < $conversions_control || $samples_experiment < $conversions_experiment )
+	if ( $samples_control < $conversions_control || $samples_experiment < $conversions_experiment )
 		return false;
 
 	$mu_control    = $conversions_control / $samples_control;
@@ -106,13 +106,13 @@ function improvement( $conversions_control, $samples_control, $conversions_exper
 		$confidence = 0.8;
 
 	// Make sure args are the right type
-	if( $conversions_control != abs( $conversions_control ) || $conversions_experiment != abs( $conversions_experiment ) )
+	if ( $conversions_control != abs( $conversions_control ) || $conversions_experiment != abs( $conversions_experiment ) )
 		return false;
-	if( $samples_control != abs( $samples_control ) || $samples_experiment != abs( $samples_experiment ) )
+	if ( $samples_control != abs( $samples_control ) || $samples_experiment != abs( $samples_experiment ) )
 		return false;
-	if( $samples_control < $conversions_control || $samples_experiment < $conversions_experiment )
+	if ( $samples_control < $conversions_control || $samples_experiment < $conversions_experiment )
 		return false;
-	if( $confidence != (float) $confidence || (float) $confidence <= 0 || (float) $confidence >= 1 )
+	if ( $confidence != (float) $confidence || (float) $confidence <= 0 || (float) $confidence >= 1 )
 		return false;
 
 	$mu_experiment = $conversions_experiment / $samples_experiment;
@@ -133,13 +133,13 @@ function imp_pct( $conversions_control, $samples_control, $conversions_experimen
 		$confidence = 0.8;
 
 	// Make sure args are the right type
-	if( $conversions_control != abs( $conversions_control ) || $conversions_experiment != abs( $conversions_experiment ) )
+	if ( $conversions_control != abs( $conversions_control ) || $conversions_experiment != abs( $conversions_experiment ) )
 		return false;
-	if( $samples_control != abs( $samples_control ) || $samples_experiment != abs( $samples_experiment ) )
+	if ( $samples_control != abs( $samples_control ) || $samples_experiment != abs( $samples_experiment ) )
 		return false;
-	if( $samples_control < $conversions_control || $samples_experiment < $conversions_experiment )
+	if ( $samples_control < $conversions_control || $samples_experiment < $conversions_experiment )
 		return false;
-	if( $confidence != (float) $confidence || (float) $confidence <= 0 || (float) $confidence >= 1 )
+	if ( $confidence != (float) $confidence || (float) $confidence <= 0 || (float) $confidence >= 1 )
 		return false;
 
 	$out        = array();
@@ -147,7 +147,7 @@ function imp_pct( $conversions_control, $samples_control, $conversions_experimen
 	$imp        = improvement( $conversions_control, $samples_control, $conversions_experiment, $samples_experiment, $confidence );
 
 	for( $i=0; $i < count( $imp ); $i++ )
-		$out[] = $imp[$i] / $mu_control;
+		$out[] = $imp[ $i ] / $mu_control;
 
 	return array( 'low' => $out[0], 'average' => ( $out[0] + $out[1] ) / 2, 'high' => $out[1] );
 }
