@@ -21,6 +21,10 @@ html {
 	padding: 0px 25px 0px 25px;
 }
 
+.footer p {
+	margin: 0 0 5px 0;
+}
+
 h1 {
 	height: 110px;
 	opacity: 1;
