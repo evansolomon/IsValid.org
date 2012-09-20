@@ -1,88 +1,131 @@
 (function(){
-	// Load jQuery if it isn't here
-	if ( window.jQuery === undefined ) {
-		var script = document.createElement("script");
+	var isvalid = {
 
-		script.src = "//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js";
-		script.onload = script.onreadystatechange = function() {
-			if ( ! this.readyState || this.readyState == "loaded" || this.readyState == 'complete' )
-				init();
-		};
+		init: function() {
+			if ( ! window.jQuery ) {
+				var script = document.createElement( 'script' );
+				script.type = 'text/javascript';
+				script.src = '//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js';
+				script.onload = script.onreadystatechange = function() {
+					if ( ! this.readyState || this.readyState == "loaded" || this.readyState == 'complete' )
+						isvalid.ready();
+				};
+				document.getElementsByTagName( 'head' )[0].appendChild( script );
+			}
+			else {
+				isvalid.ready();
+			}
+		},
 
-		document.getElementsByTagName('head')[0].appendChild( script );
-	}
-	else {
-		init();
-	}
+		ready: function(){
+			isvalid.reset();
+			isvalid.header.create();
+			jQuery(document).click( isvalid.click );
+			jQuery('*').hover( isvalid.mouseEnter, isvalid.mouseLeave );
+		},
 
-	function fancyClickThing( event ) {
-		var text = event.target.innerHTML,
-			number = parseInt( text.replace( ',', '' ), 10 );
+		click: function( event ) {
+			var text = event.target.innerHTML,
+				number = parseInt( text.replace( ',', '' ), 10 );
 
-		window.isvalidClicks.push( number );
-		jQuery(event.target).css( 'background-color', 'rgba(50, 200, 80, 0.7)' ).addClass( 'isvalid-clicked' );
+			if ( ! isvalid.selectable( number ) )
+				return;
 
-		if ( 4 == window.isvalidClicks.length ) {
-			window.open( 'http://isvalid.org/' +
-				'?sc=' + window.isvalidClicks[0] +
-				'&cc=' + window.isvalidClicks[1] +
-				'&se=' + window.isvalidClicks[2] +
-				'&ce=' + window.isvalidClicks[3]
-			);
+			isvalid.selected.push( number );
+			jQuery(event.target).css( 'background-color', 'rgba(50, 200, 80, 0.7)' ).addClass( 'isvalid-clicked' );
+			jQuery('.isvalid-steps').text( isvalid.nextStep() );
 
-			reset();
-		}
-	}
+			if ( 4 == isvalid.selected.length ) {
+				window.open( 'http://isvalid.org/' +
+					'?sc=' + isvalid.selected[0] +
+					'&cc=' + isvalid.selected[1] +
+					'&se=' + isvalid.selected[2] +
+					'&ce=' + isvalid.selected[3]
+				);
 
-	function fancyMouseEnter( event ) {
-		var element = jQuery(this);
-		if ( element.hasClass( 'isvalid-clicked' ) )
-			return;
+				isvalid.reset();
+			}
 
-		event.stopPropagation();
-		var text = event.target.innerHTML,
-			number = parseInt( text.replace( ',', '' ), 10 );
+			isvalid.header.update();
+			return false;
+		},
 
-		if ( ! isNaN( parseFloat( number ) ) && isFinite( number ) ) {
+		mouseLeave: function( event ) {
+			var element = jQuery(this);
+			if ( ! element.hasClass( 'isvalid-clicked' ) && ! element.hasClass( 'isvalid-steps' ) )
+				element.css( 'background-color', '' );
+		},
+
+		mouseEnter: function( event ) {
+			var element = jQuery(this);
+			if ( element.hasClass( 'isvalid-clicked' ) )
+				return;
+
+			var text = event.target.innerHTML,
+				number = parseInt( text.replace( ',', '' ), 10 );
+
+			if ( ! isvalid.selectable( number ) )
+				return;
+
+			event.stopPropagation();
 			element.css( 'background-color', 'rgba(50, 200, 80, 0.25)' );
 			event.target.style.cursor = 'pointer';
+		},
+
+		selectable: function( string ) {
+			return ! isNaN( parseFloat( string ) ) && isFinite( string );
+		},
+
+		nextStep: function() {
+			var step = isvalid.selected.length;
+
+			if ( 0 === step )
+				return 'Control samples';
+			else if ( 1 == step )
+				return 'Control conversions';
+			else if ( 2 == step )
+				return 'Experiment samples';
+			else if ( 3 == step )
+				return 'Experiment conversions';
+			else
+				return 'This should never happen';
+
+		},
+
+		header: {
+			create: function() {
+				var header = jQuery('<div>');
+				header.css( {
+					'top':'0px',
+					'left': '0px',
+					'background-color':'rgba(50, 200, 80, 0.8)',
+					'z-index':'10000',
+					'width':'100%',
+					'height':'60px',
+					'position':'fixed',
+					'text-align': 'center',
+					'padding-top': '20px',
+					'font-size': '30px'
+				} );
+
+				header.addClass( 'isvalid-steps' );
+				header.prependTo( 'body' );
+				this.update();
+			},
+			update: function() {
+				jQuery('.isvalid-steps').text( isvalid.nextStep() );
+			}
+		},
+
+		reset: function() {
+			jQuery('.isvalid-clicked').removeClass( 'isvalid-clicked' ).css( 'background-color', '' );
+			jQuery(document).unbind( 'click', isvalid.click );
+			jQuery('*').unbind( 'mouseleave', isvalid.mouseLeave ).unbind( 'mouseenter', isvalid.mouseEnter );
+			jQuery('.isvalid-steps').remove();
+			isvalid.selected = [];
 		}
-	}
 
-	function fancyMouseLeave( event ) {
-		var element = jQuery(this);
-		if ( ! element.hasClass( 'isvalid-clicked' ) )
-			element.css( 'background-color', '' );
-	}
+	};
 
-	function getStep() {
-		var step = window.isvalidClicks.length;
-
-		if ( 0 === step )
-			return 'Control samples';
-		else if ( 1 == step )
-			return 'Control conversions';
-		else if ( 2 == step )
-			return 'Experiment samples';
-		else if ( 3 == step )
-			return 'Experiment conversions';
-		else
-			return 'This should never happen';
-	}
-
-	function init() {
-		reset(); // In case it gets run twice in a row
-
-		window.isvalidClicks = [];
-		jQuery( document ).mouseup( fancyClickThing );
-		jQuery('*').hover( fancyMouseEnter, fancyMouseLeave );
-	}
-
-	function reset() {
-		jQuery('.isvalid-clicked').removeClass( 'isvalid-clicked' ).css( 'background-color', '' );
-		jQuery(document).unbind( 'mouseup', fancyClickThing );
-		jQuery('*').unbind( 'mouseleave', fancyMouseLeave ).unbind( 'mouseenter', fancyMouseEnter );
-
-		window.isvalidClicks = [];
-	}
-})();
+	isvalid.init();
+}());
