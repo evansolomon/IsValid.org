@@ -77,19 +77,21 @@
 		},
 
 		nextStep: function() {
-			var step = isvalid.selected.length;
+			var direction,
+				step = isvalid.selected.length;
 
 			if ( 0 === step )
-				return 'Control samples';
+				direction = 'Control samples';
 			else if ( 1 == step )
-				return 'Control conversions';
+				direction = 'Control conversions';
 			else if ( 2 == step )
-				return 'Experiment samples';
+				direction = 'Experiment samples';
 			else if ( 3 == step )
-				return 'Experiment conversions';
+				direction = 'Experiment conversions';
 			else
-				return 'This should never happen';
+				direction = 'This should never happen';
 
+			return 'Select: ' + direction;
 		},
 
 		header: {
