@@ -66,9 +66,9 @@ function interval( $conversions, $samples, $confidence = false ) {
 		return false;
 
 
-	$mu = $conversions / $samples;
+	$mu    = $conversions / $samples;
 	$sigma = sigma( $mu, $conversions, $samples );
-	$z = erfinv( $confidence ) * sqrt( 2 );
+	$z     = erfinv( $confidence ) * sqrt( 2 );
 
 	$r1 = $mu - $sigma * $z / sqrt( $samples );
 	$r2 = $mu + $sigma * $z / sqrt( $samples );
