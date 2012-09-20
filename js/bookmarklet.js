@@ -46,6 +46,7 @@
 				isvalid.reset();
 			}
 
+			event.target.style.cursor = 'default';
 			isvalid.header.update();
 			return false;
 		},
@@ -54,6 +55,8 @@
 			var element = jQuery(this);
 			if ( ! element.hasClass( 'isvalid-clicked' ) && ! element.hasClass( 'isvalid-steps' ) )
 				element.css( 'background-color', '' );
+
+			event.target.style.cursor = 'default';
 		},
 
 		mouseEnter: function( event ) {
