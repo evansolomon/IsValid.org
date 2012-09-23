@@ -316,7 +316,7 @@ $(function() {
 		$(window).on( 'popstate', function( event ) {
 			var state = event.originalEvent.state;
 			if ( state ) {
-				getResults( state );
+				getResults( state, { force: true } );
 				syncFormWithPermalink();
 			}
 		});
