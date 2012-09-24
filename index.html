@@ -11,7 +11,7 @@
 		<![endif]-->
 
 		<!-- Libraries -->
-		<script src="js/jquery-1.8.1.min.js"></script>
+		<script src="js/jquery.min.js"></script>
 		<script src="js/underscore.min.js"></script>
 		<script src="js/handlebars.js"></script>
 
