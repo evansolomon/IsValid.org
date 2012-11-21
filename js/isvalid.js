@@ -1,370 +1,343 @@
-$.support.history = !! ( window.history && history.pushState );
-
-Number.prototype.approximate = function () {
-	if ( this < 1000 )
-		return this;
-
-	var thousands = Math.round( this / 100 ) / 10;
-	if ( thousands < 1000 )
-		return thousands.toString() + 'K';
-
-	var millions = Math.round( thousands / 100 ) / 10;
-	return millions.toString() + 'M';
-};
-
-// The most important function.
-// Con Con never has bugs.
-var conconjr;
-(function(){
-	var canvas, context, clear, lines = [];
-
-	requestAnimFrame = (function(){
-		return window.requestAnimationFrame  ||
-			window.webkitRequestAnimationFrame ||
-			window.mozRequestAnimationFrame    ||
-			window.oRequestAnimationFrame      ||
-			window.msRequestAnimationFrame     ||
-			function(/* function */ callback, /* DOMElement */ element){
-				window.setTimeout(callback, 1000 / 60);
-			};
-	})();
-
-	conconjr = function() {
-		if ( ! $('.header').is(':visible') )
-			return;
-
-		init();
-		animate();
-	};
-
-	function init() {
-		var $conconjr = $('#conconjr'),
-		context = $conconjr[0].getContext('2d');
-		context.fillStyle = '#dfdfdf';
-
-		clear = function() {
-			context.clearRect( 0, 0, $conconjr.width(), $conconjr.height() );
-		};
-
-		// Transform the coordinates.
-		context.translate( 0, $conconjr.height() );
-		context.scale( 1, -1 );
-
-		// Create the lines.
-		var peak = 30, // height
-			count  = 50, // number of lines
-			index  = count;
-
-		while ( index-- ) {
-			var mean = count / 2;
-			var diff = Math.abs( mean - index );
-			var maxY = Math.round( Math.pow( Math.abs( mean - diff ), 2 ) * ( peak / Math.pow( mean, 2 ) ) );
-
-			lines.push( new Line({
-				height:  0,
-				x:       index * 5,
-				context: context,
-				maxY:    maxY
-			}) );
-		}
-	}
-
-	function animate() {
-		requestAnimFrame( animate );
-		draw();
-	}
-
-	function easeInOutQuad( time, start, change, steps ) {
-		time /= steps / 2;
-		if ( time < 1 )
-			return change / 2 * time * time + start;
-
-		time--;
-		return -change / 2 * ( time * ( time - 2 ) - 1 ) + start;
-	}
-
-	function randomBetween( min, max ) {
-		return Math.round( ( Math.random() * ( max - min ) ) + min );
-	}
-
-	var Line = function( options ) {
-		_.defaults( options || {}, {
-			x:        0,
-			y:        0,
-			width:    3,
-			height:   0,
-			ease:     easeInOutQuad,
-			minY:     0,
-			maxY:     30,
-			minSteps: 15,
-			maxSteps: 45
-		});
-
-	_.extend( this, options );
-		this.reset();
-	};
-
-	_.extend( Line.prototype, {
-		change: function() {
-			return this.end - this.start;
-		},
-
-		reset: function() {
-			this.time  = 1;
-			this.start = this.height;
-			this.end   = randomBetween( this.minY, this.maxY );
-			this.steps = randomBetween( this.minSteps, this.maxSteps );
-		},
-
-		draw: function() {
-			this.time++;
-			this.height = Math.round( this.ease( this.time, this.start, this.change(), this.steps ) );
-
-			this.context.fillRect( this.x, this.y, this.width, this.height );
-
-			if ( this.height === this.end )
-				this.reset();
-		}
-	});
-
-	function draw() {
-		clear();
-		_.invoke( lines, 'draw' );
-	}
-
-	conconjr.draw = draw;
-}());
-
-function roundNumber( number, decimals ) {
-	decimals = decimals || 0;
-	return Math.round( number * Math.pow( 10, decimals ) ) / Math.pow( 10, decimals );
-}
-
-function getPermalinkQuery( query ) {
-	var results = {},
-		conConMap = {
-			conversions_control:    'cc', // con con
-			samples_control:        'sc', // con sam
-			conversions_experiment: 'ce', // test con
-			samples_experiment:     'se'  // test sam
-		};
-
-	$.map( query, function( value, key ) {
-		results[ conConMap[ key ] ] = value;
-	});
-
-	return results;
-}
-
-function isPermalinkPage() {
-	if ( ! getParameter( 'cc' ) )
-		return false;
-	if ( ! getParameter( 'sc' ) )
-		return false;
-	if ( ! getParameter( 'ce' ) )
-		return false;
-	if ( ! getParameter( 'se' ) )
-		return false;
-
-	return true;
-}
-
-function getTemplateOutput( template, input ) {
-	var source   = template.html();
-	var compiled = Handlebars.compile( source );
-
-	return compiled( input );
-}
-
-function renderError( error ) {
-	var html = getTemplateOutput( $('#error-template'), { error: error } );
-	printResult( html );
-}
-
-function renderResults( stat_results, query ) {
-	var results = [],
-		percentagize,
-		permalink;
-
-	percentagize = function( numbers ) {
-		var percents = {},
-			decimals;
-
-		$.each( numbers, function( key, value ) {
-			value = 100 * value;
-
-			// Percents over 1000 don't need decimals
-			decimals = ( value >= 1000 ) ? 0 : 1;
-			percents[ key ] = roundNumber( value, decimals );
-		});
-		return percents;
-	};
-
-	permalink = 'http://' + window.location.host + '?' + $.param( getPermalinkQuery( query ) );
-
-	// Control
-	results.push( $.extend({
-		title: 'Original',
-		chart: stat_results.confidence.chart.control,
-		inputs: {
-			conversions: parseInt( query.conversions_control,10 ).approximate(),
-			samples: parseInt( query.samples_control, 10 ).approximate()
-		}
-	}, percentagize( stat_results.confidence.results.control ) ) );
-
-	// Experiment
-	results.push( $.extend({
-		title: 'Experiment',
-		chart: stat_results.confidence.chart.experiment,
-		inputs: {
-			conversions: parseInt( query.conversions_experiment, 10 ).approximate(),
-			samples: parseInt( query.samples_experiment, 10 ).approximate()
-		}
-	}, percentagize( stat_results.confidence.results.experiment ) ) );
-
-	// Significance
-	results.push( $.extend({
-		title: 'Significance',
-		chart: stat_results.significance.chart
-	}, percentagize({ average: stat_results.significance.results.experiment }) ) );
-
-	// Improvement
-	results.push( $.extend({
-		title: 'Improvement',
-		chart: stat_results.improvement.chart
-	}, percentagize( stat_results.improvement.results ) ) );
-
-	var html = getTemplateOutput( $('#results-template'), { results: results, permalink: permalink } );
-	printResult( html );
-}
-
-function printResult( html, options ) {
-	options = options || {};
-	$('.results').fadeOut( 200, function() {
-		$(this).hide().delay( 300 ).html( html ).fadeIn( options.speed );
-	});
-}
-
-function getResults( query, options ) {
-	var lastQuery, newQuery;
-
-	lastQuery = window.location.search;
-	newQuery  = '?' + $.param( getPermalinkQuery( query ) );
-	options   = options || {};
-
-	// Change the URL
-	if ( $.support.history && newQuery !== window.location.search && $('.header').is(':visible') )
-		history.pushState( query, '', newQuery );
-
-	// Don't run the same query twice in a row
-	if ( ! options.force && lastQuery === newQuery )
-		return false;
-
-	return queryAPI( query ).done( function( stat_results ) {
-		$('.alert').fadeOut();
-
-		// Check for errors
-		if(stat_results.error)
-			return renderError( stat_results.error );
-
-		$('body').removeClass( 'home' ).addClass( 'permalink' );
-		renderResults( stat_results, query );
-	});
-}
-
-function syncFormWithPermalink() {
-	$("input#control-conversions").val( getParameter( 'cc' ) );
-	$("input#control-samples").val( getParameter( 'sc' ) );
-	$("input#experiment-conversions").val( getParameter( 'ce' ) );
-	$("input#experiment-samples").val( getParameter( 'se' ) );
-}
-
-function queryAPI( query ) {
-	return $.getJSON( 'api?' + $.param( query ) );
-}
-
-function getParameter(paramName) {
-	var searchString = window.location.search.substring( 1 ),
-		params = searchString.split( '&' ),
-		i, val;
-
-	for ( i=0; i < params.length; i++ ) {
-		val = params[ i ].split( '=' );
-
-		if ( val[ 0 ] == paramName )
-			return unescape( val[ 1 ] );
-	}
-	return null;
-}
-
-function isFormComplete() {
-	if ( ! $('input#control-conversions').val() )
-		return false;
-	if ( ! $('input#control-samples').val() )
-		return false;
-	if ( ! $('input#experiment-conversions').val() )
-		return false;
-	if ( ! $('input#experiment-samples').val() )
-		return false;
-
-	return true;
-}
-
-$(function() {
-	// Bind popstate listener
-	if ( $.support.history ) {
-		$(window).on( 'popstate', function( event ) {
-			var state = event.originalEvent.state;
-			if ( state ) {
-				getResults( state, { force: true } );
-				syncFormWithPermalink();
-			}
-		});
-	}
-
-	// Focus on the first input
-	$("form :input:visible:first").focus();
-
-	// Listen for form submit
-	$("form").on('submit', function( event ) {
-		event.preventDefault();
-
-		// Don't submit incomplete forms
-		if ( ! isFormComplete() )
-			return false;
-
-		getResults({
-			conversions_control:    $('input#control-conversions').val(),    // con con
-			samples_control:        $('input#control-samples').val(),        // con sam
-			conversions_experiment: $('input#experiment-conversions').val(), // test con
-			samples_experiment:     $('input#experiment-samples').val()      // test sam
-		});
-	});
-
-	// Auto-load results on permalink pages
-	if ( isPermalinkPage() ) {
-		syncFormWithPermalink();
-
-		getResults({
-			conversions_control:    getParameter( 'cc' ), // con con
-			samples_control:        getParameter( 'sc' ), // con sam
-			conversions_experiment: getParameter( 'ce' ), // test con
-			samples_experiment:     getParameter( 'se' )  // test sam
-		}, { force: true });
-	}
-	else {
-		$('body').removeClass( 'permalink' ).addClass( 'home' );
-		$('.alert-info').delay( 1400 ).fadeIn( 'slow' );
-	}
-
-	// Auto-submit the form
-	var keyup_timer;
-	$( 'form input[type=text]' ).keyup( function() {
-		clearTimeout( keyup_timer );
-		keyup_timer = setTimeout( function() {
-			$('form').submit();
-		}, 800 );
-	});
-
-	conconjr();
-});
+// Generated by CoffeeScript 1.4.0
+(function() {
+  var getParameter, getPermalinkQuery, getResults, getTemplateOutput, isFormComplete, isPermalinkPage, printResult, queryAPI, renderError, renderResults, roundNumber, syncFormWithPermalink;
+
+  $.support.history = !!(window.history && history.pushState);
+
+  Number.prototype.approximate = function() {
+    var millions, thousands;
+    if (this < 1000) {
+      return this;
+    }
+    thousands = Math.round(this / 100) / 10;
+    if (thousands < 1000) {
+      return thousands.toString() + 'K';
+    }
+    millions = Math.round(thousands / 100) / 10;
+    return millions.toString() + 'M';
+  };
+
+  (function() {
+    var animate, draw, easeInOutQuad, init, lines, randomBetween;
+    lines = [];
+    this.requestAnimFrame = (function() {
+      return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback, element) {
+        return window.setTimeout(callback, 1000 / 60);
+      };
+    })();
+    this.conconjr = function() {
+      if (!$('.header').is(':visible')) {
+        return;
+      }
+      init();
+      return animate();
+    };
+    init = function() {
+      var $conconjr, context, count, diff, index, maxY, mean, peak, _results;
+      $conconjr = $('#conconjr');
+      context = $conconjr[0].getContext('2d');
+      context.fillStyle = '#dfdfdf';
+      this.clear = function() {
+        return context.clearRect(0, 0, $conconjr.width(), $conconjr.height());
+      };
+      context.translate(0, $conconjr.height());
+      context.scale(1, -1);
+      peak = 30;
+      count = index = 50;
+      _results = [];
+      while (index--) {
+        mean = count / 2;
+        diff = Math.abs(mean - index);
+        maxY = Math.round(Math.pow(Math.abs(mean - diff), 2) * (peak / Math.pow(mean, 2)));
+        _results.push(lines.push(new Line({
+          height: 0,
+          x: index * 5,
+          context: context,
+          maxY: maxY
+        })));
+      }
+      return _results;
+    };
+    animate = function() {
+      requestAnimFrame(animate);
+      return draw();
+    };
+    easeInOutQuad = function(time, start, change, steps) {
+      time /= steps / 2;
+      if (time < 1) {
+        return change / 2 * time * time + start;
+      }
+      time--;
+      return -change / 2 * (time * (time - 2) - 1) + start;
+    };
+    randomBetween = function(min, max) {
+      return Math.round((Math.random() * (max - min)) + min);
+    };
+    this.Line = function(options) {
+      if (options == null) {
+        options = {};
+      }
+      _.defaults(options, {
+        x: 0,
+        y: 0,
+        width: 3,
+        height: 0,
+        ease: easeInOutQuad,
+        minY: 0,
+        maxY: 30,
+        minSteps: 15,
+        maxSteps: 45
+      });
+      _.extend(this, options);
+      return this.reset();
+    };
+    _.extend(Line.prototype, {
+      change: function() {
+        return this.end - this.start;
+      },
+      reset: function() {
+        this.time = 1;
+        this.start = this.height;
+        this.end = randomBetween(this.minY, this.maxY);
+        return this.steps = randomBetween(this.minSteps, this.maxSteps);
+      },
+      draw: function() {
+        this.time++;
+        this.height = Math.round(this.ease(this.time, this.start, this.change(), this.steps));
+        this.context.fillRect(this.x, this.y, this.width, this.height);
+        if (this.height === this.end) {
+          return this.reset();
+        }
+      }
+    });
+    draw = function() {
+      this.clear();
+      return _.invoke(lines, 'draw');
+    };
+    return this.conconjr.draw = draw;
+  })();
+
+  roundNumber = function(number, decimals) {
+    if (decimals == null) {
+      decimals = 0;
+    }
+    return Math.round(number * Math.pow(10, decimals)) / Math.pow(10, decimals);
+  };
+
+  getPermalinkQuery = function(query) {
+    var conConMap, results;
+    results = {};
+    conConMap = {
+      conversions_control: 'cc',
+      samples_control: 'sc',
+      conversions_experiment: 'ce',
+      samples_experiment: 'se'
+    };
+    $.map(query, function(value, key) {
+      return results[conConMap[key]] = value;
+    });
+    return results;
+  };
+
+  isPermalinkPage = function() {
+    if (!getParameter('cc')) {
+      return false;
+    }
+    if (!getParameter('sc')) {
+      return false;
+    }
+    if (!getParameter('ce')) {
+      return false;
+    }
+    if (!getParameter('se')) {
+      return false;
+    }
+    return true;
+  };
+
+  getTemplateOutput = function(template, input) {
+    var compiled, source;
+    source = template.html();
+    compiled = Handlebars.compile(source);
+    return compiled(input);
+  };
+
+  renderError = function(error) {
+    var html;
+    html = getTemplateOutput($('#error-template'), {
+      error: error
+    });
+    return printResult(html);
+  };
+
+  renderResults = function(stat_results, query) {
+    var html, percentagize, permalink, results;
+    results = [];
+    percentagize = function(numbers) {
+      var percents;
+      percents = {};
+      $.each(numbers, function(key, value) {
+        var decimals;
+        value = 100 * value;
+        decimals = value >= 1000 ? 0 : 1;
+        return percents[key] = roundNumber(value, decimals);
+      });
+      return percents;
+    };
+    permalink = ("http://" + window.location.host + "?") + $.param(getPermalinkQuery(query));
+    results.push($.extend({
+      title: 'Original',
+      chart: stat_results.confidence.chart.control,
+      inputs: {
+        conversions: parseInt(query.conversions_control, 10).approximate(),
+        samples: parseInt(query.samples_control, 10).approximate()
+      }
+    }, percentagize(stat_results.confidence.results.control)));
+    results.push($.extend({
+      title: 'Experiment',
+      chart: stat_results.confidence.chart.experiment,
+      inputs: {
+        conversions: parseInt(query.conversions_experiment, 10).approximate(),
+        samples: parseInt(query.samples_experiment, 10).approximate()
+      }
+    }, percentagize(stat_results.confidence.results.experiment)));
+    results.push($.extend({
+      title: 'Significance',
+      chart: stat_results.significance.chart
+    }, percentagize({
+      average: stat_results.significance.results.experiment
+    })));
+    results.push($.extend({
+      title: 'Improvement',
+      chart: stat_results.improvement.chart
+    }, percentagize(stat_results.improvement.results)));
+    html = getTemplateOutput($('#results-template'), {
+      results: results,
+      permalink: permalink
+    });
+    return printResult(html);
+  };
+
+  printResult = function(html, options) {
+    if (options == null) {
+      options = {};
+    }
+    return $('.results').fadeOut(200, function() {
+      return $(this).hide().delay(300).html(html).fadeIn(options.speed);
+    });
+  };
+
+  getResults = function(query, options) {
+    var lastQuery, newQuery;
+    if (options == null) {
+      options = {};
+    }
+    lastQuery = window.location.search;
+    newQuery = '?' + $.param(getPermalinkQuery(query));
+    if ($.support.history && newQuery !== window.location.search && $('.header').is(':visible')) {
+      history.pushState(query, '', newQuery);
+    }
+    if (!options.force && lastQuery === newQuery) {
+      return false;
+    }
+    return queryAPI(query).done(function(stat_results) {
+      $('.alert').fadeOut();
+      if (stat_results.error) {
+        return renderError(stat_results.error);
+      }
+      $('body').removeClass('home').addClass('permalink');
+      return renderResults(stat_results, query);
+    });
+  };
+
+  syncFormWithPermalink = function() {
+    $("input#control-conversions").val(getParameter('cc'));
+    $("input#control-samples").val(getParameter('sc'));
+    $("input#experiment-conversions").val(getParameter('ce'));
+    return $("input#experiment-samples").val(getParameter('se'));
+  };
+
+  queryAPI = function(query) {
+    return $.getJSON('api?' + $.param(query));
+  };
+
+  getParameter = function(paramName) {
+    var param, params, searchString, val, _i, _len;
+    searchString = window.location.search.substring(1);
+    params = searchString.split('&');
+    for (_i = 0, _len = params.length; _i < _len; _i++) {
+      param = params[_i];
+      val = param.split('=');
+      if (val[0] === paramName) {
+        return unescape(val[1]);
+      }
+    }
+    return null;
+  };
+
+  isFormComplete = function() {
+    if (!$('input#control-conversions').val()) {
+      return false;
+    }
+    if (!$('input#control-samples').val()) {
+      return false;
+    }
+    if (!$('input#experiment-conversions').val()) {
+      return false;
+    }
+    if (!$('input#experiment-samples').val()) {
+      return false;
+    }
+    return true;
+  };
+
+  $(function() {
+    if ($.support.history) {
+      $(window).on('popstate', function(event) {
+        var state;
+        state = event.originalEvent.state;
+        if (state) {
+          getResults(state, {
+            force: true
+          });
+          return syncFormWithPermalink();
+        }
+      });
+    }
+    $("form :input:visible:first").focus();
+    $("form").on('submit', function(event) {
+      event.preventDefault();
+      if (!isFormComplete()) {
+        return false;
+      }
+      return getResults({
+        conversions_control: $('input#control-conversions').val(),
+        samples_control: $('input#control-samples').val(),
+        conversions_experiment: $('input#experiment-conversions').val(),
+        samples_experiment: $('input#experiment-samples').val()
+      });
+    });
+    if (isPermalinkPage()) {
+      syncFormWithPermalink();
+      getResults({
+        conversions_control: getParameter('cc'),
+        samples_control: getParameter('sc'),
+        conversions_experiment: getParameter('ce'),
+        samples_experiment: getParameter('se')
+      }, {
+        force: true
+      });
+    } else {
+      $('body').removeClass('permalink').addClass('home');
+      $('.alert-info').delay(1400).fadeIn('slow');
+    }
+    $('form input[type=text]').keyup(function() {
+      clearTimeout(this.keyup_timer);
+      return this.keyup_timer = setTimeout(function() {
+        return $('form').submit();
+      }, 800);
+    });
+    return conconjr();
+  });
+
+}).call(this);
