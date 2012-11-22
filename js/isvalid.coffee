@@ -23,7 +23,7 @@ Number.prototype.approximate = ->
 	)()
 
 	@conconjr = ->
-		return if not $('.header').is ':visible'
+		return unless $('.header').is ':visible'
 		init()
 		animate()
 
@@ -58,7 +58,8 @@ Number.prototype.approximate = ->
 
 	easeInOutQuad = ( time, start, change, steps ) ->
 		time /= steps / 2
-		return change / 2 * time * time + start if time < 1
+		if time < 1
+			return change / 2 * time * time + start
 
 		time--
 		-change / 2 * ( time * ( time - 2 ) - 1 ) + start
@@ -66,7 +67,7 @@ Number.prototype.approximate = ->
 	randomBetween = ( min, max ) ->
 		Math.round ( Math.random() * ( max - min ) ) + min
 
-	@Line = ( options = {}) ->
+	Line = ( options = {} ) ->
 		_.defaults options,
 			x:        0
 			y:        0
@@ -81,7 +82,7 @@ Number.prototype.approximate = ->
 		_.extend @, options
 		@.reset()
 
-	_.extend Line.prototype,
+	_.extend Line::,
 		change: ->
 			@end - @start
 
@@ -94,11 +95,9 @@ Number.prototype.approximate = ->
 		draw: ->
 			@time++
 			@height = Math.round @ease( @time, @start, @change(), @steps )
-
 			@context.fillRect @x, @y, @width, @height
 
-			if @height is @end
-				@reset()
+			@reset() if @height is @end
 
 	draw = ->
 		@clear()
