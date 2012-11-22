@@ -125,10 +125,10 @@ getPermalinkQuery = ( query ) ->
 	results
 
 isPermalinkPage = ->
-	return false if ! getParameter 'cc'
-	return false if ! getParameter 'sc'
-	return false if ! getParameter 'ce'
-	return false if ! getParameter 'se'
+	return false unless getParameter 'cc'
+	return false unless getParameter 'sc'
+	return false unless getParameter 'ce'
+	return false unless getParameter 'se'
 
 	true
 
@@ -205,7 +205,7 @@ getResults = ( query, options = {} ) ->
 		history.pushState query, '', newQuery
 
 	# Don't run the same query twice in a row
-	return false if not options.force && lastQuery == newQuery
+	return false if not options.force && lastQuery is newQuery
 
 	return queryAPI( query ).done ( stat_results ) ->
 		$('.alert').fadeOut()
@@ -236,10 +236,10 @@ getParameter = ( paramName ) ->
 	null
 
 isFormComplete = ->
-	return false if ! $('input#control-conversions').val()
-	return false if ! $('input#control-samples').val()
-	return false if ! $('input#experiment-conversions').val()
-	return false if ! $('input#experiment-samples').val()
+	return false unless $('input#control-conversions').val()
+	return false unless $('input#control-samples').val()
+	return false unless $('input#experiment-conversions').val()
+	return false unless $('input#experiment-samples').val()
 
 	true
 
@@ -248,7 +248,7 @@ $ ->
 	if $.support.history
 		$(window).on 'popstate', ( event ) ->
 			state = event.originalEvent.state
-			if ( state )
+			if state
 				getResults state, { force: true }
 				syncFormWithPermalink()
 
@@ -260,7 +260,7 @@ $ ->
 		event.preventDefault()
 
 		# Don't submit incomplete forms
-		return false if not isFormComplete()
+		return false unless isFormComplete()
 
 		getResults
 			conversions_control:    $('input#control-conversions').val()    # con con
