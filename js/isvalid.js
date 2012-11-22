@@ -18,7 +18,7 @@
   };
 
   (function() {
-    var animate, draw, easeInOutQuad, init, lines, randomBetween;
+    var Line, animate, draw, easeInOutQuad, init, lines, randomBetween;
     lines = [];
     this.requestAnimFrame = (function() {
       return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback, element) {
@@ -73,7 +73,7 @@
     randomBetween = function(min, max) {
       return Math.round((Math.random() * (max - min)) + min);
     };
-    this.Line = function(options) {
+    Line = function(options) {
       if (options == null) {
         options = {};
       }
