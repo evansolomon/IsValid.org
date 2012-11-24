@@ -32,6 +32,6 @@ function print_header( $embed = false ) {
 	<?php if ( $embed ): ?>
 		<link href="css/embed.css" rel="stylesheet">
 	<?php endif; ?>
-</head>
+	</head>
 <?php
 }
