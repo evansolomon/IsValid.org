@@ -19,8 +19,6 @@ function print_header( $embed = false ) {
 		<script src="js/underscore.min.js"></script>
 		<script src="js/handlebars.js"></script>
 
-		<script src="js/isvalid.js"></script>
-
 		<!-- Fonts -->
 		<script type="text/javascript" src="//use.typekit.net/ivm8epx.js"></script>
 		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
@@ -28,6 +26,8 @@ function print_header( $embed = false ) {
 		<!-- Bootstrap -->
 		<link href="css/bootstrap-compiled.min.css" rel="stylesheet">
 
+		<!-- Local -->
+		<script src="js/isvalid.js"></script>
 		<link href="css/isvalid.css" rel="stylesheet">
 	<?php if ( $embed ): ?>
 		<link href="css/embed.css" rel="stylesheet">
