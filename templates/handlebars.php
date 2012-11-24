@@ -25,7 +25,7 @@ class Handlebars {
 	<?php
 	}
 
-	function print_erorr() {
+	function print_error() {
 	?>
 		<script id="error-template" type="text/x-handlebars-template">
 			<div class="row">

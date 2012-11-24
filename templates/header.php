@@ -33,4 +33,5 @@ function print_header( $embed = false ) {
 		<link href="css/embed.css" rel="stylesheet">
 	<?php endif; ?>
 </head>
+<?php
 }
