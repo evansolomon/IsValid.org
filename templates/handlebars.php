@@ -6,7 +6,7 @@ class Handlebars {
 		self::print_error();
 	}
 
-	function print_results() {
+	static function print_results() {
 	?>
 		<script id="results-template" type="text/x-handlebars-template">
 			<div class="row">
@@ -25,7 +25,7 @@ class Handlebars {
 	<?php
 	}
 
-	function print_error() {
+	static function print_error() {
 	?>
 		<script id="error-template" type="text/x-handlebars-template">
 			<div class="row">
