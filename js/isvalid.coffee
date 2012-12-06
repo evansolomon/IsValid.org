@@ -156,7 +156,7 @@ renderResults = ( stat_results, query ) ->
 
 		percents
 
-	permalink = "http://#{window.location.host}?" + $.param( getPermalinkQuery query )
+	permalink = "http://#{window.location.host}?" + getQueryString query
 
 	# Control
 	results.push $.extend
@@ -196,7 +196,7 @@ printResult = ( html, options = {} ) ->
 		$(this).hide().delay( 300 ).html( html ).fadeIn options.speed
 
 pushState = ( query ) ->
-	url = '?' + $.param( getPermalinkQuery query )
+	url = '?' + getQueryString query
 	history.pushState query, '', url if $.support.history
 
 isEmbed = ->
@@ -205,9 +205,12 @@ isEmbed = ->
 isNewQuery = ( queryString ) ->
 	return queryString != window.location.search
 
+getQueryString = ( query ) ->
+	$.param( getPermalinkQuery query )
+
 getResults = ( query, options = {} ) ->
 	lastQuery = window.location.search
-	newQuery  = '?' + $.param( getPermalinkQuery query )
+	newQuery  = '?' + getQueryString query
 
 	# Maintain state
 	pushState query if ! isEmbed() && ( isNewQuery( newQuery ) || ! history.state )
