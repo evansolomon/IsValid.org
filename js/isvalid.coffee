@@ -195,13 +195,22 @@ printResult = ( html, options = {} ) ->
 	$('.results').fadeOut 200, ->
 		$(this).hide().delay( 300 ).html( html ).fadeIn options.speed
 
+pushState = ( query ) ->
+	url = '?' + $.param( getPermalinkQuery query )
+	history.pushState query, '', url if $.support.history
+
+isEmbed = ->
+	! $('.header').is( ':visible' )
+
+isNewQuery = ( queryString ) ->
+	return queryString != window.location.search
+
 getResults = ( query, options = {} ) ->
 	lastQuery = window.location.search
 	newQuery  = '?' + $.param( getPermalinkQuery query )
 
-	# Change the URL
-	if $.support.history && newQuery != window.location.search && $('.header').is ':visible'
-		history.pushState query, '', newQuery
+	# Maintain state
+	pushState query if ! isEmbed() && ( isNewQuery( newQuery ) || ! history.state )
 
 	# Don't run the same query twice in a row
 	return false if not options.force && lastQuery is newQuery
