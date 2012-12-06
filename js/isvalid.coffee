@@ -215,7 +215,7 @@ getResults = ( query, options = {} ) ->
 	# Don't run the same query twice in a row
 	return false if not options.force && lastQuery is newQuery
 
-	return queryAPI( query ).done ( stat_results ) ->
+	queryAPI( query ).done ( stat_results ) ->
 		$('.alert').fadeOut()
 
 		# Check for errors
