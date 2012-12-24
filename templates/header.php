@@ -14,11 +14,6 @@ function print_header( $embed = false ) {
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 
-		<!-- Libraries -->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/underscore.min.js"></script>
-		<script src="js/handlebars.js"></script>
-
 		<!-- Fonts -->
 		<script type="text/javascript" src="//use.typekit.net/ivm8epx.js"></script>
 		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
@@ -27,7 +22,7 @@ function print_header( $embed = false ) {
 		<link href="css/bootstrap-compiled.min.css" rel="stylesheet">
 
 		<!-- Local -->
-		<script src="js/isvalid.js"></script>
+		<script src="static/scripts.min.js"></script>
 		<link href="css/isvalid.css" rel="stylesheet">
 	<?php if ( $embed ): ?>
 		<link href="css/embed.css" rel="stylesheet">
