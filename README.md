@@ -10,6 +10,10 @@ I host this exact code at [isvalid.org](http://isvalid.org).  If you want, you c
 
 There is also an API (which you could host yourself!) that you can read about [here](https://github.com/evansolomon/IsValid.org/wiki/API).
 
+## Development
+
+IsValid uses [Grunt](http://gruntjs.com/) to concatenate and minify JavaScript.  It also uses [grunt-coffee](https://github.com/avalade/grunt-coffee) to compile CoffeeScript via Grunt.  A simple `npm install grunt-coffee` will take care of both dependencies.
+
 ## Bookmarklet
 
 You can send data to IsValid with a handy browser bookmarklet using this as the URL:
