@@ -30,7 +30,7 @@ class API_Request {
 	}
 
 	private function cleanup_ints( $value ) {
-		if ( is_int( str_replace( ",", "", $value ) ) )
+		if ( is_numeric( str_replace( ",", "", $value ) ) && ( $value != (int) str_replace( ",", "", $value ) ) )
 			return (int) str_replace( ",", "", $value );
 
 		return $value;
