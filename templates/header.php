@@ -22,7 +22,6 @@ function print_header( $embed = false ) {
 		<link href="css/bootstrap-compiled.min.css" rel="stylesheet">
 
 		<!-- Local -->
-		<script src="static/scripts.min.js"></script>
 		<link href="css/isvalid.css" rel="stylesheet">
 	<?php if ( $embed ): ?>
 		<link href="css/embed.css" rel="stylesheet">
