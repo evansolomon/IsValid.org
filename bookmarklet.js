@@ -26,10 +26,14 @@
 
 		click: function( event ) {
 			var text = event.target.innerHTML,
-				number = parseInt( text.replace( ',', '' ), 10 );
+				number = parseInt( text.replace( /,/g, '' ), 10 );
+
+
 
 			if ( ! isvalid.selectable( number ) )
 				return;
+
+			console.log(number);
 
 			isvalid.selected.push( number );
 			jQuery(event.target).css( 'background-color', 'rgba(50, 200, 80, 0.7)' ).addClass( 'isvalid-clicked' );
@@ -65,7 +69,7 @@
 				return;
 
 			var text = event.target.innerHTML,
-				number = parseInt( text.replace( ',', '' ), 10 );
+				number = parseInt( text.replace( /,/g, '' ), 10 );
 
 			if ( ! isvalid.selectable( number ) )
 				return;
