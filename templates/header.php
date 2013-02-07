@@ -14,16 +14,16 @@ function print_header( $embed = false ) {
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 
-		<!-- Fonts -->
-		<script type="text/javascript" src="//use.typekit.net/ivm8epx.js"></script>
-		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-
 		<!-- Bootstrap -->
 		<link href="css/bootstrap-compiled.min.css" rel="stylesheet">
 
 		<!-- Local -->
-		<script src="static/scripts.min.js"></script>
 		<link href="css/isvalid.css" rel="stylesheet">
+		<script src="static/scripts.min.js"></script>
+
+		<!-- Fonts -->
+		<script type="text/javascript" src="//use.typekit.net/ivm8epx.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	<?php if ( $embed ): ?>
 		<link href="css/embed.css" rel="stylesheet">
 	<?php endif; ?>
