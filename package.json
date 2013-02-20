@@ -1,0 +1,25 @@
+{
+  "name": "isvalid",
+  "version": "1.0.0",
+  "description": "Analyze the results of A/B tests",
+  "devDependencies": {
+    "coffee-script": "~1.4.0",
+    "grunt": "~0.3.17",
+    "grunt-coffee": "~0.0.6"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/evansolomon/IsValid.org.git"
+  },
+  "keywords": [
+    "a/b",
+    "test",
+    "data",
+    "stats"
+  ],
+  "author": "Evan Solomon",
+  "license": "MIT",
+  "gitHead": "0ad8bbc23ea272a2addf6945174de338222f2009",
+  "readmeFilename": "README.md"
+}
