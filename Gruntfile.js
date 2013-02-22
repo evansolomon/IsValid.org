@@ -9,8 +9,7 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     meta: {
-      banner: '/*! IsValid ' +
-        '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+      banner: '/*! IsValid' +
         '* http://isvalid.org/\n' +
         '* Copyright (c) <%= grunt.template.today("yyyy") %> ' +
         'Evan Solomon; Licensed GPL */\n'
