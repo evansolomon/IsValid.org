@@ -14,11 +14,7 @@ function print_header( $embed = false ) {
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 
-	<?php if ( $embed ): ?>
-		<link href="static/embed.css" rel="stylesheet">
-	<?php else: ?>
-		<link href="static/styles.css" rel="stylesheet">
-	<?php endif; ?>
+		<link href="static/<?= $embed ? 'embed' : 'styles' ?>.css" rel="stylesheet">
 
 		<!-- Local -->
 		<script src="static/scripts.min.js"></script>
