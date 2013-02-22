@@ -50,6 +50,13 @@ module.exports = function(grunt) {
         options: {
             bare: false
         }
+      },
+      bookmarklet: {
+        src: ['js/bookmarklet/bookmarklet.coffee'],
+        dest: 'js/bookmarklet',
+        options: {
+          bare: false
+        }
       }
     }
   });
