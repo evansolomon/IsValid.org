@@ -1,7 +1,5 @@
-/*! IsValid 2013-02-21
-* http://isvalid.org/
+/*! IsValid* http://isvalid.org/
 * Copyright (c) 2013 Evan Solomon; Licensed GPL */
-
 /*!
  * jQuery JavaScript Library v1.8.3
  * http://jquery.com/
