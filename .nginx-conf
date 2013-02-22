@@ -37,6 +37,7 @@ server {
     location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
         expires 24h;
         log_not_found off;
+        gzip_vary on;
     }
 
     location ~ \.php$ {
