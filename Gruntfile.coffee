@@ -25,28 +25,6 @@ module.exports = ( grunt ) ->
         src  : ['js/vendor/jquery.js', 'js/vendor/underscore.js', 'js/vendor/handlebars.js', 'js/src/isvalid.js']
         dest : 'static/js/scripts.js'
 
-    min:
-      dist:
-        src  : ['<banner:meta.banner>', '<config:concat.dist.dest>']
-        dest : 'static/js/scripts.min.js'
-
-    jshint:
-      options:
-        curly   : true
-        eqeqeq  : true
-        immed   : true
-        latedef : true
-        newcap  : true
-        noarg   : true
-        sub     : true
-        undef   : true
-        boss    : true
-        eqnull  : true
-        browser : true
-
-      globals:
-        jQuery: true
-
     uglify:
       options:
         banner: "<%= meta.banner %>"
