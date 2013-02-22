@@ -15,7 +15,7 @@ function print_header( $embed = false ) {
 		<![endif]-->
 
 		<!-- Styles -->
-		<link href="static/<?= $embed ? 'embed' : 'styles' ?>.css" rel="stylesheet">
+		<link href="static/<?= $embed ? 'embed' : 'styles' ?>.min.css" rel="stylesheet">
 
 		<!-- Scripts -->
 		<script src="static/scripts.min.js"></script>
