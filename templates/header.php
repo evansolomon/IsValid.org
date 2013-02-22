@@ -14,9 +14,10 @@ function print_header( $embed = false ) {
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 
+		<!-- Styles -->
 		<link href="static/<?= $embed ? 'embed' : 'styles' ?>.css" rel="stylesheet">
 
-		<!-- Local -->
+		<!-- Scripts -->
 		<script src="static/scripts.min.js"></script>
 
 		<!-- Fonts -->
