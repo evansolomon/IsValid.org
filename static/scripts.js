@@ -1,4 +1,4 @@
-/*! IsValid 2013-02-07
+/*! IsValid 2013-02-21
 * http://isvalid.org/
 * Copyright (c) 2013 Evan Solomon; Licensed GPL */
 
