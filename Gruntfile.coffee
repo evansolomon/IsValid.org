@@ -23,12 +23,12 @@ module.exports = ( grunt ) ->
 
       dist:
         src  : ['js/vendor/jquery.js', 'js/vendor/underscore.js', 'js/vendor/handlebars.js', 'js/src/isvalid.js']
-        dest : 'static/scripts.js'
+        dest : 'static/js/scripts.js'
 
     min:
       dist:
         src  : ['<banner:meta.banner>', '<config:concat.dist.dest>']
-        dest : 'static/scripts.min.js'
+        dest : 'static/js/scripts.min.js'
 
     jshint:
       options:
@@ -52,7 +52,7 @@ module.exports = ( grunt ) ->
         banner: "<%= meta.banner %>"
       dist:
         src  : ['<%= concat.dist.dest %>']
-        dest : 'static/scripts.min.js'
+        dest : 'static/js/scripts.min.js'
 
     coffee:
       glob_to_multiple:
@@ -65,8 +65,8 @@ module.exports = ( grunt ) ->
     cssmin:
       compress:
         files:
-          "static/styles.min.css" : ["css/bootstrap-compiled.min.css", "css/isvalid.css"],
-          "static/embed.min.css"  : ["css/embed.css"]
+          "static/css/styles.min.css" : ["css/bootstrap-compiled.min.css", "css/isvalid.css"],
+          "static/css/embed.min.css"  : ["css/embed.css"]
 
 
   # Default task.

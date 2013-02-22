@@ -15,13 +15,13 @@ function print_header( $embed = false ) {
 		<![endif]-->
 
 		<!-- Styles -->
-		<link href="static/styles.min.css" rel="stylesheet">
+		<link href="static/css/styles.min.css" rel="stylesheet">
 		<?php if ( $embed ): ?>
-		<link href="static/embed.min.css" rel="stylesheet">
+		<link href="static/css/embed.min.css" rel="stylesheet">
 		<?php endif; ?>
 
 		<!-- Scripts -->
-		<script src="static/scripts.min.js"></script>
+		<script src="static/js/scripts.min.js"></script>
 
 		<!-- Fonts -->
 		<script type="text/javascript" src="//use.typekit.net/ivm8epx.js"></script>
