@@ -4,6 +4,7 @@ module.exports = ( grunt ) ->
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
+  grunt.loadNpmTasks 'grunt-text-replace'
 
   # Project configuration.
   grunt.initConfig
@@ -52,6 +53,18 @@ module.exports = ( grunt ) ->
           'static/css/styles.min.css' : ['css/bootstrap-compiled.min.css', 'css/isvalid.css'],
           'static/css/embed.min.css'  : 'css/embed.css'
 
+    replace:
+      bookmarklet:
+        src       : ['templates/footer.php', 'README.md']
+        overwrite : true
+        replacements: [
+          from : /javascript:[^\n']+/
+          to   : ->
+            # Use the last line of the minified JS
+            bookmarklet = grunt.file.read( 'js/bookmarklet/bookmarklet.min.js' ).split( '\n' ).pop()
+            "javascript:#{bookmarklet}"
+        ]
+
 
   # Default task.
-  grunt.registerTask 'default', ['coffee', 'concat', 'uglify', 'cssmin']
+  grunt.registerTask 'default', ['coffee', 'concat', 'uglify', 'cssmin', 'replace']
