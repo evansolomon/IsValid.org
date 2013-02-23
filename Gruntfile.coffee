@@ -27,7 +27,7 @@ module.exports = ( grunt ) ->
 
     uglify:
       options:
-        banner: "<%= meta.banner %>"
+        banner: '<%= meta.banner %>'
       dist:
         src  : '<%= concat.dist.dest %>'
         dest : 'static/js/scripts.min.js'
@@ -43,8 +43,8 @@ module.exports = ( grunt ) ->
     cssmin:
       compress:
         files:
-          "static/css/styles.min.css" : ["css/bootstrap-compiled.min.css", "css/isvalid.css"],
-          "static/css/embed.min.css"  : "css/embed.css"
+          'static/css/styles.min.css' : ['css/bootstrap-compiled.min.css', 'css/isvalid.css'],
+          'static/css/embed.min.css'  : 'css/embed.css'
 
 
   # Default task.
