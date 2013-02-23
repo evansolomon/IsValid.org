@@ -12,7 +12,7 @@ There is also an API (which you could host yourself!) that you can read about [h
 
 ## Development
 
-IsValid uses [Grunt](http://gruntjs.com/) to concatenate and minify JavaScript.  It also uses [grunt-coffee](https://github.com/avalade/grunt-coffee) to compile CoffeeScript via Grunt.  A simple `npm install` will take care of both dependencies.
+IsValid uses [Grunt](http://gruntjs.com/) to do all kind of build process-y things.  A simple `npm install` will take care of its dependencies.
 
 ## Bookmarklet
 
