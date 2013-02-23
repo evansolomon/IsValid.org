@@ -29,14 +29,14 @@ module.exports = ( grunt ) ->
       options:
         banner: "<%= meta.banner %>"
       dist:
-        src  : ['<%= concat.dist.dest %>']
+        src  : '<%= concat.dist.dest %>'
         dest : 'static/js/scripts.min.js'
 
     coffee:
       glob_to_multiple:
         expand : true
         cwd    : 'js/src'
-        src    : ['*.coffee']
+        src    : '*.coffee'
         dest   : 'js/src/'
         ext    : '.js'
 
@@ -44,7 +44,7 @@ module.exports = ( grunt ) ->
       compress:
         files:
           "static/css/styles.min.css" : ["css/bootstrap-compiled.min.css", "css/isvalid.css"],
-          "static/css/embed.min.css"  : ["css/embed.css"]
+          "static/css/embed.min.css"  : "css/embed.css"
 
 
   # Default task.
