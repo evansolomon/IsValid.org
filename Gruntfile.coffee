@@ -31,6 +31,9 @@ module.exports = ( grunt ) ->
       dist:
         src  : '<%= concat.dist.dest %>'
         dest : 'static/js/scripts.min.js'
+      bookmarklet:
+        src  : 'js/bookmarklet/bookmarklet.js'
+        dest : 'js/bookmarklet/bookmarklet.min.js'
 
     coffee:
       glob_to_multiple:
@@ -39,6 +42,9 @@ module.exports = ( grunt ) ->
         src    : '*.coffee'
         dest   : 'js/src/'
         ext    : '.js'
+      compile:
+        files:
+          'js/bookmarklet/bookmarklet.js' : 'js/bookmarklet/bookmarklet.coffee'
 
     cssmin:
       compress:
