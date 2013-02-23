@@ -50,7 +50,7 @@ module.exports = ( grunt ) ->
     cssmin:
       compress:
         files:
-          'static/css/styles.min.css' : ['css/bootstrap-compiled.min.css', 'css/isvalid.css'],
+          'static/css/styles.min.css' : ['css/bootstrap.css', 'css/isvalid.css'],
           'static/css/embed.min.css'  : 'css/embed.css'
 
     replace:
