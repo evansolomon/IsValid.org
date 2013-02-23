@@ -55,9 +55,9 @@ module.exports = ( grunt ) ->
 
     replace:
       bookmarklet:
-        src       : ['templates/footer.php', 'README.md']
-        overwrite : true
-        replacements: [
+        src          : ['templates/footer.php', 'README.md']
+        overwrite    : true
+        replacements : [
           from : /javascript:[^\n']+/
           to   : ->
             # Use the last line of the minified JS
