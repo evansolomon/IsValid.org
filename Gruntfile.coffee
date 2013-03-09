@@ -5,6 +5,7 @@ module.exports = ( grunt ) ->
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
   grunt.loadNpmTasks 'grunt-text-replace'
+  grunt.loadNpmTasks 'grunt-contrib-handlebars'
 
   # Project configuration.
   grunt.initConfig
@@ -23,7 +24,13 @@ module.exports = ( grunt ) ->
         banner: '<%= meta.banner %>'
 
       dist:
-        src  : ['js/vendor/jquery.js', 'js/vendor/underscore.js', 'js/vendor/handlebars.js', 'js/src/isvalid.js']
+        src  : [
+          'js/vendor/jquery.js',
+          'js/vendor/underscore.js',
+          'js/vendor/handlebars.runtime.js',
+          'js/templates/*.js',
+          'js/src/isvalid.js'
+        ]
         dest : 'static/js/scripts.js'
 
     uglify:
@@ -65,6 +72,16 @@ module.exports = ( grunt ) ->
             "javascript:#{bookmarklet}"
         ]
 
+    handlebars:
+      options:
+        namespace   : 'Handlebars.templates'
+        processName : ( filename ) ->
+          filename.match( /([a-z]+)\.handlebars/ ).pop()
+      compile:
+        files:
+          'js/templates/results.js' : 'js/templates/results.handlebars'
+          'js/templates/error.js'   : 'js/templates/error.handlebars'
+
 
   # Default task.
-  grunt.registerTask 'default', ['coffee', 'concat', 'uglify', 'cssmin', 'replace']
+  grunt.registerTask 'default', ['coffee', 'handlebars', 'concat', 'uglify', 'cssmin', 'replace']
