@@ -131,14 +131,12 @@ isPermalinkPage = ->
 
 	true
 
-getTemplateOutput = ( template, input ) ->
-	source   = template.html()
-	compiled = Handlebars.compile source
-
-	compiled input
+getTemplateOutput = ( templateName, input ) ->
+	template = Handlebars.templates[templateName]
+	template input
 
 renderError = ( error ) ->
-	html = getTemplateOutput $('#error-template'), { error }
+	html = getTemplateOutput 'error', { error }
 	printResult html
 
 renderResults = ( stat_results, query ) ->
@@ -188,7 +186,7 @@ renderResults = ( stat_results, query ) ->
 		chart: stat_results.improvement.chart
 	, percentagize stat_results.improvement.results
 
-	html = getTemplateOutput $('#results-template'), { results, permalink }
+	html = getTemplateOutput 'results', { results, permalink }
 	printResult html
 
 printResult = ( html, options = {} ) ->
