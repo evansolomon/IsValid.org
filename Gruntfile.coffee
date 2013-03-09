@@ -88,3 +88,6 @@ module.exports = ( grunt ) ->
 
   # Default task.
   grunt.registerTask 'default', ['coffee', 'handlebars', 'concat', 'uglify', 'cssmin', 'replace']
+
+  grunt.registerTask 'test', 'casperjs'
+  grunt.registerTask 'all', ['coffee', 'handlebars', 'concat', 'uglify', 'cssmin', 'replace', 'test']
