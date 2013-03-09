@@ -10,7 +10,8 @@
     "grunt-contrib-concat": "~0.1.2",
     "grunt-contrib-uglify": "~0.1.1",
     "grunt-text-replace": "~0.3.2",
-    "grunt-contrib-handlebars": "~0.5.6"
+    "grunt-contrib-handlebars": "~0.5.6",
+    "grunt-casperjs": "~1.0.5"
   },
   "dependencies": {},
   "repository": {
