@@ -1,8 +1,6 @@
 <?php require_once( dirname( __FILE__ ) . '/isvalid-load.php' ); ?>
 <?php print_header(); ?>
 	<body class="permalink">
-		<?php Handlebars::print_templates(); ?>
-
 		<div class="container main">
 			<!-- Header -->
 			<div class="header">
