@@ -2,7 +2,7 @@ casper.start 'http://localhost:8080/?cc=200&sc=1000&ce=300&se=2000'
 
 casper.then ->
 	@test.assertTitle 'IsValid | Quantify the results of A/B tests', 'HTML title'
-	@test.assertNotVisible 'h1', 'Header is visible'
+	@test.assertNotVisible 'h1', 'Header is not visible'
 
 casper.then ->
 	@wait 1000, ->
