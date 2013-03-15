@@ -14,6 +14,9 @@
     "grunt-casperjs": "~1.0.5"
   },
   "dependencies": {},
+  "scripts": {
+    "preinstall": "npm install -g grunt-cli"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/evansolomon/IsValid.org.git"
