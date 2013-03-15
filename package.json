@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Analyze the results of A/B tests",
   "devDependencies": {
-    "coffee-script": "~1.4.0",
     "grunt": "~0.4.0",
     "grunt-contrib-cssmin": "~0.4.1",
     "grunt-contrib-coffee": "~0.4.0",
