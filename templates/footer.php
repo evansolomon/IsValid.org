@@ -1,5 +1,12 @@
 <?php
 
+function print_footer_scripts() {
+?>
+	<!-- Scripts -->
+	<script src="static/js/scripts.min.js"></script>
+<?php
+}
+
 function print_footer() {
 ?>
 	<div class="span4 offset4">

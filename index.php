@@ -42,6 +42,6 @@
 				<?php print_footer(); ?>
 			</div>
 		</div>
-
+	<?php print_footer_scripts(); ?>
 	</body>
 </html>

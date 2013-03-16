@@ -20,9 +20,6 @@ function print_header( $embed = false ) {
 		<link href="static/css/embed.min.css" rel="stylesheet">
 		<?php endif; ?>
 
-		<!-- Scripts -->
-		<script src="static/js/scripts.min.js"></script>
-
 		<!-- Fonts -->
 		<script type="text/javascript" src="//use.typekit.net/ivm8epx.js"></script>
 		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>

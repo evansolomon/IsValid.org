@@ -5,4 +5,5 @@
 			<div class="results"></div>
 		</div> <!-- /container -->
 	</body>
+<?php print_footer_scripts(); ?>
 </html>
