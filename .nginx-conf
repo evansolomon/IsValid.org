@@ -16,6 +16,7 @@ server {
     root         /srv/www/isvalid.org/public/current;
     access_log   /srv/www/isvalid.org/log/access.log;
     error_log    /srv/www/isvalid.org/log/error.log;
+    charset      utf-8;
 
     # Prevent hidden files (beginning with a period) from being served
     location ~ /\. { 
