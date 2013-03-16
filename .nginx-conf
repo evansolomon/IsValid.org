@@ -13,7 +13,7 @@ server {
 server {
     listen       80;
     server_name  isvalid.org;
-    root         /srv/www/isvalid.org/public;
+    root         /srv/www/isvalid.org/public/current;
     access_log   /srv/www/isvalid.org/log/access.log;
     error_log    /srv/www/isvalid.org/log/error.log;
 
