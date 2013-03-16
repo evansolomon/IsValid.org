@@ -3,7 +3,7 @@
 function print_footer_scripts() {
 ?>
 	<!-- Scripts -->
-	<script src="static/js/scripts.min.js"></script>
+	<script async src="static/js/scripts.min.js"></script>
 <?php
 }
 
