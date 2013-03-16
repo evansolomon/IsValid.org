@@ -14,7 +14,8 @@
   },
   "scripts": {
     "preinstall": "command -v grunt >/dev/null 2>&1 || { echo >&2 'Installing grunt-cli'; npm install -g grunt-cli; }",
-    "install": "grunt"
+    "install": "grunt",
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
