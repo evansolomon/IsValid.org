@@ -250,9 +250,16 @@ class API_Request {
 
 		/* significance */
 		$this->response['significance']['results'] = $significance;
+		$winners_perspective = $this->get_params( array( 'winners_perspective' ) );
+		$winners_perspective = array_pop( $winners_perspective );
+		if ( $winners_perspective )
+			$chance = max( $significance['experiment'], $significance['control'] );
+		else
+			$chance = $significance['experiment'];
+
 		$this->response['significance']['chart'] = sprintf(
 			'http://chart.apis.google.com/chart?chxl=0:|&chxt=y&chs=500x250&chls=2|0&cht=gm&chd=t:%f',
-			$significance['experiment'] * 100
+			$chance * 100
 		);
 
 		/* improvement */

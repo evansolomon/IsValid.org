@@ -1,6 +1,6 @@
 <?php require_once( dirname( __FILE__ ) . '/isvalid-load.php' ); ?>
 <?php print_header(); ?>
-	<body class="permalink">
+	<body class="permalink index">
 		<div class="container main">
 			<!-- Header -->
 			<div class="header">

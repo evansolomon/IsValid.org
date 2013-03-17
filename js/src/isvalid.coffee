@@ -156,10 +156,20 @@ renderResults = ( stat_results, query ) ->
 
 	permalink = "http://#{window.location.host}?" + getQueryString query
 
+	# Figure out the winner
+	conf_results = stat_results.confidence.results
+	winner = if conf_results.experiment.average > conf_results.control.average
+		'experiment'
+	else
+		'original'
+
+	winner_significance = Math.max stat_results.significance.results.experiment, stat_results.significance.results.control
+
 	# Control
 	results.push $.extend
 		title: 'Original'
 		chart: stat_results.confidence.chart.control
+		is_winner: winner is 'original'
 		inputs:
 			conversions: parseInt( query.conversions_control, 10 ).approximate()
 			samples: parseInt( query.samples_control, 10 ).approximate()
@@ -169,6 +179,7 @@ renderResults = ( stat_results, query ) ->
 	results.push $.extend
 		title: 'Experiment'
 		chart: stat_results.confidence.chart.experiment
+		is_winner: winner is 'experiment'
 		inputs:
 			conversions: parseInt( query.conversions_experiment, 10 ).approximate()
 			samples: parseInt( query.samples_experiment, 10 ).approximate()
@@ -178,7 +189,8 @@ renderResults = ( stat_results, query ) ->
 	results.push $.extend
 		title: 'Significance'
 		chart: stat_results.significance.chart
-	, percentagize { average: stat_results.significance.results.experiment }
+		winner: "#{winner.charAt(0).toUpperCase()}#{winner.slice(1)}"
+	, percentagize { average: winner_significance }
 
 	# Improvement
 	results.push $.extend
@@ -232,6 +244,8 @@ syncFormWithPermalink = ->
 	$("input#experiment-samples").val getParameter( 'se' )
 
 queryAPI = ( query ) ->
+	# So that we get a significance chart for whichever version wins
+	query.winners_perspective = true
 	$.getJSON 'api?' + $.param query
 
 getParameter = ( paramName ) ->

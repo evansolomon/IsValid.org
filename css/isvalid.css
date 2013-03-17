@@ -135,6 +135,14 @@ body.permalink .header p {
 	margin: 5px 0 0 5px;
 }
 
+
+.index .result.winner {
+	box-shadow: 0 0 6px 1px #31CE00;
+	padding: 0 20px;
+	box-sizing: border-box;
+	border-radius: 2px;
+}
+
 .average {
 	position: relative;
 	float: left;
