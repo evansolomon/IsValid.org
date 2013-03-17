@@ -57,6 +57,8 @@ module.exports = ( grunt ) ->
           'js/bookmarklet/bookmarklet.js' : 'js/bookmarklet/bookmarklet.coffee'
 
     cssmin:
+      options:
+        banner: '<%= meta.banner %>'
       compress:
         files:
           'static/css/styles.min.css' : ['css/bootstrap.css', 'css/isvalid.css'],
