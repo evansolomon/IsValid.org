@@ -18,8 +18,8 @@ casper.then ->
 casper.then ->
 	ranges = @evaluate ->
 		_.map $('.range'), ( item ) ->
-			$( item ).text()
+			$( item ).text().trim()
 
-	@test.assertEquals ranges, [ '15.8 – 24.2', '12.4 – 17.6', '-34.6 – -15.4' ]
+	@test.assertEquals ranges, [ '15.8 – 24.2', '12.4 – 17.6', 'Original is better', '-34.6 – -15.4' ]
 
 casper.run()
