@@ -7,7 +7,7 @@ casper.then ->
 	@sendKeys '#experiment-conversions', '300'
 
 	@wait 2000, ->
-		@test.assertUrlMatch /https?:\/\/[^\/]+\/\?cc=200&sc=1&ce=300&se=1$/, 'Form auto-submits'
+		@test.assertUrlMatch /https?:\/\/[^\/]+\/\?cc=200&sc=1&ce=300&se=1&significance=0.9$/, 'Form auto-submits'
 
 casper.then ->
 	@test.assertVisible '.alert-error', 'Error message loads'

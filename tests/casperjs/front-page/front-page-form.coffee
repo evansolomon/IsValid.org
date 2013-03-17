@@ -7,7 +7,7 @@ casper.then ->
 	@sendKeys '#experiment-conversions', '300'
 
 	@wait 2000, ->
-		@test.assertUrlMatch /https?:\/\/[^\/]+\/\?cc=200&sc=1000&ce=300&se=2000$/, 'Form auto-submits'
+		@test.assertUrlMatch /https?:\/\/[^\/]+\/\?cc=200&sc=1000&ce=300&se=2000&significance=0.9$/, 'Form auto-submits'
 
 casper.then ->
 	permalinkClass = @evaluate ->
