@@ -7,6 +7,7 @@ module.exports = ( grunt ) ->
   grunt.loadNpmTasks 'grunt-text-replace'
   grunt.loadNpmTasks 'grunt-contrib-handlebars'
   grunt.loadNpmTasks 'grunt-casperjs'
+  grunt.loadNpmTasks 'grunt-contrib-watch'
 
   # Project configuration.
   grunt.initConfig
@@ -85,6 +86,19 @@ module.exports = ( grunt ) ->
 
     casperjs:
       files: ['tests/casperjs/**/*.coffee']
+
+    watch:
+      scripts:
+        files: ['js/**/*.coffee', 'js/vendor/*']
+        tasks: ['coffee', 'concat', 'uglify', 'replace']
+
+      templates:
+        files: 'js/**/*.handlebars'
+        tasks: ['handlebars', 'concat', 'uglify']
+
+      styles:
+        files: 'css/**/*'
+        tasks: ['cssmin']
 
   # Default task.
   grunt.registerTask 'default', ['coffee', 'handlebars', 'concat', 'uglify', 'cssmin', 'replace']
