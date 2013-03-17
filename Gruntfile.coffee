@@ -59,6 +59,7 @@ module.exports = ( grunt ) ->
     cssmin:
       options:
         banner: '<%= meta.banner %>'
+        keepSpecialComments: 0
       compress:
         files:
           'static/css/styles.min.css' : ['css/bootstrap.css', 'css/isvalid.css'],
