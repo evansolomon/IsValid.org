@@ -5,6 +5,7 @@ html {
 
 .container.main {
 	min-height: 100%;
+	margin-bottom: 40px;
 }
 
 .alert {
