@@ -91,6 +91,8 @@ module.exports = ( grunt ) ->
       scripts:
         files: ['js/**/*.coffee', 'js/vendor/*']
         tasks: ['coffee', 'concat', 'uglify', 'replace']
+        options:
+          interrupt: true
 
       templates:
         files: 'js/**/*.handlebars'
