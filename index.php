@@ -30,6 +30,10 @@
 						<input class="input-xlarge" type="text" id="experiment-conversions" tabindex="4" placeholder="Experiment">
 					</div>
 				</div>
+				<div class="span6 offset3 form-extra">
+					<h3 class="label-extra">Significance Requirement</h3>
+					<input class="input-xlarge" type="text" id="significance" tabindex="5" placeholder="95% (optional)">
+				</div>
 			</div>
 			</form>
 			<div class="row">

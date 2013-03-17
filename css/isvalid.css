@@ -65,6 +65,10 @@ body.embed h1 {
 	opacity: 0.6;
 }
 
+.form-extra {
+	display: none;
+}
+
 .permalink input.input-xlarge {
 	height: 30px;
 	font-size: 24px;

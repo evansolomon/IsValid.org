@@ -117,6 +117,7 @@ getPermalinkQuery = ( query ) ->
 		samples_control:        'sc', # con sam
 		conversions_experiment: 'ce', # test con
 		samples_experiment:     'se'  # test sam
+		significance:           'significance'
 
 	$.map query, ( value, key ) ->
 		results[ conConMap[ key ] ] = value
@@ -157,19 +158,20 @@ renderResults = ( stat_results, query ) ->
 	permalink = "http://#{window.location.host}?" + getQueryString query
 
 	# Figure out the winner
+	winner_significance = Math.max stat_results.significance.results.experiment, stat_results.significance.results.control
+	is_significant = winner_significance > getParameter 'significance'
+
 	conf_results = stat_results.confidence.results
 	winner = if conf_results.experiment.average > conf_results.control.average
 		'experiment'
 	else
 		'original'
 
-	winner_significance = Math.max stat_results.significance.results.experiment, stat_results.significance.results.control
-
 	# Control
 	results.push $.extend
 		title: 'Original'
 		chart: stat_results.confidence.chart.control
-		is_winner: winner is 'original'
+		is_winner: winner is 'original' and is_significant
 		inputs:
 			conversions: parseInt( query.conversions_control, 10 ).approximate()
 			samples: parseInt( query.samples_control, 10 ).approximate()
@@ -179,7 +181,7 @@ renderResults = ( stat_results, query ) ->
 	results.push $.extend
 		title: 'Experiment'
 		chart: stat_results.confidence.chart.experiment
-		is_winner: winner is 'experiment'
+		is_winner: winner is 'experiment' and is_significant
 		inputs:
 			conversions: parseInt( query.conversions_experiment, 10 ).approximate()
 			samples: parseInt( query.samples_experiment, 10 ).approximate()
@@ -219,6 +221,17 @@ getQueryString = ( query ) ->
 	$.param( getPermalinkQuery query )
 
 getResults = ( query, options = {} ) ->
+	# Optional param
+	query.significance = if !query.significance or _.isNaN query.significance
+		.90
+	else if _.isString query.significance
+		query.significance.replace /\D+$/, ''
+	else
+		query.significance
+
+	query.significance = parseFloat query.significance, 10
+	query.significance /= 100 if 1 < query.significance < 100
+
 	lastQuery = window.location.search
 	newQuery  = '?' + getQueryString query
 
@@ -242,6 +255,7 @@ syncFormWithPermalink = ->
 	$("input#control-samples").val getParameter( 'sc' )
 	$("input#experiment-conversions").val getParameter( 'ce' )
 	$("input#experiment-samples").val getParameter( 'se' )
+	$("input#significance").val getParameter( 'significance' ) || .90
 
 queryAPI = ( query ) ->
 	# So that we get a significance chart for whichever version wins
@@ -263,6 +277,7 @@ isFormComplete = ->
 	return false unless $('input#control-samples').val()
 	return false unless $('input#experiment-conversions').val()
 	return false unless $('input#experiment-samples').val()
+	return false unless $('input#significance').val()
 
 	true
 
@@ -290,6 +305,7 @@ $ ->
 			samples_control:        $('input#control-samples').val()        # con sam
 			conversions_experiment: $('input#experiment-conversions').val() # test con
 			samples_experiment:     $('input#experiment-samples').val()     # test sam
+			significance:           $('input#significance').val()
 
 	# Auto-load results on permalink pages
 	if isPermalinkPage()
@@ -300,9 +316,11 @@ $ ->
 			samples_control:        getParameter( 'sc' ) # con sam
 			conversions_experiment: getParameter( 'ce' ) # test con
 			samples_experiment:     getParameter( 'se' ) # test sam
+			significance:           getParameter( 'significance' )
 		, { force: true }
 
 	else
+		$('input#significance').val .90
 		$('body').removeClass( 'permalink' ).addClass 'home'
 		$('.alert-info').delay( 1400 ).fadeIn 'slow'
 
@@ -312,5 +330,9 @@ $ ->
 		@keyup_timer = setTimeout ->
 			$('form').submit()
 		, 800
+
+	# Extra options
+	$( '#conconjr' ).on 'click', ->
+		$( '.form-extra' ).slideToggle().find( 'input' ).focus()
 
 	conconjr()
