@@ -16,7 +16,7 @@ module.exports = ( grunt ) ->
         /* IsValid
          * http://isvalid.org/
          * Copyright (c) <%= grunt.template.today("yyyy") %>
-         * Evan Solomon; Licensed GPL
+         * Evan Solomon; Licensed MIT
          */
 
         """
