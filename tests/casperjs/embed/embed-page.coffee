@@ -9,7 +9,7 @@ casper.then ->
 		_.map $('.average'), ( item ) ->
 			$( item ).text()
 
-	@test.assertEquals averages, [ '20%', '15%', '0%', '-25%' ]
+	@test.assertEquals averages, [ '20%', '15%', '100%', '-25%' ]
 
 casper.then ->
 	ranges = @evaluate ->
