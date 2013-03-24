@@ -31,7 +31,8 @@ module.exports = ( grunt ) ->
           'js/vendor/underscore.js',
           'js/vendor/handlebars.runtime.js',
           'js/templates/*.js',
-          'js/src/isvalid.js'
+          'js/src/concon.js'
+          'js/src/app.js'
         ]
         dest : 'static/js/scripts.js'
 
