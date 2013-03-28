@@ -8,6 +8,7 @@ module.exports = ( grunt ) ->
   grunt.loadNpmTasks 'grunt-contrib-handlebars'
   grunt.loadNpmTasks 'grunt-casperjs'
   grunt.loadNpmTasks 'grunt-contrib-watch'
+  grunt.loadNpmTasks 'grunt-coffeelint'
 
   # Project configuration.
   grunt.initConfig
@@ -106,8 +107,15 @@ module.exports = ( grunt ) ->
         files: 'css/**/*'
         tasks: ['cssmin']
 
+    coffeelint:
+      all:
+        files: '**/*.coffee'
+        options:
+          no_tabs: false
+          no_empty_param_list: true
+
   # Default task.
-  grunt.registerTask 'default', ['coffee', 'handlebars', 'concat', 'uglify', 'cssmin', 'replace']
+  grunt.registerTask 'default', ['coffeelint', 'coffee', 'handlebars', 'concat', 'uglify', 'cssmin', 'replace']
 
   grunt.registerTask 'test', 'casperjs'
-  grunt.registerTask 'all', ['coffee', 'handlebars', 'concat', 'uglify', 'cssmin', 'replace', 'test']
+  grunt.registerTask 'all', ['default', 'test']
