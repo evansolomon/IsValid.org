@@ -1,4 +1,4 @@
-casper.start 'http://localhost:8080/embed?cc=200&sc=1&ce=300&se=1'
+casper.start 'http://localhost:8080/embed.php?cc=200&sc=1&ce=300&se=1'
 
 casper.then ->
 	@wait 1000, ->
