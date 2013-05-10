@@ -22,4 +22,5 @@ casper.then ->
 	@test.assertNotVisible '.footer', 'No footer'
 	@test.assertNotVisible '.header', 'No header'
 
-casper.run()
+casper.run ->
+	@test.done()

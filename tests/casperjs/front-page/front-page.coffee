@@ -11,4 +11,5 @@ casper.then ->
 
 	@test.assertSelectorHasText '.alert-info', 'Results will automatically load when you fill in each field'
 
-casper.run()
+casper.run ->
+  @test.done()

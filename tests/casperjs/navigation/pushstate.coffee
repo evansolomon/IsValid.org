@@ -24,4 +24,5 @@ casper.then ->
 	@wait 2000, ->
 		@test.assertEquals @getHTML( '.results' ), content, 'Back nav'
 
-casper.run()
+casper.run ->
+	@test.done()

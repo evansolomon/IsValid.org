@@ -22,4 +22,5 @@ casper.then ->
 
 	@test.assertEquals ranges, [ '15.8 – 24.2', '12.4 – 17.6', 'Original is better', '-34.6 – -15.4' ]
 
-casper.run()
+casper.run ->
+	@test.done()

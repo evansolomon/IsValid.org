@@ -12,4 +12,5 @@ casper.then ->
 
 	@test.assertSelectorHasText '.alert-error', message for message in messages
 
-casper.run()
+casper.run ->
+  @test.done()

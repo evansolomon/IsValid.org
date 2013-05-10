@@ -28,4 +28,5 @@ casper.then ->
 
 	@test.assertEquals resultCount, 4, 'Four results loaded'
 
-casper.run()
+casper.run ->
+	@test.done()

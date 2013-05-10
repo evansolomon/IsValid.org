@@ -12,4 +12,5 @@ casper.then ->
 		@test.assertFalsy @evaluate ->
 			$( '.results' ).first().hasClass 'winner'
 
-casper.run()
+casper.run ->
+  @test.done()
