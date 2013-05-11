@@ -9,6 +9,7 @@ module.exports = ( grunt ) ->
   grunt.loadNpmTasks 'grunt-casperjs'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-coffeelint'
+  grunt.loadNpmTasks 'grunt-exec'
 
   # Project configuration.
   grunt.initConfig
@@ -114,8 +115,14 @@ module.exports = ( grunt ) ->
           no_tabs: false
           no_empty_param_list: true
 
+    exec:
+      start_test_server:
+        command: 'php -S localhost:8080 >/dev/null 2>&1 &'
+      kill_test_server:
+        command: "ps aux | grep 'php -S localhost:8080' | grep -v grep | awk '{print $2}' | xargs kill"
+
   # Default task.
   grunt.registerTask 'default', ['coffeelint', 'coffee', 'handlebars', 'concat', 'uglify', 'cssmin', 'replace']
 
-  grunt.registerTask 'test', 'casperjs'
+  grunt.registerTask 'test', ['exec:start_test_server', 'casperjs', 'exec:kill_test_server']
   grunt.registerTask 'all', ['default', 'test']

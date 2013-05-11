@@ -16,4 +16,3 @@ before_install:
   - git checkout tags/1.0.2
   - sudo ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs
   - cd $TRAVIS_BUILD_DIR
-  - php -S localhost:8080 &
