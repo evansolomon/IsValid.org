@@ -10,6 +10,7 @@ module.exports = ( grunt ) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-coffeelint'
   grunt.loadNpmTasks 'grunt-exec'
+  grunt.loadNpmTasks 'grunt-parallel'
 
   # Project configuration.
   grunt.initConfig
@@ -124,8 +125,14 @@ module.exports = ( grunt ) ->
       kill_test_server:
         command: "ps aux | grep 'php -S localhost:8080' | grep -v grep | awk '{print $2}' | xargs kill"
 
+    parallel:
+      compile:
+        grunt: true
+        tasks: ['coffee', 'handlebars', 'cssmin']
+
+
   # Default task.
-  grunt.registerTask 'default', ['coffeelint', 'coffee', 'handlebars', 'concat', 'uglify', 'cssmin', 'replace']
+  grunt.registerTask 'default', ['coffeelint', 'parallel:compile', 'concat', 'uglify', 'replace']
 
   grunt.registerTask 'test', ['exec:start_test_server', 'casperjs', 'exec:kill_test_server']
   grunt.registerTask 'all', ['default', 'test']
