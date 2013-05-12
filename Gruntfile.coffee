@@ -49,13 +49,13 @@ module.exports = ( grunt ) ->
         dest : 'js/bookmarklet/bookmarklet.min.js'
 
     coffee:
-      glob_to_multiple:
+      app:
         expand : true
         cwd    : 'js/src'
         src    : '*.coffee'
         dest   : 'js/src/'
         ext    : '.js'
-      compile:
+      bookmarklet:
         files:
           'js/bookmarklet/bookmarklet.js' : 'js/bookmarklet/bookmarklet.coffee'
 
