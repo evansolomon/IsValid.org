@@ -7,8 +7,3 @@ before_install:
   - sudo add-apt-repository ppa:ondrej/php5 -y
   - sudo apt-get update -y
   - sudo apt-get install php5-cli -y
-  - cd $HOME
-  - wget https://github.com/n1k0/casperjs/archive/1.0.2.zip -O casperjs.zip
-  - unzip casperjs.zip
-  - sudo ln -sf `pwd`/casperjs-1.0.2/bin/casperjs /usr/local/bin/casperjs
-  - cd $TRAVIS_BUILD_DIR
