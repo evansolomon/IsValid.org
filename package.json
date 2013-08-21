@@ -10,7 +10,7 @@
     "grunt-contrib-uglify": "~0.1.1",
     "grunt-text-replace": "~0.3.2",
     "grunt-contrib-handlebars": "~0.5.6",
-    "grunt-casperjs": "git://github.com/evansolomon/grunt-casperjs.git#async-parallel-option",
+    "grunt-casperjs": "~1.0.7",
     "grunt-contrib-watch": "~0.3.1",
     "grunt-coffeelint": "0.0.6",
     "grunt-exec": "~0.4.0",
